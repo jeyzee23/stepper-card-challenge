@@ -1,0 +1,16 @@
+{
+  "accountId": "AC-2048",
+  "holderName": "Melany Suarez",
+  "planName": "Growth Card",
+  "maskedNumber": "**** 4831",
+  "currency": "ARS",
+  "availableLimit": 185000,
+  "monthlyLimit": 320000,
+  "spentThisMonth": 135000,
+  "updatedAt": "2026-04-23T20:30:00.000Z",
+  "features": [
+    "international_purchases",
+    "merchant_controls",
+    "instant_alerts"
+  ]
+}
