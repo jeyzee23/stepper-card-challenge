@@ -2,6 +2,10 @@
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "resolveJsonModule": true,
     "types": ["jest"]
   },
