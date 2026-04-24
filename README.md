@@ -23,8 +23,14 @@ La app modela un flujo multi-step informativo y finaliza en una card interactiva
 
 ### 1. Instalar dependencias JS
 
+Si `yarn` no está disponible en tu entorno, activalo una vez con:
+
 ```sh
-npm install
+corepack enable
+```
+
+```sh
+yarn install
 ```
 
 ### 2. iOS solamente
@@ -39,25 +45,26 @@ cd ..
 ### 3. Levantar Metro
 
 ```sh
-npm start
+yarn start
 ```
 
 ### 4. Ejecutar la app
 
 ```sh
-npm run android
+yarn android
 ```
 
 ```sh
-npm run ios
+yarn ios
 ```
 
 ## Scripts útiles
 
 ```sh
-npm run lint
-npm run typecheck
-npm test
+yarn lint
+yarn typecheck
+yarn test
+yarn format:check
 ```
 
 ## Decisiones técnicas
@@ -93,9 +100,9 @@ Además del requerimiento base, la resolución incluye una línea de tiempo oper
 
 ## QA / QC realizado
 
-- `npm run typecheck`
-- `npm run lint`
-- `npm test`
+- `yarn typecheck`
+- `yarn lint`
+- `yarn test`
 - bundle Android con `react-native bundle --platform android`
 - bundle iOS con `react-native bundle --platform ios`
 
