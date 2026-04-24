@@ -16,21 +16,29 @@ export const statusTheme: Record<CardStatus, StatusTheme> = {
     accent: colors.danger,
     background: colors.dangerSoft,
     badgeBackground: colors.dangerSoft,
+    icon: '!',
+    toneLabel: 'blocked',
   },
   enabled: {
     accent: colors.success,
     background: colors.successSoft,
     badgeBackground: colors.successSoft,
+    icon: '✓',
+    toneLabel: 'active',
   },
   paused: {
     accent: colors.warning,
     background: colors.warningSoft,
     badgeBackground: colors.warningSoft,
+    icon: '||',
+    toneLabel: 'paused',
   },
   resumed: {
     accent: colors.info,
     background: colors.infoSoft,
     badgeBackground: colors.infoSoft,
+    icon: '>',
+    toneLabel: 'resumed',
   },
 };
 
@@ -41,7 +49,7 @@ export const styles = StyleSheet.create({
   card: {
     ...shadowStyles.card,
     borderCurve: 'continuous',
-    borderLeftWidth: 3,
+    borderLeftWidth: 6,
     borderRadius: radius.lg,
     gap: spacing.lg,
     padding: spacing.xl,
@@ -70,7 +78,6 @@ export const styles = StyleSheet.create({
     fontFamily: typography.titleFamily,
     fontSize: 28,
     fontWeight: '700',
-    letterSpacing: -0.8,
   },
   cardSubtitle: {
     color: colors.textMuted,
@@ -87,11 +94,20 @@ export const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
   },
-  statusDot: {
+  statusBadgeIcon: {
+    alignItems: 'center',
     borderCurve: 'continuous',
     borderRadius: radius.pill,
-    height: 8,
-    width: 8,
+    height: 18,
+    justifyContent: 'center',
+    width: 18,
+  },
+  statusBadgeIconLabel: {
+    color: colors.surface,
+    fontFamily: typography.bodyFamily,
+    fontSize: 11,
+    fontWeight: '800',
+    lineHeight: 14,
   },
   statusLabel: {
     fontFamily: typography.bodyFamily,
@@ -104,6 +120,29 @@ export const styles = StyleSheet.create({
     borderRadius: radius.md,
     gap: spacing.sm,
     padding: spacing.lg,
+  },
+  accountPreviewTopRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+  },
+  statusIconTile: {
+    alignItems: 'center',
+    borderCurve: 'continuous',
+    borderRadius: radius.md,
+    height: 42,
+    justifyContent: 'center',
+    width: 42,
+  },
+  statusIconTileLabel: {
+    color: colors.surface,
+    fontFamily: typography.bodyFamily,
+    fontSize: 17,
+    fontWeight: '900',
+  },
+  accountNumberBlock: {
+    flex: 1,
+    gap: 2,
   },
   maskedNumber: {
     color: colors.ink,
@@ -184,7 +223,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: hairlineWidth,
   },
   featureDot: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.brand,
     borderCurve: 'continuous',
     borderRadius: radius.pill,
     height: 7,
@@ -215,7 +254,7 @@ export const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
   },
   linkButtonLabel: {
-    color: colors.accent,
+    color: colors.brandDeep,
     fontFamily: typography.bodyFamily,
     fontSize: 16,
     fontWeight: '600',
@@ -226,40 +265,86 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 19,
   },
-  fallbackSelectorCard: {
-    ...shadowStyles.soft,
+  androidSheetOverlay: {
+    backgroundColor: colors.scrim,
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  androidSheet: {
     backgroundColor: colors.surfaceElevated,
-    borderCurve: 'continuous',
-    borderRadius: radius.lg,
-    gap: spacing.md,
-    paddingVertical: spacing.md,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
+    elevation: 6,
+    gap: spacing.lg,
+    paddingBottom: spacing.xl,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.lg,
   },
-  selectorRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-    paddingHorizontal: spacing.lg,
-  },
-  selectorPill: {
-    backgroundColor: colors.fill,
-    borderColor: colors.line,
-    borderCurve: 'continuous',
+  androidSheetHandle: {
+    alignSelf: 'center',
+    backgroundColor: colors.line,
     borderRadius: radius.pill,
+    height: 4,
+    width: 42,
+  },
+  androidSheetTitle: {
+    color: colors.ink,
+    fontFamily: typography.titleFamily,
+    fontSize: 22,
+    fontWeight: '800',
+    letterSpacing: 0,
+  },
+  androidSheetOption: {
+    alignItems: 'center',
+    borderColor: colors.line,
+    borderRadius: radius.md,
     borderWidth: hairlineWidth,
+    flexDirection: 'row',
+    gap: spacing.md,
+    minHeight: 64,
+    overflow: 'hidden',
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
   },
-  activeSelectorPill: {
-    backgroundColor: colors.surfaceElevated,
+  androidSheetOptionActive: {
+    backgroundColor: colors.brandSoft,
+    borderColor: colors.brand,
     borderWidth: 1,
   },
-  selectorLabel: {
+  androidSheetIcon: {
+    alignItems: 'center',
+    borderRadius: radius.md,
+    height: 38,
+    justifyContent: 'center',
+    width: 38,
+  },
+  androidSheetIconLabel: {
+    color: colors.surface,
+    fontFamily: typography.bodyFamily,
+    fontSize: 15,
+    fontWeight: '900',
+  },
+  androidSheetTextBlock: {
+    flex: 1,
+    gap: 2,
+  },
+  androidSheetOptionTitle: {
+    color: colors.ink,
+    fontFamily: typography.bodyFamily,
+    fontSize: 16,
+    fontWeight: '800',
+  },
+  androidSheetOptionDescription: {
     color: colors.textMuted,
     fontFamily: typography.bodyFamily,
     fontSize: 13,
-    fontWeight: '600',
+    lineHeight: 18,
   },
-  activeSelectorLabel: {
-    color: colors.ink,
+  androidSheetCheck: {
+    color: colors.brand,
+    fontFamily: typography.bodyFamily,
+    fontSize: 20,
+    fontWeight: '900',
+    width: 24,
   },
 });

@@ -33,21 +33,17 @@ export interface StatusTheme {
   accent: ColorValue;
   background: ColorValue;
   badgeBackground: ColorValue;
+  icon: string;
+  toneLabel: string;
 }
 
 export interface StatusCardProps {
-  onStatusChange: (
-    status: CardStatus,
-    source?: CardStatusChangeSource,
-  ) => void;
+  onStatusChange: (status: CardStatus, source?: CardStatusChangeSource) => void;
   status: CardStatus;
 }
 
 export interface StatusCardStateControlsProps {
   accentColor: ColorValue;
-  onStatusChange: (
-    status: CardStatus,
-    source?: CardStatusChangeSource,
-  ) => void;
+  onStatusChange: (status: CardStatus, source?: CardStatusChangeSource) => void;
   status: CardStatus;
 }

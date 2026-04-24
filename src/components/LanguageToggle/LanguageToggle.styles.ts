@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 
 import {
   colors,
-  hairlineWidth,
   radius,
   shadowStyles,
   spacing,
@@ -14,11 +13,9 @@ export const segmentWidth = 48;
 export const styles = StyleSheet.create({
   container: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.fill,
-    borderColor: colors.line,
+    backgroundColor: 'rgba(154, 70, 0, 0.32)',
     borderCurve: 'continuous',
     borderRadius: radius.pill,
-    borderWidth: hairlineWidth,
     flexDirection: 'row',
     padding: spacing.xs,
     position: 'relative',
@@ -43,12 +40,14 @@ export const styles = StyleSheet.create({
     width: segmentWidth,
   },
   label: {
-    color: colors.textMuted,
+    color: colors.surface,
     fontFamily: typography.bodyFamily,
     fontSize: 13,
     fontWeight: '600',
+    opacity: 0.82,
   },
   activeLabel: {
     color: colors.ink,
+    opacity: 1,
   },
 });

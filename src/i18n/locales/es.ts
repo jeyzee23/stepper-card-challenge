@@ -2,10 +2,10 @@ import type { TranslationSchema } from './en';
 
 export const es: TranslationSchema = {
   app: {
-    badge: 'React Native CLI',
+    badge: 'Card Controls · Estados',
     title: 'Card Controls',
     subtitle:
-      'Un flujo breve de varios pasos con copy localizado, estados explícitos y una presentación pensada primero para iPhone.',
+      'Un flujo breve con estados explícitos, identidad Galicia y controles nativos por plataforma.',
     progressChip: 'Paso {{current}} de {{total}}',
   },
   common: {
@@ -75,8 +75,8 @@ export const es: TranslationSchema = {
       description:
         'El último paso consume datos desde un mock JSON y permite recorrer todos los estados pedidos.',
       bullets: [
-        'Inhabilitada, habilitada, pausada y despausada tienen tratamientos visuales propios.',
-        'Los chips de estado están expuestos a propósito para acelerar la revisión técnica.',
+        'Inhabilitada, activa, pausada y reanudada tienen señales visuales propias.',
+        'El selector de estado está expuesto a propósito para acelerar la revisión técnica.',
         'La acción principal contextual también muestra cómo evolucionaría la card en un flujo real.',
       ],
       highlightLabel: 'Estados',
@@ -112,9 +112,10 @@ export const es: TranslationSchema = {
           'La card existe, pero los consumos siguen bloqueados hasta completar la activación.',
       },
       enabled: {
-        label: 'Habilitada',
+        label: 'Activa',
         action: 'Pausar card',
-        description: 'La card está activa y lista para operar sin restricciones.',
+        description:
+          'La card está activa y lista para operar sin restricciones.',
       },
       paused: {
         label: 'Pausada',
@@ -123,7 +124,7 @@ export const es: TranslationSchema = {
           'Los consumos se frenan de forma temporal mientras la información sigue visible.',
       },
       resumed: {
-        label: 'Despausada',
+        label: 'Reanudada',
         action: 'Inhabilitar card',
         description:
           'La card volvió a estar operativa después de una pausa y comunica ese estado de recuperación.',
@@ -136,7 +137,7 @@ export const es: TranslationSchema = {
       'Una línea de tiempo compacta que registra cómo fue cambiando el estado de la card durante la revisión.',
     sources: {
       system: 'Estado inicial del sistema',
-      manual: 'Cambio realizado desde la vista rápida de estados',
+      manual: 'Cambio realizado desde el selector de estados',
       quick_action: 'Cambio realizado desde la acción principal contextual',
     },
   },

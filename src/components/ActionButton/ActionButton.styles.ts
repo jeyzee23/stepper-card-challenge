@@ -15,11 +15,12 @@ export const styles = StyleSheet.create({
     borderRadius: radius.sm,
     justifyContent: 'center',
     minHeight: 52,
+    overflow: 'hidden',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.md,
   },
   primary: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.brand,
   },
   secondary: {
     backgroundColor: colors.surfaceElevated,
@@ -43,7 +44,7 @@ export const styles = StyleSheet.create({
     color: colors.surface,
   },
   secondaryLabel: {
-    color: colors.accent,
+    color: colors.brandDeep,
   },
   disabledLabel: {
     color: colors.textMuted,

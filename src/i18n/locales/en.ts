@@ -1,9 +1,9 @@
 export const en = {
   app: {
-    badge: 'React Native CLI',
+    badge: 'Card Controls · States',
     title: 'Card Controls',
     subtitle:
-      'A focused multi-step flow with localized copy, explicit card states and a native iOS-first presentation.',
+      'A focused multi-step flow with explicit card states, Galicia-inspired identity and platform-native controls.',
     progressChip: 'Step {{current}} of {{total}}',
   },
   common: {
@@ -74,7 +74,7 @@ export const en = {
         'The final step consumes mock JSON data and lets the reviewer move through all required states.',
       bullets: [
         'Disabled, enabled, paused and resumed each have their own visual treatment.',
-        'The direct state chips are deliberate: they make review faster and deterministic.',
+        'The state selector is deliberate: it makes review faster and deterministic.',
         'A contextual primary action still demonstrates how the card could evolve in a real flow.',
       ],
       highlightLabel: 'States',
@@ -110,7 +110,7 @@ export const en = {
           'The card exists, but transactions remain blocked until activation finishes.',
       },
       enabled: {
-        label: 'Enabled',
+        label: 'Active',
         action: 'Pause card',
         description:
           'The card is fully active and ready to operate without restrictions.',
@@ -135,7 +135,7 @@ export const en = {
       'A compact timeline that records how the card state changed during the review.',
     sources: {
       system: 'Initial system state',
-      manual: 'Changed from direct state preview',
+      manual: 'Changed from the state selector',
       quick_action: 'Changed from the contextual primary action',
     },
   },
@@ -144,7 +144,7 @@ export const en = {
 type WidenTranslationValue<T> = T extends string
   ? string
   : T extends readonly string[]
-    ? readonly string[]
-    : { [Key in keyof T]: WidenTranslationValue<T[Key]> };
+  ? readonly string[]
+  : { [Key in keyof T]: WidenTranslationValue<T[Key]> };
 
 export type TranslationSchema = WidenTranslationValue<typeof en>;

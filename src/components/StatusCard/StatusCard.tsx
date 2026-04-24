@@ -54,15 +54,27 @@ export function StatusCard({ onStatusChange, status }: StatusCardProps) {
     },
     {
       label: t('statusCard.availableLimit'),
-      value: formatCurrency(account.availableLimit, account.currency, i18n.language),
+      value: formatCurrency(
+        account.availableLimit,
+        account.currency,
+        i18n.language,
+      ),
     },
     {
       label: t('statusCard.monthlyLimit'),
-      value: formatCurrency(account.monthlyLimit, account.currency, i18n.language),
+      value: formatCurrency(
+        account.monthlyLimit,
+        account.currency,
+        i18n.language,
+      ),
     },
     {
       label: t('statusCard.spentThisMonth'),
-      value: formatCurrency(account.spentThisMonth, account.currency, i18n.language),
+      value: formatCurrency(
+        account.spentThisMonth,
+        account.currency,
+        i18n.language,
+      ),
     },
     {
       label: t('statusCard.updatedAt'),
@@ -75,7 +87,10 @@ export function StatusCard({ onStatusChange, status }: StatusCardProps) {
       <Animated.View
         style={[
           styles.card,
-          { borderLeftColor: theme.accent, backgroundColor: colors.surfaceElevated },
+          {
+            borderLeftColor: theme.accent,
+            backgroundColor: colors.surfaceElevated,
+          },
           animatedStyle,
         ]}
         testID="status-card"
@@ -87,8 +102,20 @@ export function StatusCard({ onStatusChange, status }: StatusCardProps) {
             <Text style={styles.cardSubtitle}>{t('statusCard.subtitle')}</Text>
           </View>
 
-          <View style={[styles.statusBadge, { backgroundColor: theme.badgeBackground }]}>
-            <View style={[styles.statusDot, { backgroundColor: theme.accent }]} />
+          <View
+            style={[
+              styles.statusBadge,
+              { backgroundColor: theme.badgeBackground },
+            ]}
+          >
+            <View
+              style={[
+                styles.statusBadgeIcon,
+                { backgroundColor: theme.accent },
+              ]}
+            >
+              <Text style={styles.statusBadgeIconLabel}>{theme.icon}</Text>
+            </View>
             <Text style={[styles.statusLabel, { color: theme.accent }]}>
               {t(`statusCard.statuses.${status}.label`)}
             </Text>
@@ -96,10 +123,21 @@ export function StatusCard({ onStatusChange, status }: StatusCardProps) {
         </View>
 
         <View style={styles.accountPreview}>
-          <Text style={styles.maskedNumber}>{account.maskedNumber}</Text>
-          <Text style={styles.accountMeta}>
-            {t('statusCard.accountId')} {account.accountId}
-          </Text>
+          <View style={styles.accountPreviewTopRow}>
+            <View
+              style={[styles.statusIconTile, { backgroundColor: theme.accent }]}
+            >
+              <Text style={styles.statusIconTileLabel}>{theme.icon}</Text>
+            </View>
+
+            <View style={styles.accountNumberBlock}>
+              <Text style={styles.maskedNumber}>{account.maskedNumber}</Text>
+              <Text style={styles.accountMeta}>
+                {t('statusCard.accountId')} {account.accountId}
+              </Text>
+            </View>
+          </View>
+
           <Text style={styles.statusDescription}>
             {t(`statusCard.statuses.${status}.description`)}
           </Text>
@@ -121,13 +159,17 @@ export function StatusCard({ onStatusChange, status }: StatusCardProps) {
         </View>
 
         <View style={styles.capabilitiesCard}>
-          <Text style={styles.sectionLabel}>{t('statusCard.featuresTitle')}</Text>
+          <Text style={styles.sectionLabel}>
+            {t('statusCard.featuresTitle')}
+          </Text>
           {account.features.map((feature, index) => (
             <View
               key={feature}
               style={[
                 styles.featureRow,
-                index < account.features.length - 1 ? styles.featureRowBorder : null,
+                index < account.features.length - 1
+                  ? styles.featureRowBorder
+                  : null,
               ]}
             >
               <View style={styles.featureDot} />
@@ -140,7 +182,9 @@ export function StatusCard({ onStatusChange, status }: StatusCardProps) {
       </Animated.View>
 
       <View style={styles.actionPanel}>
-        <Text style={styles.actionPanelTitle}>{t('statusCard.primaryActionTitle')}</Text>
+        <Text style={styles.actionPanelTitle}>
+          {t('statusCard.primaryActionTitle')}
+        </Text>
         <ActionButton
           label={t(`statusCard.statuses.${status}.action`)}
           onPress={() => onStatusChange(nextStatus, 'quick_action')}

@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: hairlineWidth,
   },
   index: {
-    color: colors.accent,
+    color: colors.brand,
     fontFamily: typography.bodyFamily,
     fontSize: 12,
     fontWeight: '700',

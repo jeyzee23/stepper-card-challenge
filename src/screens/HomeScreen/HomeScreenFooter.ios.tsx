@@ -3,13 +3,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { styles } from './HomeScreen.styles';
 
-interface HomeScreenFooterProps {
-  backLabel: string;
-  isFirstStep: boolean;
-  nextLabel: string;
-  onBack: () => void;
-  onNext: () => void;
-}
+import type { HomeScreenFooterProps } from './HomeScreenFooter.types';
 
 export function HomeScreenFooter({
   backLabel,
