@@ -2,9 +2,9 @@ import React, { startTransition, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Pressable, Text, View } from 'react-native';
 
-import type { AppLanguage } from '@/types';
-
 import { segmentWidth, styles } from './LanguageToggle.styles';
+
+import type { AppLanguage } from './LanguageToggle.types';
 
 const languages: AppLanguage[] = ['es', 'en'];
 

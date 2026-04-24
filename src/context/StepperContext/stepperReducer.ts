@@ -1,15 +1,6 @@
-import { stepDefinitions } from '@/data/steps';
+import { stepDefinitions } from './stepDefinitions';
 
-export interface StepperState {
-  currentStepIndex: number;
-  furthestStepIndex: number;
-}
-
-export type StepperAction =
-  | { type: 'NEXT' }
-  | { type: 'PREVIOUS' }
-  | { type: 'GO_TO'; index: number }
-  | { type: 'RESET' };
+import type { StepperAction, StepperState } from './StepperContext.types';
 
 export const initialStepperState: StepperState = {
   currentStepIndex: 0,
