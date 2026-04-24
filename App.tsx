@@ -2,10 +2,10 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { StepperProvider } from './src/context/StepperContext';
+import { StepperProvider } from '@/context/StepperContext';
+import { HomeScreen } from '@/screens/HomeScreen';
+import { colors } from '@/theme/tokens';
 import './src/i18n';
-import { HomeScreen } from './src/screens/HomeScreen';
-import { colors } from './src/theme/tokens';
 
 function App() {
   return (

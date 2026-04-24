@@ -1,4 +1,4 @@
-import type { CardStatus } from './state/cardStatus';
+import type { CardStatus } from '@/state/cardStatus';
 
 export interface AccountCardData {
   accountId: string;

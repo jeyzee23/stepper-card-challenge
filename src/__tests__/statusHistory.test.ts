@@ -1,7 +1,7 @@
 import {
   appendStatusHistoryEntry,
   createStatusHistoryEntry,
-} from '../state/statusHistory';
+} from '@/state/statusHistory';
 
 describe('status history helpers', () => {
   it('creates a history entry with the expected shape', () => {

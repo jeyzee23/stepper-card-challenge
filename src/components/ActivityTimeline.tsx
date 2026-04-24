@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text, View } from 'react-native';
 
 import {
   shadowStyles,
@@ -8,9 +8,9 @@ import {
   hairlineWidth,
   radius,
   spacing,
-} from '../theme/tokens';
-import type { CardStatusHistoryEntry } from '../types';
-import { formatDateTime } from '../utils/formatters';
+} from '@/theme/tokens';
+import type { CardStatusHistoryEntry } from '@/types';
+import { formatDateTime } from '@/utils/formatters';
 
 interface ActivityTimelineProps {
   history: CardStatusHistoryEntry[];

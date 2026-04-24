@@ -1,7 +1,7 @@
 import {
   initialStepperState,
   stepperReducer,
-} from '../context/stepperReducer';
+} from '@/context/stepperReducer';
 
 describe('stepperReducer', () => {
   it('moves forward and tracks the furthest visited step', () => {

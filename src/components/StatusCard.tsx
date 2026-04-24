@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ActionSheetIOS,
   Animated,
@@ -10,10 +11,13 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
-import cardData from '../mocks/account-card.json';
-import { cardStatuses, getNextCardStatus, type CardStatus } from '../state/cardStatus';
+import cardData from '@/mocks/account-card.json';
+import {
+  cardStatuses,
+  getNextCardStatus,
+  type CardStatus,
+} from '@/state/cardStatus';
 import {
   colors,
   hairlineWidth,
@@ -21,12 +25,13 @@ import {
   shadowStyles,
   spacing,
   typography,
-} from '../theme/tokens';
+} from '@/theme/tokens';
 import type {
   AccountCardData,
   CardStatusChangeSource,
-} from '../types';
-import { formatCurrency, formatDateTime } from '../utils/formatters';
+} from '@/types';
+import { formatCurrency, formatDateTime } from '@/utils/formatters';
+
 import { ActionButton } from './ActionButton';
 
 const account = cardData as AccountCardData;

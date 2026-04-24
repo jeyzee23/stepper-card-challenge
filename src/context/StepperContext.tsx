@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
-import { stepDefinitions, type StepDefinition } from '../data/steps';
+import { stepDefinitions, type StepDefinition } from '@/data/steps';
+
 import {
   initialStepperState,
   stepperReducer,
