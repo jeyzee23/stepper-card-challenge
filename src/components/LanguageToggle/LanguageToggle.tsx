@@ -1,25 +1,12 @@
 import React, { startTransition, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Animated, Pressable, Text, View } from 'react-native';
 
-import {
-  colors,
-  hairlineWidth,
-  radius,
-  shadowStyles,
-  spacing,
-  typography,
-} from '@/design-system';
 import type { AppLanguage } from '@/types';
 
+import { segmentWidth, styles } from './LanguageToggle.styles';
+
 const languages: AppLanguage[] = ['es', 'en'];
-const segmentWidth = 48;
 
 export function LanguageToggle() {
   const { i18n } = useTranslation();
@@ -72,45 +59,3 @@ export function LanguageToggle() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignSelf: 'flex-start',
-    backgroundColor: colors.fill,
-    borderCurve: 'continuous',
-    borderRadius: radius.pill,
-    borderColor: colors.line,
-    borderWidth: hairlineWidth,
-    flexDirection: 'row',
-    padding: spacing.xs,
-    position: 'relative',
-  },
-  thumb: {
-    ...shadowStyles.soft,
-    backgroundColor: colors.surfaceElevated,
-    borderCurve: 'continuous',
-    borderRadius: radius.pill,
-    bottom: spacing.xs,
-    left: spacing.xs,
-    position: 'absolute',
-    top: spacing.xs,
-    width: segmentWidth,
-  },
-  segment: {
-    alignItems: 'center',
-    borderCurve: 'continuous',
-    borderRadius: radius.pill,
-    justifyContent: 'center',
-    minHeight: 32,
-    width: segmentWidth,
-  },
-  label: {
-    color: colors.textMuted,
-    fontFamily: typography.bodyFamily,
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  activeLabel: {
-    color: colors.ink,
-  },
-});

@@ -1,0 +1,40 @@
+import React from 'react';
+import { Pressable, Text } from 'react-native';
+
+import { styles } from './ActionButton.styles';
+
+import type { ActionButtonProps } from './ActionButton.types';
+
+export function ActionButton({
+  disabled = false,
+  label,
+  onPress,
+  style,
+  variant = 'primary',
+}: ActionButtonProps) {
+  return (
+    <Pressable
+      accessibilityState={{ disabled }}
+      accessibilityRole="button"
+      disabled={disabled}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.base,
+        variant === 'primary' ? styles.primary : styles.secondary,
+        pressed && !disabled ? styles.pressed : null,
+        disabled ? styles.disabled : null,
+        style,
+      ]}
+    >
+      <Text
+        style={[
+          styles.label,
+          variant === 'primary' ? styles.primaryLabel : styles.secondaryLabel,
+          disabled ? styles.disabledLabel : null,
+        ]}
+      >
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
