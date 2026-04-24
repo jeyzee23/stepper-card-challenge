@@ -92,7 +92,7 @@ Se usa `react-i18next` con detección inicial de idioma vía `react-native-local
 
 ### 5. Mock JSON tipado
 
-La data visible de la card vive en `src/mocks/account-card.json` y se consume con tipado explícito. Esto deja lista la capa para reemplazar el origen por una API o almacenamiento local sin tocar la UI.
+La data visible de la card vive en `src/components/StatusCard/StatusCard.mock.json` y se consume con tipado explícito. Esto deja lista la capa para reemplazar el origen por una API o almacenamiento local sin tocar la UI.
 
 ### 6. Feature extra: activity timeline
 
@@ -121,8 +121,8 @@ Además del requerimiento base, la resolución incluye una línea de tiempo oper
 | Flujo stepper informativo (>2) | Flujo de 4 pasos con render controlado por contexto |
 | Card en el step final | `StatusCard` renderizada en el último paso |
 | Estilos del stepper y estados visuales de card | Stepper y card con tratamientos visuales diferenciados |
-| Context para manejar el render del stepper | `src/context/StepperContext.tsx` |
-| Mock JSON para la card | `src/mocks/account-card.json` |
+| Context para manejar el render del stepper | `src/context/StepperContext/` |
+| Mock JSON para la card | `src/components/StatusCard/StatusCard.mock.json` |
 | Internacionalización | `src/i18n` con `react-i18next` y locales tipados |
 | Stylesheet | Toda la UI usa `StyleSheet.create` |
 | Lógica de navegación y cambio de estados | Reducer para stepper + transición explícita de estados en la card |
@@ -132,14 +132,12 @@ Además del requerimiento base, la resolución incluye una línea de tiempo oper
 
 ```txt
 src
+├── app
 ├── components
 ├── context
-├── data
 ├── design-system
 ├── i18n
-├── mocks
 ├── screens
-├── state
 └── utils
 ```
 
