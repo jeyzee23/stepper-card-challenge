@@ -1,0 +1,265 @@
+import { StyleSheet } from 'react-native';
+
+import {
+  colors,
+  hairlineWidth,
+  radius,
+  shadowStyles,
+  spacing,
+  typography,
+} from '@/design-system';
+
+import type { CardStatus, StatusTheme } from './StatusCard.types';
+
+export const statusTheme: Record<CardStatus, StatusTheme> = {
+  disabled: {
+    accent: colors.danger,
+    background: colors.dangerSoft,
+    badgeBackground: colors.dangerSoft,
+  },
+  enabled: {
+    accent: colors.success,
+    background: colors.successSoft,
+    badgeBackground: colors.successSoft,
+  },
+  paused: {
+    accent: colors.warning,
+    background: colors.warningSoft,
+    badgeBackground: colors.warningSoft,
+  },
+  resumed: {
+    accent: colors.info,
+    background: colors.infoSoft,
+    badgeBackground: colors.infoSoft,
+  },
+};
+
+export const styles = StyleSheet.create({
+  shell: {
+    gap: spacing.lg,
+  },
+  card: {
+    ...shadowStyles.card,
+    borderCurve: 'continuous',
+    borderLeftWidth: 3,
+    borderRadius: radius.lg,
+    gap: spacing.lg,
+    padding: spacing.xl,
+  },
+  topRow: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.md,
+    justifyContent: 'space-between',
+  },
+  titleBlock: {
+    flex: 1,
+    gap: spacing.xs,
+    minWidth: 220,
+  },
+  eyebrow: {
+    color: colors.textSubtle,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+  },
+  planName: {
+    color: colors.ink,
+    fontFamily: typography.titleFamily,
+    fontSize: 28,
+    fontWeight: '700',
+    letterSpacing: -0.8,
+  },
+  cardSubtitle: {
+    color: colors.textMuted,
+    fontFamily: typography.bodyFamily,
+    fontSize: 16,
+    lineHeight: 22,
+  },
+  statusBadge: {
+    alignItems: 'center',
+    borderCurve: 'continuous',
+    borderRadius: radius.pill,
+    flexDirection: 'row',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  statusDot: {
+    borderCurve: 'continuous',
+    borderRadius: radius.pill,
+    height: 8,
+    width: 8,
+  },
+  statusLabel: {
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  accountPreview: {
+    backgroundColor: colors.fill,
+    borderCurve: 'continuous',
+    borderRadius: radius.md,
+    gap: spacing.sm,
+    padding: spacing.lg,
+  },
+  maskedNumber: {
+    color: colors.ink,
+    fontFamily: typography.bodyFamily,
+    fontSize: 21,
+    fontWeight: '700',
+    letterSpacing: 1.4,
+  },
+  accountMeta: {
+    color: colors.textSubtle,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  statusDescription: {
+    color: colors.text,
+    fontFamily: typography.bodyFamily,
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  detailsCard: {
+    backgroundColor: colors.surface,
+    borderCurve: 'continuous',
+    borderRadius: radius.md,
+    overflow: 'hidden',
+  },
+  detailRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+    justifyContent: 'space-between',
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+  },
+  detailRowBorder: {
+    borderBottomColor: colors.line,
+    borderBottomWidth: hairlineWidth,
+  },
+  detailLabel: {
+    color: colors.textMuted,
+    flex: 1,
+    fontFamily: typography.bodyFamily,
+    fontSize: 15,
+  },
+  detailValue: {
+    color: colors.ink,
+    flexShrink: 1,
+    fontFamily: typography.bodyFamily,
+    fontSize: 15,
+    fontWeight: '600',
+    textAlign: 'right',
+  },
+  capabilitiesCard: {
+    backgroundColor: colors.surface,
+    borderCurve: 'continuous',
+    borderRadius: radius.md,
+    overflow: 'hidden',
+    paddingTop: spacing.md,
+  },
+  sectionLabel: {
+    color: colors.textSubtle,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '600',
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.sm,
+    textTransform: 'uppercase',
+  },
+  featureRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+  },
+  featureRowBorder: {
+    borderBottomColor: colors.line,
+    borderBottomWidth: hairlineWidth,
+  },
+  featureDot: {
+    backgroundColor: colors.accent,
+    borderCurve: 'continuous',
+    borderRadius: radius.pill,
+    height: 7,
+    width: 7,
+  },
+  featureLabel: {
+    color: colors.text,
+    fontFamily: typography.bodyFamily,
+    fontSize: 15,
+  },
+  actionPanel: {
+    ...shadowStyles.soft,
+    backgroundColor: colors.surfaceElevated,
+    borderCurve: 'continuous',
+    borderRadius: radius.lg,
+    gap: spacing.md,
+    padding: spacing.lg,
+  },
+  actionPanelTitle: {
+    color: colors.textSubtle,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+  },
+  linkButton: {
+    alignSelf: 'flex-start',
+    paddingVertical: spacing.xs,
+  },
+  linkButtonLabel: {
+    color: colors.accent,
+    fontFamily: typography.bodyFamily,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  actionHint: {
+    color: colors.textMuted,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    lineHeight: 19,
+  },
+  fallbackSelectorCard: {
+    ...shadowStyles.soft,
+    backgroundColor: colors.surfaceElevated,
+    borderCurve: 'continuous',
+    borderRadius: radius.lg,
+    gap: spacing.md,
+    paddingVertical: spacing.md,
+  },
+  selectorRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.lg,
+  },
+  selectorPill: {
+    backgroundColor: colors.fill,
+    borderColor: colors.line,
+    borderCurve: 'continuous',
+    borderRadius: radius.pill,
+    borderWidth: hairlineWidth,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  activeSelectorPill: {
+    backgroundColor: colors.surfaceElevated,
+    borderWidth: 1,
+  },
+  selectorLabel: {
+    color: colors.textMuted,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  activeSelectorLabel: {
+    color: colors.ink,
+  },
+});
