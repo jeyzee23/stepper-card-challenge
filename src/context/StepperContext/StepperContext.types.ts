@@ -1,8 +1,4 @@
-export type StepId = 'identity' | 'security' | 'controls' | 'status';
-
-export interface StepDefinition {
-  id: StepId;
-}
+import type { StepDefinition } from './stepDefinitions';
 
 export interface StepperState {
   currentStepIndex: number;
