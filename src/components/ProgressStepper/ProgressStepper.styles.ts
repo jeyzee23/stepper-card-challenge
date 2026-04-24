@@ -24,17 +24,17 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.fill,
     borderCurve: 'continuous',
     borderRadius: radius.pill,
-    height: 28,
+    height: 34,
     justifyContent: 'center',
-    width: 28,
+    width: 34,
   },
   currentCircle: {
-    backgroundColor: colors.accent,
-    borderColor: colors.accent,
-    borderWidth: hairlineWidth,
+    backgroundColor: colors.brand,
+    borderColor: colors.brand,
+    borderWidth: 1,
   },
   completedCircle: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.brand,
   },
   lockedCircle: {
     backgroundColor: colors.surfaceMuted,
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     color: colors.textMuted,
     fontFamily: typography.bodyFamily,
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   activeCircleText: {
     color: colors.surfaceElevated,
@@ -52,11 +52,11 @@ export const styles = StyleSheet.create({
     color: colors.textMuted,
     fontFamily: typography.bodyFamily,
     fontSize: 11,
-    fontWeight: '600',
+    fontWeight: '700',
     textAlign: 'center',
   },
   currentLabel: {
-    color: colors.ink,
+    color: colors.brandDeep,
   },
   lockedLabel: {
     color: colors.textMuted,
@@ -65,10 +65,10 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     backgroundColor: colors.line,
     flex: 0.25,
-    height: hairlineWidth,
-    marginTop: 13,
+    height: Math.max(hairlineWidth, 1),
+    marginTop: 16,
   },
   activeConnector: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.brand,
   },
 });

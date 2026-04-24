@@ -5,11 +5,7 @@ import { LanguageToggle } from '@/components/LanguageToggle';
 
 import { styles } from './HomeScreen.styles';
 
-interface HomeScreenHeaderProps {
-  badge: string;
-  subtitle: string;
-  title: string;
-}
+import type { HomeScreenHeaderProps } from './HomeScreenHeader.types';
 
 export function HomeScreenHeader({
   badge,
@@ -17,9 +13,12 @@ export function HomeScreenHeader({
   title,
 }: HomeScreenHeaderProps) {
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, styles.headerIOS]}>
+      <View style={styles.headerShapeLarge} />
+      <View style={styles.headerShapeSmall} />
+
       <View style={styles.headerTopRow}>
-        <Text style={styles.eyebrow}>{badge}</Text>
+        <Text style={styles.heroEyebrow}>{badge}</Text>
         <LanguageToggle />
       </View>
 

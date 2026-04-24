@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
+import { statusTheme } from '@/components/StatusCard/StatusCard.styles';
 import { formatDateTime } from '@/utils/formatters';
 
 import { styles } from './ActivityTimeline.styles';
@@ -20,32 +21,38 @@ export function ActivityTimeline({ history }: ActivityTimelineProps) {
       </View>
 
       <View style={styles.list}>
-        {entries.map((entry, index) => (
-          <View
-            key={`${entry.createdAt}-${entry.status}-${entry.source}`}
-            style={[
-              styles.row,
-              index < entries.length - 1 ? styles.rowBorder : null,
-            ]}
-          >
-            <View style={styles.dot} />
+        {entries.map((entry, index) => {
+          const theme = statusTheme[entry.status];
 
-            <View style={styles.eventCard}>
-              <View style={styles.eventHeader}>
-                <Text style={styles.eventStatus}>
-                  {t(`statusCard.statuses.${entry.status}.label`)}
-                </Text>
-                <Text style={styles.eventTime}>
-                  {formatDateTime(entry.createdAt, i18n.language)}
-                </Text>
+          return (
+            <View
+              key={`${entry.createdAt}-${entry.status}-${entry.source}`}
+              style={[
+                styles.row,
+                index < entries.length - 1 ? styles.rowBorder : null,
+              ]}
+            >
+              <View style={[styles.dot, { backgroundColor: theme.accent }]}>
+                <Text style={styles.dotLabel}>{theme.icon}</Text>
               </View>
 
-              <Text style={styles.eventSource}>
-                {t(`timeline.sources.${entry.source}`)}
-              </Text>
+              <View style={styles.eventCard}>
+                <View style={styles.eventHeader}>
+                  <Text style={styles.eventStatus}>
+                    {t(`statusCard.statuses.${entry.status}.label`)}
+                  </Text>
+                  <Text style={styles.eventTime}>
+                    {formatDateTime(entry.createdAt, i18n.language)}
+                  </Text>
+                </View>
+
+                <Text style={styles.eventSource}>
+                  {t(`timeline.sources.${entry.source}`)}
+                </Text>
+              </View>
             </View>
-          </View>
-        ))}
+          );
+        })}
       </View>
     </View>
   );

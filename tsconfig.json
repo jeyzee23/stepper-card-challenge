@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "moduleSuffixes": [".ios", ".android", ".native", ""],
     "paths": {
       "@/*": ["src/*"]
     },

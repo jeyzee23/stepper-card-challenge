@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pressable, Text } from 'react-native';
 
+import { colors } from '@/design-system';
+
 import { styles } from './ActionButton.styles';
 
 import type { ActionButtonProps } from './ActionButton.types';
@@ -16,6 +18,9 @@ export function ActionButton({
     <Pressable
       accessibilityState={{ disabled }}
       accessibilityRole="button"
+      android_ripple={{
+        color: variant === 'primary' ? colors.brandDark : colors.brandSoft,
+      }}
       disabled={disabled}
       onPress={onPress}
       style={({ pressed }) => [
