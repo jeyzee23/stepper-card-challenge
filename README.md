@@ -123,7 +123,7 @@ Además del requerimiento base, la resolución incluye una línea de tiempo oper
 | Estilos del stepper y estados visuales de card | Stepper y card con tratamientos visuales diferenciados |
 | Context para manejar el render del stepper | `src/context/StepperContext.tsx` |
 | Mock JSON para la card | `src/mocks/account-card.json` |
-| Internacionalización | `src/i18n` con `react-i18next` |
+| Internacionalización | `src/i18n` con `react-i18next` y locales tipados |
 | Stylesheet | Toda la UI usa `StyleSheet.create` |
 | Lógica de navegación y cambio de estados | Reducer para stepper + transición explícita de estados en la card |
 | README con setup y decisiones | Este archivo |
@@ -135,11 +135,11 @@ src
 ├── components
 ├── context
 ├── data
+├── design-system
 ├── i18n
 ├── mocks
 ├── screens
 ├── state
-├── theme
 └── utils
 ```
 

@@ -3,8 +3,8 @@ import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { StepperProvider } from '@/context/StepperContext';
+import { colors } from '@/design-system';
 import { HomeScreen } from '@/screens/HomeScreen';
-import { colors } from '@/theme/tokens';
 import './src/i18n';
 
 function App() {

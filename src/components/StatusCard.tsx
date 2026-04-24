@@ -12,12 +12,6 @@ import {
   View,
 } from 'react-native';
 
-import cardData from '@/mocks/account-card.json';
-import {
-  cardStatuses,
-  getNextCardStatus,
-  type CardStatus,
-} from '@/state/cardStatus';
 import {
   colors,
   hairlineWidth,
@@ -25,7 +19,13 @@ import {
   shadowStyles,
   spacing,
   typography,
-} from '@/theme/tokens';
+} from '@/design-system';
+import cardData from '@/mocks/account-card.json';
+import {
+  cardStatuses,
+  getNextCardStatus,
+  type CardStatus,
+} from '@/state/cardStatus';
 import type {
   AccountCardData,
   CardStatusChangeSource,

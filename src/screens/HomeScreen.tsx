@@ -18,11 +18,6 @@ import { ProgressStepper } from '@/components/ProgressStepper';
 import { QualitySignals } from '@/components/QualitySignals';
 import { StatusCard } from '@/components/StatusCard';
 import { useStepper } from '@/context/StepperContext';
-import { type CardStatus } from '@/state/cardStatus';
-import {
-  appendStatusHistoryEntry,
-  createStatusHistoryEntry,
-} from '@/state/statusHistory';
 import {
   colors,
   hairlineWidth,
@@ -30,7 +25,12 @@ import {
   shadowStyles,
   spacing,
   typography,
-} from '@/theme/tokens';
+} from '@/design-system';
+import { type CardStatus } from '@/state/cardStatus';
+import {
+  appendStatusHistoryEntry,
+  createStatusHistoryEntry,
+} from '@/state/statusHistory';
 import type { CardStatusChangeSource } from '@/types';
 
 export function HomeScreen() {
@@ -63,7 +63,7 @@ export function HomeScreen() {
 
   const bullets = t(`steps.${currentStep.id}.bullets`, {
     returnObjects: true,
-  }) as string[];
+  }) as readonly string[];
 
   const nextLabel = isLastStep
     ? t('actions.restart')

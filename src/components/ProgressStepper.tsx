@@ -9,7 +9,7 @@ import {
   radius,
   spacing,
   typography,
-} from '@/theme/tokens';
+} from '@/design-system';
 
 export function ProgressStepper() {
   const { t } = useTranslation();
