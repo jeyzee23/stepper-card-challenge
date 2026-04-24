@@ -8,10 +8,10 @@ import {
   radius,
   spacing,
   typography,
-} from '@/theme/tokens';
+} from '@/design-system';
 
 interface InfoPanelProps {
-  bullets: string[];
+  bullets: readonly string[];
   description: string;
   highlightLabel: string;
   highlightValue: string;

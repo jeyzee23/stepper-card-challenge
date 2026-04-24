@@ -15,7 +15,7 @@ import {
   shadowStyles,
   spacing,
   typography,
-} from '@/theme/tokens';
+} from '@/design-system';
 import type { AppLanguage } from '@/types';
 
 const languages: AppLanguage[] = ['es', 'en'];

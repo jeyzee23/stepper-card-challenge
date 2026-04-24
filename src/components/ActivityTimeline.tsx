@@ -8,7 +8,7 @@ import {
   hairlineWidth,
   radius,
   spacing,
-} from '@/theme/tokens';
+} from '@/design-system';
 import type { CardStatusHistoryEntry } from '@/types';
 import { formatDateTime } from '@/utils/formatters';
 

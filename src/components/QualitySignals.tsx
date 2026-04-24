@@ -9,11 +9,13 @@ import {
   radius,
   spacing,
   typography,
-} from '@/theme/tokens';
+} from '@/design-system';
 
 export function QualitySignals() {
   const { t } = useTranslation();
-  const items = t('qualitySignals.items', { returnObjects: true }) as string[];
+  const items = t('qualitySignals.items', {
+    returnObjects: true,
+  }) as readonly string[];
 
   return (
     <View style={styles.container}>
