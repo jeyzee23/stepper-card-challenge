@@ -16,7 +16,13 @@ import { InfoPanel } from '@/components/InfoPanel';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { ProgressStepper } from '@/components/ProgressStepper';
 import { QualitySignals } from '@/components/QualitySignals';
-import { StatusCard } from '@/components/StatusCard';
+import {
+  appendStatusHistoryEntry,
+  createStatusHistoryEntry,
+  StatusCard,
+  type CardStatus,
+  type CardStatusChangeSource,
+} from '@/components/StatusCard';
 import { useStepper } from '@/context/StepperContext';
 import {
   colors,
@@ -26,12 +32,6 @@ import {
   spacing,
   typography,
 } from '@/design-system';
-import { type CardStatus } from '@/state/cardStatus';
-import {
-  appendStatusHistoryEntry,
-  createStatusHistoryEntry,
-} from '@/state/statusHistory';
-import type { CardStatusChangeSource } from '@/types';
 
 export function HomeScreen() {
   const { t } = useTranslation();

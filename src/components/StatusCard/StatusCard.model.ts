@@ -1,8 +1,19 @@
-import type { CardStatus } from '@/state/cardStatus';
 import type {
+  CardStatus,
   CardStatusChangeSource,
   CardStatusHistoryEntry,
-} from '@/types';
+} from './StatusCard.types';
+
+const primaryTransitions: Record<CardStatus, CardStatus> = {
+  disabled: 'enabled',
+  enabled: 'paused',
+  paused: 'resumed',
+  resumed: 'disabled',
+};
+
+export function getNextCardStatus(status: CardStatus): CardStatus {
+  return primaryTransitions[status];
+}
 
 export function createStatusHistoryEntry(
   status: CardStatus,
