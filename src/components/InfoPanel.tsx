@@ -8,7 +8,7 @@ import {
   radius,
   spacing,
   typography,
-} from '../theme/tokens';
+} from '@/theme/tokens';
 
 interface InfoPanelProps {
   bullets: string[];

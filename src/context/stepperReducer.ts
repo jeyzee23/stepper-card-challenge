@@ -1,4 +1,4 @@
-import { stepDefinitions } from '../data/steps';
+import { stepDefinitions } from '@/data/steps';
 
 export interface StepperState {
   currentStepIndex: number;

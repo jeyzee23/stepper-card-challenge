@@ -1,4 +1,5 @@
 import React, { startTransition, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Animated,
   Pressable,
@@ -6,7 +7,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import {
   colors,
@@ -15,8 +15,8 @@ import {
   shadowStyles,
   spacing,
   typography,
-} from '../theme/tokens';
-import type { AppLanguage } from '../types';
+} from '@/theme/tokens';
+import type { AppLanguage } from '@/types';
 
 const languages: AppLanguage[] = ['es', 'en'];
 const segmentWidth = 48;

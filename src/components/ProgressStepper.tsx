@@ -1,15 +1,15 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { useStepper } from '../context/StepperContext';
+import { useStepper } from '@/context/StepperContext';
 import {
   colors,
   hairlineWidth,
   radius,
   spacing,
   typography,
-} from '../theme/tokens';
+} from '@/theme/tokens';
 
 export function ProgressStepper() {
   const { t } = useTranslation();

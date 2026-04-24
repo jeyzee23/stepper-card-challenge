@@ -13,7 +13,7 @@ import {
   radius,
   spacing,
   typography,
-} from '../theme/tokens';
+} from '@/theme/tokens';
 
 type ButtonVariant = 'primary' | 'secondary';
 

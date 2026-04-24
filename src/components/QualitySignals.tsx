@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text, View } from 'react-native';
 
 import {
   shadowStyles,
@@ -9,7 +9,7 @@ import {
   radius,
   spacing,
   typography,
-} from '../theme/tokens';
+} from '@/theme/tokens';
 
 export function QualitySignals() {
   const { t } = useTranslation();

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Animated,
   Easing,
@@ -8,21 +9,20 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ActivityTimeline } from '../components/ActivityTimeline';
-import { InfoPanel } from '../components/InfoPanel';
-import { LanguageToggle } from '../components/LanguageToggle';
-import { ProgressStepper } from '../components/ProgressStepper';
-import { QualitySignals } from '../components/QualitySignals';
-import { StatusCard } from '../components/StatusCard';
-import { useStepper } from '../context/StepperContext';
-import { type CardStatus } from '../state/cardStatus';
+import { ActivityTimeline } from '@/components/ActivityTimeline';
+import { InfoPanel } from '@/components/InfoPanel';
+import { LanguageToggle } from '@/components/LanguageToggle';
+import { ProgressStepper } from '@/components/ProgressStepper';
+import { QualitySignals } from '@/components/QualitySignals';
+import { StatusCard } from '@/components/StatusCard';
+import { useStepper } from '@/context/StepperContext';
+import { type CardStatus } from '@/state/cardStatus';
 import {
   appendStatusHistoryEntry,
   createStatusHistoryEntry,
-} from '../state/statusHistory';
+} from '@/state/statusHistory';
 import {
   colors,
   hairlineWidth,
@@ -30,8 +30,8 @@ import {
   shadowStyles,
   spacing,
   typography,
-} from '../theme/tokens';
-import type { CardStatusChangeSource } from '../types';
+} from '@/theme/tokens';
+import type { CardStatusChangeSource } from '@/types';
 
 export function HomeScreen() {
   const { t } = useTranslation();

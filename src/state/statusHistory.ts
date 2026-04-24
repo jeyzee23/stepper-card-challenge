@@ -1,8 +1,8 @@
+import type { CardStatus } from '@/state/cardStatus';
 import type {
   CardStatusChangeSource,
   CardStatusHistoryEntry,
-} from '../types';
-import type { CardStatus } from './cardStatus';
+} from '@/types';
 
 export function createStatusHistoryEntry(
   status: CardStatus,

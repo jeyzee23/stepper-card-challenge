@@ -1,4 +1,4 @@
-import { getNextCardStatus } from '../state/cardStatus';
+import { getNextCardStatus } from '@/state/cardStatus';
 
 describe('card status transitions', () => {
   it('cycles through the four challenge states', () => {
