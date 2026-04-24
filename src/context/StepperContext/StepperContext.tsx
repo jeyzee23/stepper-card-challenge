@@ -1,24 +1,9 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
-import { stepDefinitions, type StepDefinition } from '@/data/steps';
+import { stepDefinitions } from './stepDefinitions';
+import { initialStepperState, stepperReducer } from './stepperReducer';
 
-import {
-  initialStepperState,
-  stepperReducer,
-} from './stepperReducer';
-
-interface StepperContextValue {
-  currentStep: StepDefinition;
-  currentStepIndex: number;
-  furthestStepIndex: number;
-  isFirstStep: boolean;
-  isLastStep: boolean;
-  steps: readonly StepDefinition[];
-  goNext: () => void;
-  goPrevious: () => void;
-  goToStep: (index: number) => void;
-  reset: () => void;
-}
+import type { StepperContextValue } from './StepperContext.types';
 
 const StepperContext = createContext<StepperContextValue | null>(null);
 

@@ -1,0 +1,160 @@
+import { StyleSheet } from 'react-native';
+
+import {
+  colors,
+  hairlineWidth,
+  radius,
+  shadowStyles,
+  spacing,
+  typography,
+} from '@/design-system';
+
+export const styles = StyleSheet.create({
+  safeArea: {
+    backgroundColor: colors.background,
+    flex: 1,
+  },
+  screen: {
+    flex: 1,
+  },
+  scrollContent: {
+    gap: spacing.lg,
+    paddingBottom: 144,
+    paddingHorizontal: spacing.lg,
+  },
+  header: {
+    gap: spacing.md,
+    paddingTop: spacing.sm,
+  },
+  headerTopRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.md,
+    justifyContent: 'space-between',
+  },
+  eyebrow: {
+    color: colors.textSubtle,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+  },
+  largeTitle: {
+    color: colors.ink,
+    fontFamily: typography.titleFamily,
+    fontSize: 36,
+    fontWeight: '700',
+    letterSpacing: -1.1,
+    lineHeight: 40,
+  },
+  subtitle: {
+    color: colors.textMuted,
+    fontFamily: typography.bodyFamily,
+    fontSize: 17,
+    lineHeight: 24,
+    maxWidth: 580,
+  },
+  stepperCard: {
+    ...shadowStyles.soft,
+    backgroundColor: colors.surfaceElevated,
+    borderCurve: 'continuous',
+    borderRadius: radius.lg,
+    gap: spacing.lg,
+    padding: spacing.lg,
+  },
+  stepperHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  sectionEyebrow: {
+    color: colors.textSubtle,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+  },
+  sectionMeta: {
+    color: colors.textMuted,
+    fontFamily: typography.bodyFamily,
+    fontSize: 13,
+    fontWeight: '500',
+  },
+  animatedContent: {
+    gap: spacing.lg,
+  },
+  footer: {
+    backgroundColor: colors.background,
+    paddingBottom: spacing.lg,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
+  },
+  footerTray: {
+    ...shadowStyles.soft,
+    alignItems: 'center',
+    backgroundColor: colors.surfaceElevated,
+    borderColor: colors.line,
+    borderCurve: 'continuous',
+    borderRadius: radius.lg,
+    borderWidth: hairlineWidth,
+    flexDirection: 'row',
+    gap: spacing.sm,
+    padding: spacing.sm,
+  },
+  backButton: {
+    alignItems: 'center',
+    borderCurve: 'continuous',
+    borderRadius: radius.md,
+    flexDirection: 'row',
+    gap: 2,
+    justifyContent: 'center',
+    minHeight: 50,
+    paddingHorizontal: spacing.md,
+    width: 108,
+  },
+  backButtonDisabled: {
+    opacity: 0.45,
+  },
+  backButtonPressed: {
+    backgroundColor: colors.fill,
+  },
+  backChevron: {
+    color: colors.accent,
+    fontFamily: typography.bodyFamily,
+    fontSize: 24,
+    fontWeight: '400',
+    lineHeight: 24,
+    marginTop: -2,
+  },
+  backButtonLabel: {
+    color: colors.accent,
+    fontFamily: typography.bodyFamily,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  backTextDisabled: {
+    color: colors.textMuted,
+  },
+  primaryNavButton: {
+    alignItems: 'center',
+    backgroundColor: colors.accent,
+    borderCurve: 'continuous',
+    borderRadius: radius.md,
+    flex: 1,
+    justifyContent: 'center',
+    minHeight: 50,
+    paddingHorizontal: spacing.xl,
+  },
+  primaryNavButtonPressed: {
+    opacity: 0.92,
+    transform: [{ scale: 0.99 }],
+  },
+  primaryNavButtonLabel: {
+    color: colors.surfaceElevated,
+    fontFamily: typography.bodyFamily,
+    fontSize: 17,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+});
