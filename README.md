@@ -1,97 +1,155 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Stepper Card Challenge
 
-# Getting Started
+Resolución del challenge técnico para una posición de Mobile Engineer con React Native CLI.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+La app modela un flujo multi-step informativo y finaliza en una card interactiva que refleja los cuatro estados solicitados:
 
-## Step 1: Start Metro
+- `disabled`
+- `enabled`
+- `paused`
+- `resumed`
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- React Native CLI
+- TypeScript
+- Context + reducer para el stepper
+- `react-i18next` + `react-native-localize`
+- `StyleSheet.create`
+- Mock JSON tipado para la data de la card
+- Jest para validar la lógica principal
+
+## Cómo correr el proyecto
+
+### 1. Instalar dependencias JS
 
 ```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+npm install
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### 2. iOS solamente
 
 ```sh
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
+cd ios
 bundle exec pod install
+cd ..
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### 3. Levantar Metro
 
 ```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+npm start
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### 4. Ejecutar la app
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```sh
+npm run android
+```
 
-## Step 3: Modify your app
+```sh
+npm run ios
+```
 
-Now that you have successfully run the app, let's make changes!
+## Scripts útiles
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+```sh
+npm run lint
+npm run typecheck
+npm test
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## Decisiones técnicas
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### 1. Context + reducer para el stepper
 
-## Congratulations! :tada:
+El challenge pedía explícitamente Context para manejar el render del stepper. Para eso armé un `StepperProvider` con reducer, de forma que:
 
-You've successfully run and modified your React Native App. :partying_face:
+- la navegación entre pasos quede centralizada
+- cada step sea un componente principalmente presentacional
+- el render del stepper no dependa de prop drilling
+- la lógica sea fácil de testear en aislamiento
 
-### Now what?
+### 2. No usé React Navigation a propósito
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+El flujo es lineal, corto y completamente local. Agregar una librería de navegación para este caso aumentaba complejidad sin aportar valor real. Preferí mostrar criterio de simplificación: cuando el estado de navegación es parte del feature, conviene modelarlo como dominio local.
 
-# Troubleshooting
+### 3. Card final pensada para revisión rápida
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+La card tiene una acción contextual principal, pero además expone chips para forzar cada estado. Eso fue deliberado para que quien revise pueda validar visualmente los cuatro casos sin tener que reconstruir un flujo artificial o depender de edge cases ocultos.
 
-# Learn More
+### 4. i18n real, no solo strings sueltos
 
-To learn more about React Native, take a look at the following resources:
+Se usa `react-i18next` con detección inicial de idioma vía `react-native-localize`, y además un toggle runtime `ES / EN` para demostrar que la interfaz ya está preparada para internacionalización real.
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### 5. Mock JSON tipado
+
+La data visible de la card vive en `src/mocks/account-card.json` y se consume con tipado explícito. Esto deja lista la capa para reemplazar el origen por una API o almacenamiento local sin tocar la UI.
+
+### 6. Feature extra: activity timeline
+
+Además del requerimiento base, la resolución incluye una línea de tiempo operativa en el último paso. Cada cambio de estado de la card queda registrado con timestamp y origen de la acción. Esto suma valor de producto y también mejora la auditabilidad del challenge durante la review.
+
+## QA / QC realizado
+
+- `npm run typecheck`
+- `npm run lint`
+- `npm test`
+- bundle Android con `react-native bundle --platform android`
+- bundle iOS con `react-native bundle --platform ios`
+
+## Mejoras aplicadas después de la primera versión
+
+- mejor accesibilidad en botones, stepper y selector de estados
+- mejor robustez visual para textos largos y pantallas más estrechas
+- sombras con fallback más confiable entre plataformas
+- timeline de actividad para auditar transiciones de estado
+- padding extra al scroll para que el footer fijo no tape contenido al final
+
+## Cómo se mapean los requerimientos
+
+| Requerimiento | Resolución |
+| --- | --- |
+| Flujo stepper informativo (>2) | Flujo de 4 pasos con render controlado por contexto |
+| Card en el step final | `StatusCard` renderizada en el último paso |
+| Estilos del stepper y estados visuales de card | Stepper y card con tratamientos visuales diferenciados |
+| Context para manejar el render del stepper | `src/context/StepperContext.tsx` |
+| Mock JSON para la card | `src/mocks/account-card.json` |
+| Internacionalización | `src/i18n` con `react-i18next` |
+| Stylesheet | Toda la UI usa `StyleSheet.create` |
+| Lógica de navegación y cambio de estados | Reducer para stepper + transición explícita de estados en la card |
+| README con setup y decisiones | Este archivo |
+
+## Estructura
+
+```txt
+src
+├── components
+├── context
+├── data
+├── i18n
+├── mocks
+├── screens
+├── state
+├── theme
+└── utils
+```
+
+## Tests incluidos
+
+- transición del estado de la card
+- historial de cambios de estado
+- reducer del stepper
+- smoke test de render de la app
+
+## Posibles mejoras si hubiera más tiempo
+
+- persistir progreso y estado de la card
+- animaciones entre pasos
+- tests E2E con Detox
+- soporte para dark mode y theming más profundo
+
+## Nota de diseño
+
+Quise que el entregable no se sintiera como “el template de RN con un stepper encima”, sino como una mini feature real: copy de producto, jerarquía visual, estados fáciles de inspeccionar y decisiones de arquitectura pequeñas pero intencionales.
