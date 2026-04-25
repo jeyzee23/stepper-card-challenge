@@ -22,8 +22,8 @@ describe('HomeScreenFooter.android', () => {
       />,
     );
 
-    await fireEventAsync.press(screen.getByText('Volver'));
-    await fireEventAsync.press(screen.getByText('Continuar'));
+    await fireEventAsync.press(screen.getByTestId('home-footer-back'));
+    await fireEventAsync.press(screen.getByTestId('home-footer-next'));
 
     expect(onBack).not.toHaveBeenCalled();
     expect(onNext).toHaveBeenCalledTimes(1);
@@ -42,7 +42,7 @@ describe('HomeScreenFooter.android', () => {
       />,
     );
 
-    await fireEventAsync.press(screen.getByText('Volver'));
+    await fireEventAsync.press(screen.getByTestId('home-footer-back'));
 
     expect(onBack).toHaveBeenCalledTimes(1);
   });

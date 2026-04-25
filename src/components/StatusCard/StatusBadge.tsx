@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { styles } from './StatusCard.styles';
+import { statusBadgeStyles as styles } from './StatusBadge.styles';
 
 import type { CardStatus, StatusTheme } from './StatusCard.types';
 

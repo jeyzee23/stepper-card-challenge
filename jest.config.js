@@ -4,6 +4,7 @@ module.exports = {
     'src/**/*.{ts,tsx}',
     '!src/**/*.styles.ts',
     '!src/**/index.ts',
+    '!src/design-system/platformTokens*.ts',
     '!src/i18n/locales/**',
     '!src/i18n/types.ts',
     '!src/**/*.mock.json',

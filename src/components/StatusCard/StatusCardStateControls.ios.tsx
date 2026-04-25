@@ -2,11 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActionSheetIOS, Pressable, Text } from 'react-native';
 
-import { styles } from './StatusCard.styles';
 import {
   cardStatuses,
   type StatusCardStateControlsProps,
 } from './StatusCard.types';
+import { statusCardStateControlsLinkStyles as styles } from './StatusCardStateControlsLink.styles';
 
 export function StatusCardStateControls({
   accentColor: _accentColor,

@@ -3,5 +3,6 @@ export interface InfoPanelProps {
   description: string;
   highlightLabel: string;
   highlightValue: string;
+  testID?: string;
   title: string;
 }

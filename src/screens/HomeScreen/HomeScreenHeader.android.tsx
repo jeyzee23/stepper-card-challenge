@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { LanguageToggle } from '@/components/LanguageToggle';
 
-import { styles } from './HomeScreen.styles';
+import { headerStyles as styles } from './HomeScreenHeader.styles';
 
 import type { HomeScreenHeaderProps } from './HomeScreenHeader.types';
 

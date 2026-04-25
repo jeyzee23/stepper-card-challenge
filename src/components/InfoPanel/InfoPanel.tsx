@@ -10,10 +10,11 @@ export function InfoPanel({
   description,
   highlightLabel,
   highlightValue,
+  testID,
   title,
 }: InfoPanelProps) {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={testID}>
       <Text style={styles.eyebrow}>{highlightLabel}</Text>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>

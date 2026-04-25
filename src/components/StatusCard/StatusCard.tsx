@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Animated, Easing, Text, View } from 'react-native';
+import { Animated, Text, View } from 'react-native';
 
 import { colors } from '@/design-system';
 
@@ -12,6 +12,7 @@ import { StatusBadge } from './StatusBadge';
 import cardData from './StatusCard.mock.json';
 import { buildCardDetailRows, getNextCardStatus } from './StatusCard.model';
 import { styles, statusTheme } from './StatusCard.styles';
+import { useStatusCardAnimation } from './useStatusCardAnimation';
 
 import type { AccountCardData, StatusCardProps } from './StatusCard.types';
 
@@ -19,35 +20,9 @@ const account = cardData as AccountCardData;
 
 export function StatusCard({ onStatusChange, status }: StatusCardProps) {
   const { i18n, t } = useTranslation();
-  const animation = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    animation.setValue(0);
-    Animated.timing(animation, {
-      duration: 220,
-      easing: Easing.out(Easing.cubic),
-      toValue: 1,
-      useNativeDriver: true,
-    }).start();
-  }, [animation, status]);
-
   const theme = statusTheme[status];
   const nextStatus = getNextCardStatus(status);
-
-  const animatedStyle = useMemo(
-    () => ({
-      opacity: animation,
-      transform: [
-        {
-          translateY: animation.interpolate({
-            inputRange: [0, 1],
-            outputRange: [10, 0],
-          }),
-        },
-      ],
-    }),
-    [animation],
-  );
+  const animatedStyle = useStatusCardAnimation(status);
 
   const detailRows = buildCardDetailRows(account, i18n.language, {
     availableLimit: t('statusCard.availableLimit'),

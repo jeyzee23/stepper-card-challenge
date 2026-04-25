@@ -3,7 +3,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { colors } from '@/design-system';
 
-import { styles } from './HomeScreen.styles';
+import { footerStyles as styles } from './HomeScreenFooter.android.styles';
 
 import type { HomeScreenFooterProps } from './HomeScreenFooter.types';
 
@@ -22,6 +22,7 @@ export function HomeScreenFooter({
         android_ripple={{ color: colors.brandSoft }}
         disabled={isFirstStep}
         onPress={onBack}
+        testID="home-footer-back"
         style={({ pressed }) => [
           styles.androidBackButton,
           isFirstStep ? styles.backButtonDisabled : null,
@@ -43,6 +44,7 @@ export function HomeScreenFooter({
         accessibilityRole="button"
         android_ripple={{ color: colors.brandDark }}
         onPress={onNext}
+        testID="home-footer-next"
         style={({ pressed }) => [
           styles.androidPrimaryButton,
           pressed ? styles.primaryNavButtonPressed : null,
