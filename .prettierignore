@@ -4,5 +4,6 @@ android/app/build/
 android/build/
 coverage/
 ios/Pods/
+ios/build/
 ios/**/Images.xcassets/
 vendor/

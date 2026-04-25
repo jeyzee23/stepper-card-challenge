@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { styles } from './HomeScreen.styles';
+import { footerStyles as styles } from './HomeScreenFooter.ios.styles';
 
 import type { HomeScreenFooterProps } from './HomeScreenFooter.types';
 
@@ -20,6 +20,7 @@ export function HomeScreenFooter({
           accessibilityState={{ disabled: isFirstStep }}
           disabled={isFirstStep}
           onPress={onBack}
+          testID="home-footer-back"
           style={({ pressed }) => [
             styles.backButton,
             isFirstStep ? styles.backButtonDisabled : null,
@@ -48,6 +49,7 @@ export function HomeScreenFooter({
         <Pressable
           accessibilityRole="button"
           onPress={onNext}
+          testID="home-footer-next"
           style={({ pressed }) => [
             styles.primaryNavButton,
             pressed ? styles.primaryNavButtonPressed : null,

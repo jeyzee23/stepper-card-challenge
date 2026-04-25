@@ -4,11 +4,13 @@ import { Modal, Pressable, Text, View } from 'react-native';
 
 import { colors } from '@/design-system';
 
-import { styles, statusTheme } from './StatusCard.styles';
 import {
   cardStatuses,
   type StatusCardStateControlsProps,
 } from './StatusCard.types';
+import { statusCardStateControlsStyles as styles } from './StatusCardStateControls.styles';
+import { statusCardStateControlsLinkStyles as linkStyles } from './StatusCardStateControlsLink.styles';
+import { StatusCardStateOption } from './StatusCardStateOption.android';
 
 export function StatusCardStateControls({
   accentColor: _accentColor,
@@ -29,9 +31,9 @@ export function StatusCardStateControls({
         accessibilityRole="button"
         android_ripple={{ color: colors.brandSoft }}
         onPress={() => setIsSheetVisible(true)}
-        style={styles.linkButton}
+        style={linkStyles.linkButton}
       >
-        <Text style={styles.linkButtonLabel}>
+        <Text style={linkStyles.linkButtonLabel}>
           {t('statusCard.manageStatus')}
         </Text>
       </Pressable>
@@ -55,51 +57,14 @@ export function StatusCardStateControls({
 
             {cardStatuses.map(option => {
               const isActive = option === status;
-              const theme = statusTheme[option];
 
               return (
-                <Pressable
-                  accessibilityLabel={t('statusCard.statusOptionA11yLabel', {
-                    status: t(`statusCard.statuses.${option}.label`),
-                  })}
-                  accessibilityRole="button"
-                  accessibilityState={{ selected: isActive }}
-                  android_ripple={{ color: colors.fill }}
+                <StatusCardStateOption
+                  isActive={isActive}
                   key={option}
                   onPress={() => handleSelectStatus(option)}
-                  testID={`status-option-${option}`}
-                  style={[
-                    styles.androidSheetOption,
-                    isActive ? styles.androidSheetOptionActive : null,
-                  ]}
-                >
-                  <View
-                    style={[
-                      styles.androidSheetIcon,
-                      { backgroundColor: theme.accent },
-                    ]}
-                  >
-                    <Text style={styles.androidSheetIconLabel}>
-                      {theme.icon}
-                    </Text>
-                  </View>
-
-                  <View style={styles.androidSheetTextBlock}>
-                    <Text style={styles.androidSheetOptionTitle}>
-                      {t(`statusCard.statuses.${option}.label`)}
-                    </Text>
-                    <Text
-                      numberOfLines={2}
-                      style={styles.androidSheetOptionDescription}
-                    >
-                      {t(`statusCard.statuses.${option}.description`)}
-                    </Text>
-                  </View>
-
-                  <Text style={styles.androidSheetCheck}>
-                    {isActive ? '✓' : ''}
-                  </Text>
-                </Pressable>
+                  option={option}
+                />
               );
             })}
           </Pressable>

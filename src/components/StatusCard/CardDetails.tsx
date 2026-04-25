@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { styles } from './StatusCard.styles';
+import { cardDetailsStyles as styles } from './CardDetails.styles';
 
 import type { CardDetailRow } from './StatusCard.types';
 

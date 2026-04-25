@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { styles } from './StatusCard.styles';
+import { capabilitiesListStyles as styles } from './CapabilitiesList.styles';
 
 interface CapabilitiesListProps {
   features: string[];

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { styles } from './StatusCard.styles';
+import { accountPreviewStyles as styles } from './AccountPreview.styles';
 
 import type { AccountCardData, StatusTheme } from './StatusCard.types';
 

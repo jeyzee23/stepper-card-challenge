@@ -24,29 +24,25 @@ describe('HomeScreen', () => {
   it('walks forward, back, final card and reset through the full stepper flow', async () => {
     await renderHomeScreen();
 
-    expect(screen.getByText('Validar a la persona titular')).toBeOnTheScreen();
+    expect(screen.getByTestId('step-content-identity')).toBeOnTheScreen();
 
-    await fireEventAsync.press(screen.getByText('Continuar'));
-    expect(
-      screen.getByText('Explicar la capa de protección'),
-    ).toBeOnTheScreen();
+    await fireEventAsync.press(screen.getByTestId('home-footer-next'));
+    expect(screen.getByTestId('step-content-security')).toBeOnTheScreen();
 
-    await fireEventAsync.press(screen.getByText('Volver'));
-    expect(screen.getByText('Validar a la persona titular')).toBeOnTheScreen();
+    await fireEventAsync.press(screen.getByTestId('home-footer-back'));
+    expect(screen.getByTestId('step-content-identity')).toBeOnTheScreen();
 
-    await fireEventAsync.press(screen.getByText('Continuar'));
-    await fireEventAsync.press(screen.getByText('Continuar'));
-    expect(
-      screen.getByText('Previsualizar reglas operativas'),
-    ).toBeOnTheScreen();
+    await fireEventAsync.press(screen.getByTestId('home-footer-next'));
+    await fireEventAsync.press(screen.getByTestId('home-footer-next'));
+    expect(screen.getByTestId('step-content-controls')).toBeOnTheScreen();
 
-    await fireEventAsync.press(screen.getByText('Ver card final'));
-    expect(screen.getByText('Inspeccionar la card final')).toBeOnTheScreen();
+    await fireEventAsync.press(screen.getByTestId('home-footer-next'));
+    expect(screen.getByTestId('step-content-status')).toBeOnTheScreen();
     expect(screen.getByTestId('status-card')).toBeOnTheScreen();
     expect(screen.getByTestId('activity-timeline')).toBeOnTheScreen();
 
-    await fireEventAsync.press(screen.getByText('Reiniciar flujo'));
-    expect(screen.getByText('Validar a la persona titular')).toBeOnTheScreen();
+    await fireEventAsync.press(screen.getByTestId('home-footer-next'));
+    expect(screen.getByTestId('step-content-identity')).toBeOnTheScreen();
   });
 
   it('does not allow jumping to an unvisited future step', async () => {
@@ -54,8 +50,8 @@ describe('HomeScreen', () => {
 
     await fireEventAsync.press(screen.getByTestId('stepper-step-controls'));
 
-    expect(screen.getByText('Validar a la persona titular')).toBeOnTheScreen();
-    expect(screen.queryByText('Previsualizar reglas operativas')).toBeNull();
+    expect(screen.getByTestId('step-content-identity')).toBeOnTheScreen();
+    expect(screen.queryByTestId('step-content-controls')).toBeNull();
   });
 
   it('switches copy between Spanish and English at runtime', async () => {

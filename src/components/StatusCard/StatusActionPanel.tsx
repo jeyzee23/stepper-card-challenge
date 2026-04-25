@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/ActionButton';
 
-import { styles } from './StatusCard.styles';
+import { statusActionPanelStyles as styles } from './StatusActionPanel.styles';
 import { StatusCardStateControls } from './StatusCardStateControls';
 
 import type {
