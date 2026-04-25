@@ -39,9 +39,7 @@ export function HomeScreenHeader({
         <View style={styles.androidSummaryIcon}>
           <Text style={styles.androidSummaryIconText}>✓</Text>
         </View>
-        <Text numberOfLines={2} style={styles.androidSummaryText}>
-          {subtitle}
-        </Text>
+        <Text style={styles.androidSummaryText}>{subtitle}</Text>
       </View>
     </View>
   );
