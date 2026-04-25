@@ -24,14 +24,14 @@ export const headerStyles = StyleSheet.create({
     paddingTop: spacing.lg,
   },
   androidSummaryCard: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: colors.brandDark,
     borderRadius: radius.lg,
     flexDirection: 'row',
     gap: spacing.sm,
-    minHeight: 56,
+    minHeight: 64,
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.md,
   },
   androidSummaryIcon: {
     alignItems: 'center',
@@ -39,6 +39,7 @@ export const headerStyles = StyleSheet.create({
     borderRadius: radius.pill,
     height: 32,
     justifyContent: 'center',
+    marginTop: 1,
     width: 32,
   },
   androidSummaryIconText: {
