@@ -1,12 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import {
-  colors,
-  hairlineWidth,
-  radius,
-  spacing,
-  typography,
-} from '@/design-system';
+import { colors, radius, spacing, typography } from '@/design-system';
 
 export const footerStyles = StyleSheet.create({
   androidBackButton: {
@@ -51,16 +45,14 @@ export const footerStyles = StyleSheet.create({
   },
   footerAndroid: {
     alignItems: 'center',
-    backgroundColor: colors.surfaceElevated,
-    borderTopColor: colors.line,
-    borderTopWidth: hairlineWidth,
+    backgroundColor: 'transparent',
     flexDirection: 'row',
     gap: spacing.xl,
     justifyContent: 'space-between',
-    minHeight: 96,
-    paddingBottom: spacing.lg,
+    minHeight: 80,
+    paddingBottom: spacing.md,
     paddingHorizontal: spacing.lg,
-    paddingTop: spacing.lg,
+    paddingTop: spacing.md,
   },
   primaryNavButtonLabel: {
     color: colors.surfaceElevated,
