@@ -14,33 +14,29 @@ export function HomeScreenHeader({
   title,
 }: HomeScreenHeaderProps) {
   return (
-    <View style={[styles.header, styles.headerAndroid]}>
-      <View style={styles.headerShapeLarge} />
-      <View style={styles.headerShapeSmall} />
-
-      <View style={styles.headerTopRow}>
+    <View style={styles.androidShell}>
+      <View style={styles.androidTopBar}>
         <View style={actionStyles.logo}>
           <Text style={actionStyles.logoMark}>†</Text>
         </View>
 
-        <View style={actionStyles.actions}>
-          <View style={actionStyles.actionPill}>
-            <Text style={actionStyles.actionIcon}>?</Text>
-          </View>
-          <View style={actionStyles.actionPill}>
-            <Text style={actionStyles.actionIcon}>!</Text>
-            <View style={actionStyles.actionDot} />
-          </View>
-          <LanguageToggle />
+        <View style={styles.androidTitleGroup}>
+          <Text numberOfLines={1} style={styles.androidTitle}>
+            {title}
+          </Text>
+          <Text numberOfLines={1} style={styles.androidBadge}>
+            {badge}
+          </Text>
         </View>
+
+        <LanguageToggle />
       </View>
 
-      <View style={styles.androidTitleBlock}>
-        <Text style={styles.heroEyebrow}>{badge}</Text>
-        <Text numberOfLines={1} style={styles.largeTitle}>
-          {title}
-        </Text>
-        <Text numberOfLines={1} style={styles.subtitle}>
+      <View style={styles.androidSummaryCard}>
+        <View style={styles.androidSummaryIcon}>
+          <Text style={styles.androidSummaryIconText}>✓</Text>
+        </View>
+        <Text numberOfLines={2} style={styles.androidSummaryText}>
           {subtitle}
         </Text>
       </View>

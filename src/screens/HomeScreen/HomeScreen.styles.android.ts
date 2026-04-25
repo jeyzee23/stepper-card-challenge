@@ -20,8 +20,8 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    gap: spacing.sm,
-    paddingBottom: spacing.xl,
+    gap: spacing.md,
+    paddingBottom: spacing.lg,
     paddingHorizontal: spacing.lg,
   },
   sectionEyebrow: {
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.surfaceElevated,
     borderRadius: radius.lg,
     gap: spacing.sm,
-    marginTop: -22,
+    marginTop: -8,
     padding: spacing.md,
   },
   stepperHeader: {
