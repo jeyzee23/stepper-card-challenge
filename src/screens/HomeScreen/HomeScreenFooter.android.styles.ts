@@ -57,6 +57,7 @@ export const footerStyles = StyleSheet.create({
     flexDirection: 'row',
     gap: spacing.xl,
     justifyContent: 'space-between',
+    minHeight: 96,
     paddingBottom: spacing.lg,
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.lg,
