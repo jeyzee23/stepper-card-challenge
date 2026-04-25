@@ -59,7 +59,7 @@ export function HomeScreen() {
       <View style={styles.screen}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
-          contentInsetAdjustmentBehavior="automatic"
+          contentInsetAdjustmentBehavior="never"
           showsVerticalScrollIndicator={false}
           style={styles.scrollView}
         >

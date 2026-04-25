@@ -18,7 +18,11 @@ export function HomeScreenHeader({
 
   return (
     <View
-      style={[styles.header, styles.headerIOS, { paddingTop: top + spacing.lg }]}
+      style={[
+        styles.header,
+        styles.headerIOS,
+        { paddingTop: top + spacing.lg },
+      ]}
     >
       <View style={styles.headerShapeLarge} />
       <View style={styles.headerShapeSmall} />
