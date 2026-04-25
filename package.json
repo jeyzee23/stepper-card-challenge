@@ -5,6 +5,10 @@
   "packageManager": "yarn@1.22.22",
   "scripts": {
     "android": "react-native run-android",
+    "android:assembleDebug": "cd android && ./gradlew assembleDebug",
+    "bundle:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output /tmp/stepper-card-android/index.android.bundle --assets-dest /tmp/stepper-card-android",
+    "bundle:ios": "react-native bundle --platform ios --dev false --entry-file index.js --bundle-output /tmp/stepper-card-ios/main.jsbundle --assets-dest /tmp/stepper-card-ios",
+    "check:package-manager": "node scripts/check-package-manager.js",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "ios": "react-native run-ios",
@@ -12,6 +16,7 @@
     "lint:fix": "eslint . --fix",
     "start": "react-native start",
     "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -35,6 +40,7 @@
     "@react-native/jest-preset": "0.85.2",
     "@react-native/metro-config": "0.85.2",
     "@react-native/typescript-config": "0.85.2",
+    "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^29.5.13",
     "@types/react": "^19.2.0",
     "@types/react-test-renderer": "^19.1.0",

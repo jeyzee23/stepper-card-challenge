@@ -7,5 +7,6 @@ export interface ActionButtonProps {
   label: string;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
   variant?: ButtonVariant;
 }

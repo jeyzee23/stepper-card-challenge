@@ -20,7 +20,11 @@ describe('status history helpers', () => {
 
   it('appends only when the status actually changes', () => {
     const history = [
-      createStatusHistoryEntry('disabled', 'system', '2026-04-23T20:30:00.000Z'),
+      createStatusHistoryEntry(
+        'disabled',
+        'system',
+        '2026-04-23T20:30:00.000Z',
+      ),
     ];
 
     const sameStatus = appendStatusHistoryEntry(

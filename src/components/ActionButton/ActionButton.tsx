@@ -12,6 +12,7 @@ export function ActionButton({
   label,
   onPress,
   style,
+  testID,
   variant = 'primary',
 }: ActionButtonProps) {
   return (
@@ -23,6 +24,7 @@ export function ActionButton({
       }}
       disabled={disabled}
       onPress={onPress}
+      testID={testID}
       style={({ pressed }) => [
         styles.base,
         variant === 'primary' ? styles.primary : styles.secondary,

@@ -29,6 +29,19 @@ export interface CardStatusHistoryEntry {
   status: CardStatus;
 }
 
+export interface CardDetailRow {
+  label: string;
+  value: string;
+}
+
+export interface CardDetailLabels {
+  availableLimit: string;
+  holder: string;
+  monthlyLimit: string;
+  spentThisMonth: string;
+  updatedAt: string;
+}
+
 export interface StatusTheme {
   accent: ColorValue;
   background: ColorValue;

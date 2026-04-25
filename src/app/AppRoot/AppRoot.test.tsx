@@ -1,14 +1,12 @@
+import { renderAsync, screen } from '@testing-library/react-native';
 import React from 'react';
-import ReactTestRenderer from 'react-test-renderer';
 
 import { AppRoot } from './AppRoot';
 
-test('renders correctly', () => {
-  let tree: ReactTestRenderer.ReactTestRenderer | undefined;
+describe('AppRoot', () => {
+  it('mounts providers and renders the home screen', async () => {
+    await renderAsync(<AppRoot />);
 
-  ReactTestRenderer.act(() => {
-    tree = ReactTestRenderer.create(<AppRoot />);
+    expect(screen.getByTestId('home-screen')).toBeOnTheScreen();
   });
-
-  expect(tree).toBeDefined();
 });

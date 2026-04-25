@@ -116,17 +116,17 @@ Además del requerimiento base, la resolución incluye una línea de tiempo oper
 
 ## Cómo se mapean los requerimientos
 
-| Requerimiento | Resolución |
-| --- | --- |
-| Flujo stepper informativo (>2) | Flujo de 4 pasos con render controlado por contexto |
-| Card en el step final | `StatusCard` renderizada en el último paso |
-| Estilos del stepper y estados visuales de card | Stepper y card con tratamientos visuales diferenciados |
-| Context para manejar el render del stepper | `src/context/StepperContext/` |
-| Mock JSON para la card | `src/components/StatusCard/StatusCard.mock.json` |
-| Internacionalización | `src/i18n` con `react-i18next` y locales tipados |
-| Stylesheet | Toda la UI usa `StyleSheet.create` |
-| Lógica de navegación y cambio de estados | Reducer para stepper + transición explícita de estados en la card |
-| README con setup y decisiones | Este archivo |
+| Requerimiento                                  | Resolución                                                        |
+| ---------------------------------------------- | ----------------------------------------------------------------- |
+| Flujo stepper informativo (>2)                 | Flujo de 4 pasos con render controlado por contexto               |
+| Card en el step final                          | `StatusCard` renderizada en el último paso                        |
+| Estilos del stepper y estados visuales de card | Stepper y card con tratamientos visuales diferenciados            |
+| Context para manejar el render del stepper     | `src/context/StepperContext/`                                     |
+| Mock JSON para la card                         | `src/components/StatusCard/StatusCard.mock.json`                  |
+| Internacionalización                           | `src/i18n` con `react-i18next` y locales tipados                  |
+| Stylesheet                                     | Toda la UI usa `StyleSheet.create`                                |
+| Lógica de navegación y cambio de estados       | Reducer para stepper + transición explícita de estados en la card |
+| README con setup y decisiones                  | Este archivo                                                      |
 
 ## Estructura
 

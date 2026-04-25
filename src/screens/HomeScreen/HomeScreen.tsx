@@ -55,8 +55,8 @@ export function HomeScreen() {
   const nextLabel = isLastStep
     ? t('actions.restart')
     : currentStepIndex === steps.length - 2
-      ? t('actions.openCard')
-      : t('actions.next');
+    ? t('actions.openCard')
+    : t('actions.next');
 
   const handleNext = () => {
     if (isLastStep) {
@@ -95,7 +95,11 @@ export function HomeScreen() {
   );
 
   return (
-    <SafeAreaView edges={['bottom']} style={styles.safeArea} testID="home-screen">
+    <SafeAreaView
+      edges={['bottom']}
+      style={styles.safeArea}
+      testID="home-screen"
+    >
       <View style={styles.screen}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}

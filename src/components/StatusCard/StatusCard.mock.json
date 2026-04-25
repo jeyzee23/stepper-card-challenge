@@ -8,9 +8,5 @@
   "monthlyLimit": 320000,
   "spentThisMonth": 135000,
   "updatedAt": "2026-04-23T20:30:00.000Z",
-  "features": [
-    "international_purchases",
-    "merchant_controls",
-    "instant_alerts"
-  ]
+  "features": ["international_purchases", "merchant_controls", "instant_alerts"]
 }

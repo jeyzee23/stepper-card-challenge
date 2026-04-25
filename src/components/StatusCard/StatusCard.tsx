@@ -2,14 +2,16 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Easing, Text, View } from 'react-native';
 
-import { ActionButton } from '@/components/ActionButton';
 import { colors } from '@/design-system';
-import { formatCurrency, formatDateTime } from '@/utils/formatters';
 
+import { AccountPreview } from './AccountPreview';
+import { CapabilitiesList } from './CapabilitiesList';
+import { CardDetails } from './CardDetails';
+import { StatusActionPanel } from './StatusActionPanel';
+import { StatusBadge } from './StatusBadge';
 import cardData from './StatusCard.mock.json';
-import { getNextCardStatus } from './StatusCard.model';
+import { buildCardDetailRows, getNextCardStatus } from './StatusCard.model';
 import { styles, statusTheme } from './StatusCard.styles';
-import { StatusCardStateControls } from './StatusCardStateControls';
 
 import type { AccountCardData, StatusCardProps } from './StatusCard.types';
 
@@ -47,40 +49,13 @@ export function StatusCard({ onStatusChange, status }: StatusCardProps) {
     [animation],
   );
 
-  const detailRows = [
-    {
-      label: t('statusCard.holder'),
-      value: account.holderName,
-    },
-    {
-      label: t('statusCard.availableLimit'),
-      value: formatCurrency(
-        account.availableLimit,
-        account.currency,
-        i18n.language,
-      ),
-    },
-    {
-      label: t('statusCard.monthlyLimit'),
-      value: formatCurrency(
-        account.monthlyLimit,
-        account.currency,
-        i18n.language,
-      ),
-    },
-    {
-      label: t('statusCard.spentThisMonth'),
-      value: formatCurrency(
-        account.spentThisMonth,
-        account.currency,
-        i18n.language,
-      ),
-    },
-    {
-      label: t('statusCard.updatedAt'),
-      value: formatDateTime(account.updatedAt, i18n.language),
-    },
-  ];
+  const detailRows = buildCardDetailRows(account, i18n.language, {
+    availableLimit: t('statusCard.availableLimit'),
+    holder: t('statusCard.holder'),
+    monthlyLimit: t('statusCard.monthlyLimit'),
+    spentThisMonth: t('statusCard.spentThisMonth'),
+    updatedAt: t('statusCard.updatedAt'),
+  });
 
   return (
     <View style={styles.shell}>
@@ -102,104 +77,40 @@ export function StatusCard({ onStatusChange, status }: StatusCardProps) {
             <Text style={styles.cardSubtitle}>{t('statusCard.subtitle')}</Text>
           </View>
 
-          <View
-            style={[
-              styles.statusBadge,
-              { backgroundColor: theme.badgeBackground },
-            ]}
-          >
-            <View
-              style={[
-                styles.statusBadgeIcon,
-                { backgroundColor: theme.accent },
-              ]}
-            >
-              <Text style={styles.statusBadgeIconLabel}>{theme.icon}</Text>
-            </View>
-            <Text style={[styles.statusLabel, { color: theme.accent }]}>
-              {t(`statusCard.statuses.${status}.label`)}
-            </Text>
-          </View>
+          <StatusBadge
+            label={t(`statusCard.statuses.${status}.label`)}
+            status={status}
+            theme={theme}
+          />
         </View>
 
-        <View style={styles.accountPreview}>
-          <View style={styles.accountPreviewTopRow}>
-            <View
-              style={[styles.statusIconTile, { backgroundColor: theme.accent }]}
-            >
-              <Text style={styles.statusIconTileLabel}>{theme.icon}</Text>
-            </View>
+        <AccountPreview
+          account={account}
+          accountLabel={t('statusCard.accountId')}
+          description={t(`statusCard.statuses.${status}.description`)}
+          theme={theme}
+        />
 
-            <View style={styles.accountNumberBlock}>
-              <Text style={styles.maskedNumber}>{account.maskedNumber}</Text>
-              <Text style={styles.accountMeta}>
-                {t('statusCard.accountId')} {account.accountId}
-              </Text>
-            </View>
-          </View>
+        <CardDetails rows={detailRows} />
 
-          <Text style={styles.statusDescription}>
-            {t(`statusCard.statuses.${status}.description`)}
-          </Text>
-        </View>
-
-        <View style={styles.detailsCard}>
-          {detailRows.map((row, index) => (
-            <View
-              key={row.label}
-              style={[
-                styles.detailRow,
-                index < detailRows.length - 1 ? styles.detailRowBorder : null,
-              ]}
-            >
-              <Text style={styles.detailLabel}>{row.label}</Text>
-              <Text style={styles.detailValue}>{row.value}</Text>
-            </View>
-          ))}
-        </View>
-
-        <View style={styles.capabilitiesCard}>
-          <Text style={styles.sectionLabel}>
-            {t('statusCard.featuresTitle')}
-          </Text>
-          {account.features.map((feature, index) => (
-            <View
-              key={feature}
-              style={[
-                styles.featureRow,
-                index < account.features.length - 1
-                  ? styles.featureRowBorder
-                  : null,
-              ]}
-            >
-              <View style={styles.featureDot} />
-              <Text style={styles.featureLabel}>
-                {t(`statusCard.features.${feature}`)}
-              </Text>
-            </View>
-          ))}
-        </View>
+        <CapabilitiesList
+          features={account.features}
+          title={t('statusCard.featuresTitle')}
+          translateFeature={feature => t(`statusCard.features.${feature}`)}
+        />
       </Animated.View>
 
-      <View style={styles.actionPanel}>
-        <Text style={styles.actionPanelTitle}>
-          {t('statusCard.primaryActionTitle')}
-        </Text>
-        <ActionButton
-          label={t(`statusCard.statuses.${status}.action`)}
-          onPress={() => onStatusChange(nextStatus, 'quick_action')}
-        />
-        <StatusCardStateControls
-          accentColor={theme.accent}
-          onStatusChange={onStatusChange}
-          status={status}
-        />
-        <Text style={styles.actionHint}>
-          {t('statusCard.primaryActionHint', {
-            nextStatus: t(`statusCard.statuses.${nextStatus}.label`),
-          })}
-        </Text>
-      </View>
+      <StatusActionPanel
+        actionHint={t('statusCard.primaryActionHint', {
+          nextStatus: t(`statusCard.statuses.${nextStatus}.label`),
+        })}
+        actionLabel={t(`statusCard.statuses.${status}.action`)}
+        nextStatus={nextStatus}
+        onStatusChange={onStatusChange}
+        status={status}
+        theme={theme}
+        title={t('statusCard.primaryActionTitle')}
+      />
     </View>
   );
 }
