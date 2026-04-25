@@ -8,13 +8,14 @@ describe('stepperReducer', () => {
     expect(nextState.furthestStepIndex).toBe(1);
   });
 
-  it('does not allow jumping to steps that were not visited yet', () => {
-    const nextState = stepperReducer(initialStepperState, {
-      type: 'GO_TO',
-      index: 2,
-    });
+  it('moves backward one step at a time', () => {
+    const advanced = stepperReducer(initialStepperState, { type: 'NEXT' });
+    const previous = stepperReducer(advanced, { type: 'PREVIOUS' });
 
-    expect(nextState).toEqual(initialStepperState);
+    expect(previous).toEqual({
+      currentStepIndex: 0,
+      furthestStepIndex: 1,
+    });
   });
 
   it('supports reset after navigating the flow', () => {

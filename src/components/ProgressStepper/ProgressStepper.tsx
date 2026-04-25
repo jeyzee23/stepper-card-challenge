@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { useStepper } from '@/context/StepperContext';
 
@@ -8,7 +8,7 @@ import { styles } from './ProgressStepper.styles';
 
 export function ProgressStepper() {
   const { t } = useTranslation();
-  const { currentStepIndex, furthestStepIndex, goToStep, steps } = useStepper();
+  const { currentStepIndex, furthestStepIndex, steps } = useStepper();
 
   return (
     <View style={styles.container}>
@@ -19,18 +19,15 @@ export function ProgressStepper() {
 
         return (
           <React.Fragment key={step.id}>
-            <Pressable
+            <View
               accessibilityLabel={t('stepper.stepA11yLabel', {
                 index: index + 1,
                 name: t(`steps.${step.id}.label`),
               })}
-              accessibilityRole="button"
+              accessibilityRole="text"
               accessibilityState={{
-                disabled: !isAccessible,
                 selected: isCurrent,
               }}
-              disabled={!isAccessible}
-              onPress={() => goToStep(index)}
               testID={`stepper-step-${step.id}`}
               style={styles.step}
             >
@@ -61,7 +58,7 @@ export function ProgressStepper() {
               >
                 {t(`steps.${step.id}.label`)}
               </Text>
-            </Pressable>
+            </View>
             {index < steps.length - 1 ? (
               <View
                 style={[

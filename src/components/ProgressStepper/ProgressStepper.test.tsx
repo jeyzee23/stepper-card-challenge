@@ -40,32 +40,31 @@ describe('ProgressStepper', () => {
 
     expect(
       screen.getByTestId('stepper-step-identity').props.accessibilityState,
-    ).toMatchObject({ selected: true, disabled: false });
+    ).toMatchObject({ selected: true });
     expect(
       screen.getByTestId('stepper-step-controls').props.accessibilityState,
-    ).toMatchObject({ selected: false, disabled: true });
+    ).toMatchObject({ selected: false });
 
     await fireEventAsync.press(screen.getByTestId('advance-step'));
 
     expect(
       screen.getByTestId('stepper-step-identity').props.accessibilityState,
-    ).toMatchObject({ selected: false, disabled: false });
+    ).toMatchObject({ selected: false });
     expect(
       screen.getByTestId('stepper-step-security').props.accessibilityState,
-    ).toMatchObject({ selected: true, disabled: false });
+    ).toMatchObject({ selected: true });
   });
 
-  it('allows returning only to visited steps', async () => {
+  it('does not navigate when a step indicator is pressed', async () => {
     await renderProgressStepper();
 
-    await fireEventAsync.press(screen.getByTestId('advance-step'));
-    await fireEventAsync.press(screen.getByTestId('stepper-step-identity'));
+    await fireEventAsync.press(screen.getByTestId('stepper-step-status'));
 
     expect(
       screen.getByTestId('stepper-step-identity').props.accessibilityState,
-    ).toMatchObject({ selected: true, disabled: false });
+    ).toMatchObject({ selected: true });
     expect(
-      screen.getByTestId('stepper-step-controls').props.accessibilityState,
-    ).toMatchObject({ selected: false, disabled: true });
+      screen.getByTestId('stepper-step-status').props.accessibilityState,
+    ).toMatchObject({ selected: false });
   });
 });

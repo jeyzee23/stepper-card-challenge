@@ -25,7 +25,6 @@ export function StepperProvider({ children }: React.PropsWithChildren) {
         steps: stepDefinitions,
         goNext: () => dispatch({ type: 'NEXT' }),
         goPrevious: () => dispatch({ type: 'PREVIOUS' }),
-        goToStep: index => dispatch({ type: 'GO_TO', index }),
         reset: () => dispatch({ type: 'RESET' }),
       }}
     >
