@@ -33,14 +33,6 @@ export function HomeScreenFooter({
         ]}
       >
         <Text
-          style={[
-            styles.androidBackIcon,
-            isFirstStep ? styles.backTextDisabled : null,
-          ]}
-        >
-          ←
-        </Text>
-        <Text
           numberOfLines={1}
           style={[
             styles.androidBackButtonLabel,
