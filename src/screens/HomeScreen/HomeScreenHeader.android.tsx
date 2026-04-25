@@ -35,9 +35,15 @@ export function HomeScreenHeader({
         </View>
       </View>
 
-      <Text style={styles.heroEyebrow}>{badge}</Text>
-      <Text style={styles.largeTitle}>{title}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
+      <View style={styles.androidTitleBlock}>
+        <Text style={styles.heroEyebrow}>{badge}</Text>
+        <Text numberOfLines={1} style={styles.largeTitle}>
+          {title}
+        </Text>
+        <Text numberOfLines={1} style={styles.subtitle}>
+          {subtitle}
+        </Text>
+      </View>
     </View>
   );
 }
