@@ -19,6 +19,9 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
+  scrollView: {
+    flex: 1,
+  },
   scrollContent: {
     gap: spacing.lg,
     paddingBottom: spacing.xl,

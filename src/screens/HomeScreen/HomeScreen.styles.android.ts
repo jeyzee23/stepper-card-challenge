@@ -19,9 +19,12 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
+  scrollView: {
+    flex: 1,
+  },
   scrollContent: {
     gap: spacing.md,
-    paddingBottom: spacing.lg,
+    paddingBottom: 96,
     paddingHorizontal: spacing.lg,
   },
   sectionEyebrow: {
