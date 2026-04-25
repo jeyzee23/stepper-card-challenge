@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { LanguageToggle } from '@/components/LanguageToggle';
 
@@ -13,8 +14,10 @@ export function HomeScreenHeader({
   subtitle,
   title,
 }: HomeScreenHeaderProps) {
+  const { top } = useSafeAreaInsets();
+
   return (
-    <View style={styles.androidShell}>
+    <View style={[styles.androidShell, { paddingTop: top + 16 }]}>
       <View style={styles.androidTopBar}>
         <View style={actionStyles.logo}>
           <Text style={actionStyles.logoMark}>†</Text>

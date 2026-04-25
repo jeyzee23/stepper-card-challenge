@@ -61,6 +61,7 @@ export function HomeScreen() {
           contentContainerStyle={styles.scrollContent}
           contentInsetAdjustmentBehavior="automatic"
           showsVerticalScrollIndicator={false}
+          style={styles.scrollView}
         >
           <HomeScreenHeader
             badge={t('app.badge')}
