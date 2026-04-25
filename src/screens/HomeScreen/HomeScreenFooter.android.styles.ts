@@ -49,10 +49,9 @@ export const footerStyles = StyleSheet.create({
     flexDirection: 'row',
     gap: spacing.xl,
     justifyContent: 'space-between',
-    minHeight: 80,
-    paddingBottom: spacing.md,
+    paddingBottom: spacing.sm,
     paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
+    paddingTop: spacing.sm,
   },
   primaryNavButtonLabel: {
     color: colors.surfaceElevated,

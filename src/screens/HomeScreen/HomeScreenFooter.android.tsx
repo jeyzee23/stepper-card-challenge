@@ -1,8 +1,7 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { colors, spacing } from '@/design-system';
+import { colors } from '@/design-system';
 
 import { footerStyles as styles } from './HomeScreenFooter.android.styles';
 
@@ -15,10 +14,8 @@ export function HomeScreenFooter({
   onBack,
   onNext,
 }: HomeScreenFooterProps) {
-  const { bottom } = useSafeAreaInsets();
-
   return (
-    <View style={[styles.footerAndroid, { paddingBottom: bottom + spacing.md }]}>
+    <View style={styles.footerAndroid}>
       <Pressable
         accessibilityRole="button"
         accessibilityState={{ disabled: isFirstStep }}
