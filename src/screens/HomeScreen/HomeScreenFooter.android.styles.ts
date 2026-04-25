@@ -45,7 +45,6 @@ export const footerStyles = StyleSheet.create({
   },
   footerAndroid: {
     alignItems: 'center',
-    backgroundColor: 'transparent',
     flexDirection: 'row',
     gap: spacing.xl,
     justifyContent: 'space-between',
