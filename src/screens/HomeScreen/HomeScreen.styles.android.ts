@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   scrollContent: {
     gap: spacing.md,
-    paddingBottom: 96,
+    paddingBottom: 120,
     paddingHorizontal: spacing.lg,
   },
   sectionEyebrow: {
