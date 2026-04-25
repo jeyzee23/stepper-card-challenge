@@ -1,4 +1,9 @@
+import { formatCurrency, formatDateTime } from '@/utils/formatters';
+
 import type {
+  AccountCardData,
+  CardDetailLabels,
+  CardDetailRow,
   CardStatus,
   CardStatusChangeSource,
   CardStatusHistoryEntry,
@@ -40,4 +45,33 @@ export function appendStatusHistoryEntry(
   }
 
   return [...history, createStatusHistoryEntry(nextStatus, source, createdAt)];
+}
+
+export function buildCardDetailRows(
+  account: AccountCardData,
+  language: string,
+  labels: CardDetailLabels,
+): CardDetailRow[] {
+  return [
+    {
+      label: labels.holder,
+      value: account.holderName,
+    },
+    {
+      label: labels.availableLimit,
+      value: formatCurrency(account.availableLimit, account.currency, language),
+    },
+    {
+      label: labels.monthlyLimit,
+      value: formatCurrency(account.monthlyLimit, account.currency, language),
+    },
+    {
+      label: labels.spentThisMonth,
+      value: formatCurrency(account.spentThisMonth, account.currency, language),
+    },
+    {
+      label: labels.updatedAt,
+      value: formatDateTime(account.updatedAt, language),
+    },
+  ];
 }

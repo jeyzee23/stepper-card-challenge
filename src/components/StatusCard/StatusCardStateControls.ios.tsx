@@ -3,7 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { ActionSheetIOS, Pressable, Text } from 'react-native';
 
 import { styles } from './StatusCard.styles';
-import { cardStatuses, type StatusCardStateControlsProps } from './StatusCard.types';
+import {
+  cardStatuses,
+  type StatusCardStateControlsProps,
+} from './StatusCard.types';
 
 export function StatusCardStateControls({
   accentColor: _accentColor,
@@ -26,7 +29,10 @@ export function StatusCardStateControls({
         title: t('statusCard.manageStatusTitle'),
       },
       selectedIndex => {
-        if (selectedIndex === undefined || selectedIndex === cancelButtonIndex) {
+        if (
+          selectedIndex === undefined ||
+          selectedIndex === cancelButtonIndex
+        ) {
           return;
         }
 
