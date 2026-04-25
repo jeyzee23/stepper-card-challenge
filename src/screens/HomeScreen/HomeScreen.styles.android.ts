@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    gap: spacing.md,
+    gap: spacing.sm,
     paddingBottom: spacing.xl,
     paddingHorizontal: spacing.lg,
   },
@@ -42,8 +42,8 @@ export const styles = StyleSheet.create({
     ...shadowStyles.soft,
     backgroundColor: colors.surfaceElevated,
     borderRadius: radius.lg,
-    gap: spacing.md,
-    marginTop: -34,
+    gap: spacing.sm,
+    marginTop: -22,
     padding: spacing.md,
   },
   stepperHeader: {
