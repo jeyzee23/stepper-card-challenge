@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
   scrollContent: {
     gap: spacing.lg,
-    paddingBottom: 144,
+    paddingBottom: spacing.xl,
     paddingHorizontal: spacing.lg,
   },
   header: {
