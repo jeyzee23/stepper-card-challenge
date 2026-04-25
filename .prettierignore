@@ -1,0 +1,8 @@
+android/.gradle/
+android/app/.cxx/
+android/app/build/
+android/build/
+coverage/
+ios/Pods/
+ios/**/Images.xcassets/
+vendor/

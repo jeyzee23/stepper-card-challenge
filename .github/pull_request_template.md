@@ -1,12 +1,16 @@
 ## Summary
 
-- 
+-
 
 ## Testing
 
+- [ ] `yarn check:package-manager`
+- [ ] `yarn format:check`
 - [ ] `yarn lint`
 - [ ] `yarn typecheck`
-- [ ] `yarn test`
+- [ ] `yarn test:coverage`
+- [ ] `yarn bundle:ios`
+- [ ] `yarn bundle:android`
 
 ## Checklist
 
