@@ -27,15 +27,6 @@ export function stepperReducer(
         ...state,
         currentStepIndex: Math.max(state.currentStepIndex - 1, 0),
       };
-    case 'GO_TO':
-      if (action.index < 0 || action.index > state.furthestStepIndex) {
-        return state;
-      }
-
-      return {
-        ...state,
-        currentStepIndex: action.index,
-      };
     case 'RESET':
       return initialStepperState;
     default:
