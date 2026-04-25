@@ -11,12 +11,12 @@ import {
 export const footerStyles = StyleSheet.create({
   androidBackButton: {
     alignItems: 'center',
-    borderRadius: radius.md,
+    borderRadius: radius.pill,
     justifyContent: 'center',
     minHeight: 48,
-    minWidth: 104,
+    minWidth: 92,
     overflow: 'hidden',
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: spacing.md,
   },
   androidBackButtonLabel: {
     color: colors.brandDeep,
@@ -29,13 +29,13 @@ export const footerStyles = StyleSheet.create({
   androidPrimaryButton: {
     alignItems: 'center',
     backgroundColor: colors.brand,
-    borderRadius: radius.md,
-    elevation: 3,
+    borderRadius: radius.pill,
+    elevation: 2,
     flex: 1,
     justifyContent: 'center',
-    minHeight: 52,
+    minHeight: 48,
     overflow: 'hidden',
-    paddingHorizontal: spacing.xl,
+    paddingHorizontal: spacing.lg,
   },
   backButtonDisabled: {
     opacity: 0.45,
@@ -52,10 +52,10 @@ export const footerStyles = StyleSheet.create({
     borderTopColor: colors.line,
     borderTopWidth: hairlineWidth,
     flexDirection: 'row',
-    gap: spacing.md,
-    paddingBottom: spacing.lg,
+    gap: spacing.sm,
+    paddingBottom: spacing.md,
     paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
+    paddingTop: spacing.sm,
   },
   primaryNavButtonLabel: {
     color: colors.surfaceElevated,
