@@ -18,7 +18,7 @@ export function HomeScreenFooter({
   const { bottom } = useSafeAreaInsets();
 
   return (
-    <View style={[styles.footerAndroid, { paddingBottom: bottom + spacing.lg }]}>
+    <View style={[styles.footerAndroid, { paddingBottom: bottom + spacing.md }]}>
       <Pressable
         accessibilityRole="button"
         accessibilityState={{ disabled: isFirstStep }}
