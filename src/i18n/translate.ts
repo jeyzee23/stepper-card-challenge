@@ -1,4 +1,4 @@
-import i18n from './index';
+import i18n from './i18nInstance';
 
 import type { TranslationKey, TranslationOptions } from './types';
 

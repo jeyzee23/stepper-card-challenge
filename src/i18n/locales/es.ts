@@ -2,8 +2,8 @@ import type { TranslationSchema } from './en';
 
 export const es: TranslationSchema = {
   app: {
-    badge: 'Card Controls · Estados',
-    title: 'Card Controls',
+    badge: 'Control tarjetas · Estados',
+    title: 'Control tarjetas',
     subtitle:
       'Un flujo breve con estados explícitos, identidad Galicia y controles nativos por plataforma.',
     progressChip: 'Paso {{current}} de {{total}}',

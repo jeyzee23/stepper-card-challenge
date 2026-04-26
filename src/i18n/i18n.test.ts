@@ -17,6 +17,10 @@ function flattenKeys(value: unknown, prefix = ''): string[] {
 }
 
 describe('i18n quality', () => {
+  it('starts in Spanish by default', () => {
+    expect(i18n.language).toBe('es');
+  });
+
   it('keeps English and Spanish locale keys in parity', () => {
     expect(flattenKeys(es).sort()).toEqual(flattenKeys(en).sort());
   });
