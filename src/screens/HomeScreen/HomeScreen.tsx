@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Animated, ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  Animated,
+  Platform,
+  ScrollView,
+  type LayoutChangeEvent,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { QualitySignals } from '@/components/QualitySignals';
 import { useStepper } from '@/context/StepperContext';
+import { spacing } from '@/design-system';
 
+import { HomeScreenFooter } from './Footer';
+import { HomeScreenHeader } from './Header';
 import { styles } from './HomeScreen.styles';
-import { HomeScreenFooter } from './HomeScreenFooter';
-import { HomeScreenHeader } from './HomeScreenHeader';
-import { HomeScreenStepContent } from './HomeScreenStepContent';
-import { HomeScreenStepperCard } from './HomeScreenStepperCard';
-import { useCardStatusHistory } from './useCardStatusHistory';
-import { useStepTransitionAnimation } from './useStepTransitionAnimation';
+import { useCardStatusHistory, useStepTransitionAnimation } from './hooks';
+import { HomeScreenStepContent, HomeScreenStepperCard } from './Stepper';
+
+const fallbackFooterHeight = Platform.OS === 'android' ? 88 : 104;
 
 export function HomeScreen() {
   const { t } = useTranslation();
+  const { bottom, top } = useSafeAreaInsets();
   const {
     currentStep,
     currentStepIndex,
@@ -33,6 +41,7 @@ export function HomeScreen() {
     statusHistory,
   } = useCardStatusHistory();
   const animatedStepStyle = useStepTransitionAnimation(currentStep.id);
+  const [footerHeight, setFooterHeight] = useState(fallbackFooterHeight);
 
   const nextLabel = isLastStep
     ? t('actions.restart')
@@ -49,55 +58,80 @@ export function HomeScreen() {
 
     goNext();
   };
+  const handleFooterLayout = (event: LayoutChangeEvent) => {
+    const measuredHeight = Math.ceil(event.nativeEvent.layout.height);
+
+    setFooterHeight(previousHeight =>
+      previousHeight === measuredHeight ? previousHeight : measuredHeight,
+    );
+  };
+  const headerTopInset = Platform.OS === 'android' ? top : 0;
+  const footerBottomInset = bottom;
+  const scrollBottomInset = footerHeight + spacing.sm;
+  const scrollContentStyle =
+    Platform.OS === 'android'
+      ? [styles.scrollContent, { paddingBottom: scrollBottomInset }]
+      : styles.scrollContent;
 
   return (
-    <SafeAreaView
-      edges={['bottom']}
-      style={styles.safeArea}
-      testID="home-screen"
-    >
-      <View style={styles.screen}>
-        <ScrollView
-          alwaysBounceVertical={false}
-          bounces={false}
-          contentContainerStyle={styles.scrollContent}
-          contentInsetAdjustmentBehavior="never"
-          overScrollMode="never"
-          showsVerticalScrollIndicator={false}
-          style={styles.scrollView}
-        >
-          <HomeScreenHeader
-            badge={t('app.badge')}
-            subtitle={t('app.subtitle')}
-            title={t('app.title')}
-          />
-
-          <HomeScreenStepperCard
-            currentStepNumber={currentStepIndex + 1}
-            totalSteps={steps.length}
-          />
-
-          <Animated.View style={[styles.animatedContent, animatedStepStyle]}>
-            <HomeScreenStepContent
-              currentStep={currentStep}
-              isLastStep={isLastStep}
-              onStatusChange={changeCardStatus}
-              status={cardStatus}
-              statusHistory={statusHistory}
-            />
-          </Animated.View>
-
-          <QualitySignals />
-        </ScrollView>
-
-        <HomeScreenFooter
-          backLabel={t('actions.back')}
-          isFirstStep={isFirstStep}
-          nextLabel={nextLabel}
-          onBack={goPrevious}
-          onNext={handleNext}
+    <View style={styles.screen} testID="home-screen">
+      <ScrollView
+        alwaysBounceVertical={false}
+        automaticallyAdjustContentInsets={Platform.OS === 'ios'}
+        automaticallyAdjustsScrollIndicatorInsets={Platform.OS === 'ios'}
+        bounces={false}
+        contentContainerStyle={scrollContentStyle}
+        contentInset={
+          Platform.OS === 'ios'
+            ? { bottom: scrollBottomInset, left: 0, right: 0, top: 0 }
+            : undefined
+        }
+        contentInsetAdjustmentBehavior={
+          Platform.OS === 'ios' ? 'automatic' : 'never'
+        }
+        overScrollMode="never"
+        scrollIndicatorInsets={
+          Platform.OS === 'ios'
+            ? { bottom: scrollBottomInset, left: 0, right: 0, top: 0 }
+            : undefined
+        }
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
+      >
+        <HomeScreenHeader
+          badge={t('app.badge')}
+          subtitle={t('app.subtitle')}
+          topInset={headerTopInset}
+          title={t('app.title')}
         />
-      </View>
-    </SafeAreaView>
+
+        <HomeScreenStepperCard
+          currentStepNumber={currentStepIndex + 1}
+          totalSteps={steps.length}
+        />
+
+        <Animated.View style={[styles.animatedContent, animatedStepStyle]}>
+          <HomeScreenStepContent
+            currentStep={currentStep}
+            isLastStep={isLastStep}
+            onStatusChange={changeCardStatus}
+            status={cardStatus}
+            statusHistory={statusHistory}
+          />
+        </Animated.View>
+
+        <QualitySignals />
+      </ScrollView>
+
+      <HomeScreenFooter
+        backLabel={t('actions.back')}
+        bottomInset={footerBottomInset}
+        isFirstStep={isFirstStep}
+        nextLabel={nextLabel}
+        onBack={goPrevious}
+        onLayout={handleFooterLayout}
+        onNext={handleNext}
+      />
+    </View>
   );
 }

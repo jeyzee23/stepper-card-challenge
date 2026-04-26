@@ -1,0 +1,1 @@
+export { HomeScreenFooter } from './HomeScreenFooter';

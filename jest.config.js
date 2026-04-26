@@ -1,3 +1,5 @@
+const { jestModuleNameMapper } = require('./config/moduleResolution');
+
 module.exports = {
   preset: '@react-native/jest-preset',
   collectCoverageFrom: [
@@ -21,8 +23,6 @@ module.exports = {
       statements: 80,
     },
   },
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
+  moduleNameMapper: jestModuleNameMapper,
   setupFiles: ['<rootDir>/jest.setup.js'],
 };

@@ -2,14 +2,14 @@ const path = require('path');
 
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
+const { sourceRoot } = require('./config/moduleResolution');
+
 /**
  * Metro configuration
  * https://reactnative.dev/docs/metro
  *
  * @type {import('@react-native/metro-config').MetroConfig}
  */
-const sourceRoot = path.resolve(__dirname, 'src');
-
 const config = {
   resolver: {
     resolveRequest: (context, moduleName, platform) => {

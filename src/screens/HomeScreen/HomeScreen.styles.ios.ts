@@ -10,7 +10,7 @@ import {
 
 export const styles = StyleSheet.create({
   animatedContent: {
-    gap: spacing.md,
+    gap: spacing.lg,
   },
   screen: {
     backgroundColor: colors.background,
@@ -20,31 +20,31 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    gap: spacing.md,
-    paddingBottom: 88,
+    gap: spacing.lg,
+    paddingBottom: spacing.xl,
     paddingHorizontal: spacing.lg,
   },
   sectionEyebrow: {
     color: colors.textSubtle,
     fontFamily: typography.bodyFamily,
-    fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 0.3,
+    fontSize: 13,
+    fontWeight: '600',
     textTransform: 'uppercase',
   },
   sectionMeta: {
     color: colors.textMuted,
     fontFamily: typography.bodyFamily,
     fontSize: 13,
-    fontWeight: '600',
+    fontWeight: '500',
   },
   stepperCard: {
     ...shadowStyles.soft,
     backgroundColor: colors.surfaceElevated,
+    borderCurve: 'continuous',
     borderRadius: radius.lg,
-    gap: spacing.sm,
-    marginTop: -8,
-    padding: spacing.md,
+    gap: spacing.lg,
+    marginTop: -58,
+    padding: spacing.lg,
   },
   stepperHeader: {
     alignItems: 'center',

@@ -91,10 +91,10 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
 |  #  | Archivo                                            | Por qué importa                                                       |
 | :-: | -------------------------------------------------- | --------------------------------------------------------------------- |
 |  1  | `src/context/StepperContext/stepperReducer.ts`     | Transiciones explícitas del flujo. El corazón del stepper.            |
-|  2  | `src/components/StatusCard/StatusCard.model.ts`    | Máquina de estados de la card. Lógica de dominio separada del render. |
+|  2  | `src/features/CardStatus/CardStatus.model.ts`      | Máquina de estados de la card. Lógica de dominio separada del render. |
 |  3  | `src/context/StepperContext/stepDefinitions.ts`    | Configuración declarativa de pasos. Muestra cómo escalaría el flujo.  |
-|  4  | `StatusCardStateControls.ios.tsx` / `.android.tsx` | Platform split con intención real, no cosmético.                      |
-|  5  | `src/app/AppRoot/AppErrorBoundary.tsx`             | Fallback controlado ante errores inesperados del flujo.               |
+|  4  | `src/features/CardStatus/StatusCard/controls/StatusCardStateControls.tsx` | Entry point explícito para resolver split iOS/Android sin magia de tooling. |
+|  5  | `src/app/AppRoot/ErrorBoundary/ErrorBoundary.tsx`  | Fallback controlado ante errores inesperados del flujo.               |
 |  6  | `src/design-system/`                               | Design tokens centralizados en lugar de valores hardcodeados.         |
 |  7  | `src/i18n/locales/`                                | Paridad ES/EN. Los tests validan que no se rompa.                     |
 |  8  | `.github/workflows/quality.yml`                    | Qué se protege en cada push y por qué.                                |
@@ -111,7 +111,7 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
 | Card en el step final                                  |   ✅   | `StatusCard` montada solo en el último paso                              |
 | Estados: inhabilitado, habilitado, pausado, despausado |   ✅   | `disabled`, `enabled`, `paused`, `resumed`                               |
 | Context para manejar el render del stepper             |   ✅   | `StepperProvider` + `stepperReducer`                                     |
-| Mock JSON para datos visualizados en la card           |   ✅   | `StatusCard.mock.json` co-localizado al componente                       |
+| Mock JSON para datos visualizados en la card           |   ✅   | `src/features/CardStatus/CardStatus.mock.json`                           |
 | Internacionalización                                   |   ✅   | `react-i18next` con soporte ES / EN                                      |
 | StyleSheet nativo                                      |   ✅   | `StyleSheet.create` en todos los componentes                             |
 | Lógica de navegación y cambio de estados               |   ✅   | Reducer del stepper + revisit de pasos visitados + state machine de card |
@@ -188,27 +188,36 @@ yarn start
 src/
 ├─ app/
 │  └─ AppRoot/
-│     ├─ AppErrorBoundary.tsx                 # Fallback controlado del flujo
+│     ├─ ErrorBoundary/
+│     │  ├─ ErrorBoundary.tsx                 # Fallback controlado del flujo
+│     │  └─ ErrorBoundary.test.tsx
 │     └─ AppRoot.tsx                          # Entry point de la app
 │
 ├─ components/
-│  ├─ ActivityTimeline/                        # Historial de transiciones de estado
+│  ├─ InfoPanel/
 │  ├─ LanguageToggle/                          # Toggle ES / EN
 │  ├─ ProgressStepper/                         # Indicador de progreso visual
-│  └─ StatusCard/
-│     ├─ StatusCard.tsx                        # Componente principal (composición)
-│     ├─ StatusCard.model.ts          ←        # Máquina de estados de la card
-│     ├─ StatusCard.styles.ts                  # Estilos separados del render
-│     ├─ StatusCard.types.ts                   # Tipos co-localizados al módulo
-│     ├─ StatusCard.mock.json                  # Fixture de datos
-│     ├─ StatusCardStateControls.ios.tsx       # Controles nativos iOS
-│     └─ StatusCardStateControls.android.tsx   # Controles nativos Android
+│  └─ QualitySignals/
 │
 ├─ context/
 │  └─ StepperContext/
 │     ├─ StepperContext.tsx                    # Provider + hooks
 │     ├─ stepperReducer.ts           ←         # Transiciones NEXT / PREVIOUS / RESET
 │     └─ stepDefinitions.ts                    # Config declarativa de pasos
+│
+├─ features/
+│  └─ CardStatus/
+│     ├─ CardStatus.model.ts         ←         # State machine + helpers de historial
+│     ├─ CardStatus.theme.ts                   # Semántica visual compartida
+│     ├─ CardStatus.types.ts                   # Tipos de dominio
+│     ├─ CardStatus.data.ts                    # Fixture default del challenge
+│     ├─ CardStatus.mock.json                  # Datos mock de la card
+│     ├─ ActivityTimeline/                     # Historial del feature
+│     └─ StatusCard/
+│        ├─ StatusCard.tsx                     # UI principal de la card
+│        ├─ components/                        # Subcomponentes visuales
+│        ├─ controls/                          # Split iOS / Android con intención real
+│        └─ hooks/                             # Hooks internos del feature
 │
 ├─ design-system/
 │  ├─ colors.ts                               # Paleta semántica
@@ -224,6 +233,10 @@ src/
 │
 ├─ screens/
 │  └─ HomeScreen/
+│     ├─ Header/
+│     ├─ Footer/
+│     ├─ Stepper/
+│     └─ hooks/
 │
 └─ utils/
 ```
@@ -244,12 +257,14 @@ flowchart TB
 
   subgraph Components["Components"]
     PS["ProgressStepper\nindicador visual"]
-    IS["InfoStep\nsteps 1–3"]
+    IS["InfoPanel + StepContent\nsteps 1–3"]
     SC["StatusCard\nstep 4"]
   end
 
-  subgraph CardInternals["StatusCard internals"]
-    SM["StatusCard.model.ts\nstate machine"]
+  subgraph CardStatusFeature["CardStatus feature"]
+    SM["CardStatus.model.ts\nstate machine"]
+    TH["CardStatus.theme.ts\nsemantic theme"]
+    DA["CardStatus.data.ts\nfixture source"]
     AT["ActivityTimeline\nhistorial"]
     CIO["StateControls.ios.tsx"]
     CAD["StateControls.android.tsx"]
@@ -263,12 +278,15 @@ flowchart TB
   HS --> PS
   HS --> IS
   HS --> SC
+  HS --> AT
   SC --> SM
-  SC --> AT
+  SC --> TH
+  SC --> DA
   SC --> CIO
   SC --> CAD
+  AT --> TH
   DS -.->|"tokens"| Components
-  DS -.->|"tokens"| CardInternals
+  DS -.->|"tokens"| CardStatusFeature
 ```
 
 ---
@@ -322,9 +340,15 @@ No hay múltiples pantallas reales ni deep stack. El flujo avanza con `Continue`
 
 Los controles se adaptan por plataforma con archivos `.ios.tsx` y `.android.tsx` cuando el split aporta valor real, no cosmético. iOS usa interacciones cercanas a ActionSheet; Android usa patrones Material con ripple y elevación más sobria. Si la diferencia fuera solo de color, no habría split.
 
+Además, los módulos con split tienen un entry point base (`HomeScreenHeader.tsx`, `HomeScreenFooter.tsx`, `StatusCardStateControls.tsx`) para que Metro, Jest y TypeScript resuelvan exactamente lo mismo sin depender de heurísticas implícitas.
+
+### Safe area ownership
+
+`HomeScreen` es el único owner del layout de insets y del espacio reservado para el footer. Los subcomponentes (`Header`, `Footer`) reciben esos valores ya resueltos por props. Eso evita repartir la responsabilidad entre varios nodos del árbol y hace más predecible el comportamiento del scroll en iOS y Android.
+
 ### Mock JSON sobre API remota
 
-La card consume datos desde `StatusCard.mock.json`. Esto simula una fuente real sin introducir red, loading states artificiales ni comportamiento no determinístico para el reviewer. El challenge evalúa arquitectura y criterio de UI, no networking.
+La card consume datos desde `src/features/CardStatus/CardStatus.mock.json`, expuestos vía `CardStatus.data.ts`. Esto simula una fuente real sin introducir red, loading states artificiales ni comportamiento no determinístico para el reviewer. El challenge evalúa arquitectura y criterio de UI, no networking.
 
 ### Estado semántico multicapa
 
@@ -334,11 +358,11 @@ Cada estado de la card tiene: label, ícono, color semántico, descripción, bor
 
 ## Engineering Notes
 
-**Co-location philosophy:** los estilos (`*.styles.ts`), tipos (`*.types.ts`), fixtures (`*.mock.json`) y tests viven junto al componente que los usa. Reduce la fricción de mantenimiento y hace que cada carpeta-módulo sea autosuficiente.
+**Co-location philosophy:** lo visual compartido vive en `src/components/`. Lo específico del caso de uso vive dentro del feature (`src/features/CardStatus/ActivityTimeline`, `src/features/CardStatus/StatusCard`). Eso evita inflar `components/` con UI que en realidad pertenece a un solo flujo.
 
-**Alias `@/` en imports:** evita rutas relativas largas (`../../../`) sin herramientas adicionales. Configurado en `tsconfig.json` y `babel.config.js`.
+**Alias `@/` en imports:** evita rutas relativas largas (`../../../`). La resolución quedó centralizada para tooling JS en `config/moduleResolution.js` y reflejada en TS con `paths`, reduciendo drift entre Babel, Metro y Jest.
 
-**Lógica de dominio separada del render:** `StatusCard.model.ts` contiene la state machine. `StatusCard.tsx` solo compone y renderiza. Si mañana cambia el modelo de estados, el render no se toca.
+**Lógica de dominio separada del render:** `src/features/CardStatus/CardStatus.model.ts` contiene la state machine e historial. `StatusCard.tsx` solo compone y renderiza. Si mañana cambia el modelo de estados, el render no se toca.
 
 **Instancia de i18n aislada:** `i18nInstance.ts` está separado del barrel de `i18n` para evitar require cycles entre la instancia y los helpers. El helper `translate()` permite usar i18n fuera de componentes (reducers, models) sin violar las reglas de hooks.
 
