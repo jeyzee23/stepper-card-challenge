@@ -44,7 +44,7 @@ export function ActivityTimeline({ history }: ActivityTimelineProps) {
                     {t(`statusCard.statuses.${entry.status}.label`)}
                   </Text>
                   <Text style={styles.eventTime}>
-                    {formatDateTime(entry.createdAt, language)}
+{formatDateTime(entry.createdAt, language)}
                   </Text>
                 </View>
 

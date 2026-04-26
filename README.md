@@ -88,7 +88,7 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
 > [!TIP]
 > Si tenés **5 minutos**, estos son los archivos que concentran las decisiones más relevantes del challenge — en orden de lectura sugerido:
 
-|  #  | Archivo                                                                   | Por qué importa                                                             |
+|  #  | Archivo                                                                    | Por qué importa                                                             |
 | :-: | ------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 |  1  | `src/context/StepperContext/stepperReducer.ts`                            | Transiciones explícitas del flujo. El corazón del stepper.                  |
 |  2  | `src/features/CardStatus/CardStatus.model.ts`                             | Máquina de estados de la card. Lógica de dominio separada del render.       |
@@ -348,7 +348,7 @@ Además, los módulos con split tienen un entry point base (`HomeScreenHeader.ts
 
 ### Mock JSON sobre API remota
 
-La card consume datos desde `src/features/CardStatus/CardStatus.mock.json`, expuestos vía `CardStatus.data.ts`. Esto simula una fuente real sin introducir red, loading states artificiales ni comportamiento no determinístico para el reviewer.
+La card consume datos desde `src/features/CardStatus/CardStatus.mock.json`, expuestos vía `CardStatus.data.ts`. Esto simula una fuente real sin introducir red, loading states artificiales ni comportamiento no determinístico para el reviewer. El challenge evalúa arquitectura y criterio de UI, no networking.
 
 ### Estado semántico multicapa
 
@@ -370,7 +370,7 @@ Cada estado de la card tiene: label, ícono, color semántico, descripción, bor
 
 **Tipado de idioma consistente:** `AppLanguage` se centraliza en `src/i18n/types.ts` y se normaliza desde `i18n.language` antes de llegar a helpers de dominio/formateo, evitando strings libres en rutas críticas.
 
-**Formateadores `Intl` cacheados:** `formatCurrency` y `formatDateTime` reutilizan instancias de `Intl` por idioma/moneda para evitar recreación constante y mantener el costo de render más predecible.
+**Formateadores `Intl` cacheados:** `formatCurrency` y `formatDateTime` reutilizan instancias de `Intl` por idioma/moneda para evitar Recreationón constante y mantener el costo de render más predecible.
 
 **Design tokens centralizados:** ningún componente hardcodea colores, espaciados o radios. Todo referencia `src/design-system/`. Si el brand cambia, cambia en un solo lugar.
 

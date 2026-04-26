@@ -16,13 +16,10 @@ export function HomeScreenFooter({
   onLayout,
   onNext,
 }: HomeScreenFooterProps) {
-  return (
+return (
     <View
       onLayout={onLayout}
-      style={[
-        styles.footerAndroid,
-        { paddingBottom: bottomInset + spacing.sm },
-      ]}
+      style={[styles.footerAndroid, { paddingBottom: bottomInset + spacing.sm }]}
     >
       <Pressable
         accessibilityRole="button"

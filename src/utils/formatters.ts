@@ -42,3 +42,4 @@ export function formatDateTime(value: string, language: AppLanguage) {
 
   return formatter.format(new Date(value));
 }
+}
