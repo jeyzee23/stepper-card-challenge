@@ -1,88 +1,151 @@
-# Galicia Card Stepper
+<div align="center">
+  <img src="./assets/readme/banner.svg" alt="Galicia Card Stepper" width="100%"/>
+</div>
 
-Aplicación mobile desarrollada como challenge técnico con React Native CLI.
+<br/>
 
-La app permite recorrer un flujo informativo de 4 pasos y finaliza en una card operativa con estados explícitos: `disabled`, `enabled`, `paused` y `resumed` (despausada). El objetivo fue construir una app chica, pero pensada como una feature real: simple de levantar, clara de revisar y con decisiones técnicas defendibles.
+<div align="center">
+
+[![CI](https://github.com/jeyzee23/stepper-card-challenge/actions/workflows/quality.yml/badge.svg)](https://github.com/jeyzee23/stepper-card-challenge/actions)
+[![Coverage](https://img.shields.io/badge/coverage-97%25-brightgreen)](#testing)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React Native](https://img.shields.io/badge/React%20Native-0.85-61DAFB?logo=react&logoColor=white)](https://reactnative.dev/)
+[![Node](https://img.shields.io/badge/Node.js-22.x-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![i18n](https://img.shields.io/badge/i18n-ES%20%7C%20EN-E87722)](#decisiones-de-arquitectura)
+
+</div>
+
+<br/>
+
+Challenge técnico de React Native CLI. Flujo informativo de 4 pasos con internacionalización ES/EN y una card con máquina de estados explícita: `disabled → enabled → paused → resumed`.
+
+El objetivo no fue solo cumplir los requisitos, sino construir una feature chica pensada como si fuera a producción: simple de levantar, fácil de auditar y con decisiones técnicas que se puedan defender.
+
+> [!NOTE]
+>
+> **Tiempo estimado de review: ~10 minutos.** La sección [Guía para el reviewer](#guía-para-el-reviewer) indica exactamente qué archivos mirar primero.
+
+---
+
+## Tabla de contenidos
+
+- [Demo](#demo)
+- [Guía para el reviewer](#guía-para-el-reviewer)
+- [Cobertura de requisitos](#cobertura-de-requisitos)
+- [Tech Stack](#tech-stack)
+- [Setup](#setup)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Arquitectura de componentes](#arquitectura-de-componentes)
+- [Flujo de estados](#flujo-de-estados)
+- [Decisiones de arquitectura](#decisiones-de-arquitectura)
+- [Engineering Notes](#engineering-notes)
+- [Testing](#testing)
+- [CI / Quality Gates](#ci--quality-gates)
+- [Scripts disponibles](#scripts-disponibles)
+- [Tradeoffs](#tradeoffs)
+- [Fuera de scope](#fuera-de-scope)
+- [Mejoras futuras](#mejoras-futuras)
+- [Autor](#autor)
+
+---
 
 ## Demo
 
-[Demo del flujo Galicia Card Stepper](https://www.youtube.com/shorts/G8FoNwXymy8)
+▶️ [Ver demo completa en YouTube Shorts](https://www.youtube.com/shorts/G8FoNwXymy8)
 
-<p>
-  <img src="assets/readme/step-01-profile.jpg" alt="Step 1 - Perfil" width="220" />
-  <img src="assets/readme/step-02-security.jpg" alt="Step 2 - Seguridad" width="220" />
-  <img src="assets/readme/step-03-controls.jpg" alt="Step 3 - Controles" width="220" />
-  <img src="assets/readme/step-04-status.jpg" alt="Step 4 - Estados" width="220" />
-</p>
+<div align="center">
 
-## Requirement Coverage
+|               Step 1 — Perfil                |              Step 2 — Seguridad               |              Step 3 — Controles               |              Step 4 — Estados               |
+| :------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: | :-----------------------------------------: |
+| ![Step 1](assets/readme/step-01-profile.jpg) | ![Step 2](assets/readme/step-02-security.jpg) | ![Step 3](assets/readme/step-03-controls.jpg) | ![Step 4](assets/readme/step-04-status.jpg) |
 
-| Requirement                                            | Implemented                                     |
-| ------------------------------------------------------ | ----------------------------------------------- |
-| Flujo tipo stepper informativo multi-step > 2          | Sí, flujo de 4 pasos                            |
-| Card en el step final                                  | Sí, `StatusCard` en el último paso              |
-| Estados inhabilitado, habilitado, pausado y despausado | Sí, `disabled`, `enabled`, `paused`, `resumed`  |
-| Context para manejar el render del stepper             | Sí, `StepperProvider` + reducer                 |
-| Mock JSON para datos visualizados en la card           | Sí, `StatusCard.mock.json`                      |
-| Internacionalización                                   | Sí, `react-i18next` con ES/EN                   |
-| StyleSheet                                             | Sí, estilos con `StyleSheet.create`             |
-| Lógica de navegación y cambio de estados               | Sí, reducer del stepper + state machine de card |
-| README con setup y decisiones técnicas                 | Sí, este documento                              |
+</div>
+
+---
+
+## Guía para el reviewer
+
+> [!TIP]
+> Si tenés **5 minutos**, estos son los archivos que concentran las decisiones más relevantes del challenge — en orden de lectura sugerido:
+
+|  #  | Archivo                                            | Por qué importa                                                       |
+| :-: | -------------------------------------------------- | --------------------------------------------------------------------- |
+|  1  | `src/context/StepperContext/stepperReducer.ts`     | Transiciones explícitas del flujo. El corazón del stepper.            |
+|  2  | `src/components/StatusCard/StatusCard.model.ts`    | Máquina de estados de la card. Lógica de dominio separada del render. |
+|  3  | `src/context/StepperContext/stepDefinitions.ts`    | Configuración declarativa de pasos. Muestra cómo escalaría el flujo.  |
+|  4  | `StatusCardStateControls.ios.tsx` / `.android.tsx` | Platform split con intención real, no cosmético.                      |
+|  5  | `src/design-system/`                               | Design tokens centralizados en lugar de valores hardcodeados.         |
+|  6  | `src/i18n/locales/`                                | Paridad ES/EN. Los tests validan que no se rompa.                     |
+|  7  | `.github/workflows/quality.yml`                    | Qué se protege en cada push y por qué.                                |
+
+**Criterio de diseño clave:** la card no depende del stepper — su estado es independiente y puede montarse aislada. El stepper no sabe que existe la card. Esa separación fue intencional.
+
+---
+
+## Cobertura de requisitos
+
+| Requisito                                              | Estado | Detalle                                            |
+| ------------------------------------------------------ | :----: | -------------------------------------------------- |
+| Flujo tipo stepper informativo (más de 2 pasos)        |   ✅   | 4 pasos: Perfil, Seguridad, Controles, Estados     |
+| Card en el step final                                  |   ✅   | `StatusCard` montada solo en el último paso        |
+| Estados: inhabilitado, habilitado, pausado, despausado |   ✅   | `disabled`, `enabled`, `paused`, `resumed`         |
+| Context para manejar el render del stepper             |   ✅   | `StepperProvider` + `stepperReducer`               |
+| Mock JSON para datos visualizados en la card           |   ✅   | `StatusCard.mock.json` co-localizado al componente |
+| Internacionalización                                   |   ✅   | `react-i18next` con soporte ES / EN                |
+| StyleSheet nativo                                      |   ✅   | `StyleSheet.create` en todos los componentes       |
+| Lógica de navegación y cambio de estados               |   ✅   | Reducer del stepper + state machine de card        |
+| README con setup y decisiones técnicas                 |   ✅   | Este documento                                     |
+
+---
 
 ## Tech Stack
 
-| Area                 | Tooling                                           |
-| -------------------- | ------------------------------------------------- |
-| Mobile runtime       | React Native CLI `0.85.2`                         |
-| UI runtime           | React `19.2.3`                                    |
-| Language             | TypeScript `5.8.x`                                |
-| State                | Context API + reducer                             |
-| Internationalization | `i18next 26.x` + `react-i18next 17.x`             |
-| Styling              | React Native `StyleSheet.create`                  |
-| Testing              | Jest `29.x` + React Native Testing Library `13.x` |
-| Quality              | ESLint `8.x` + Prettier `2.8.x`                   |
-| CI                   | GitHub Actions                                    |
-| Package manager      | Yarn `1.x`                                        |
+| Área                 | Herramienta                         | Versión         |
+| -------------------- | ----------------------------------- | --------------- |
+| Runtime mobile       | React Native CLI                    | `0.85.2`        |
+| UI runtime           | React                               | `19.2.3`        |
+| Lenguaje             | TypeScript                          | `5.8.x`         |
+| Estado               | Context API + reducer               | —               |
+| Internacionalización | i18next + react-i18next             | `26.x` / `17.x` |
+| Estilos              | React Native StyleSheet             | —               |
+| Testing              | Jest + React Native Testing Library | `29.x` / `13.x` |
+| Calidad              | ESLint + Prettier                   | `8.x` / `2.8.x` |
+| CI                   | GitHub Actions                      | —               |
+| Package manager      | Yarn                                | `1.x`           |
 
-## Getting Started
+---
 
-### Requirements
+## Setup
 
-- Node.js 22.x
-- Yarn 1.x
-- Xcode para iOS
-- Android Studio para Android
-- CocoaPods para instalar pods iOS
+### Requisitos previos
 
-### About Yarn and Corepack
+- Node.js `22.x`
+- Yarn `1.x`
+- Xcode (para iOS)
+- Android Studio (para Android)
+- CocoaPods (para pods iOS)
 
-El proyecto usa Yarn. Si ya tenés Yarn instalado, podés ir directo a `yarn install`.
+> [!NOTE]
+>
+> **Sobre Yarn y Corepack:** si tu terminal no reconoce `yarn`, ejecutá `corepack enable` una sola vez. Corepack viene incluido en Node.js moderno y activa Yarn sin instalación global manual.
 
-`corepack` no reemplaza a Yarn. Es una herramienta incluida en versiones modernas de Node.js que permite habilitar package managers como Yarn sin instalarlos globalmente a mano.
-
-### Install dependencies
+### Instalar dependencias
 
 ```bash
 yarn install
-```
-
-Si tu terminal no reconoce `yarn`, ejecutá una vez:
-
-```bash
-corepack enable
 ```
 
 ### iOS
 
 ```bash
 bundle install
-cd ios
-bundle exec pod install
-cd ..
+cd ios && bundle exec pod install && cd ..
 yarn ios
 ```
 
-> iOS signing: el Development Team se configura localmente desde Xcode. No queda versionado para evitar acoplar el repo a una cuenta personal.
+> [!NOTE]
+>
+> **iOS signing:** el Development Team se configura localmente desde Xcode y no está versionado para evitar acoplar el repo a una cuenta personal.
 
 ### Android
 
@@ -90,202 +153,286 @@ yarn ios
 yarn android
 ```
 
-### Metro
+### Metro standalone
 
 ```bash
 yarn start
 ```
 
-## Project Structure
+---
 
-```txt
+## Estructura del proyecto
+
+```
 src/
 ├─ app/
 │  └─ AppRoot/
-│     └─ AppRoot.tsx
+│     └─ AppRoot.tsx                          # Entry point de la app
+│
 ├─ components/
-│  ├─ ActivityTimeline/
-│  ├─ LanguageToggle/
-│  ├─ ProgressStepper/
+│  ├─ ActivityTimeline/                        # Historial de transiciones de estado
+│  ├─ LanguageToggle/                          # Toggle ES / EN
+│  ├─ ProgressStepper/                         # Indicador de progreso visual
 │  └─ StatusCard/
-│     ├─ StatusCard.tsx
-│     ├─ StatusCard.model.ts
-│     ├─ StatusCard.styles.ts
-│     ├─ StatusCard.types.ts
-│     ├─ StatusCard.mock.json
-│     ├─ StatusCardStateControls.ios.tsx
-│     └─ StatusCardStateControls.android.tsx
+│     ├─ StatusCard.tsx                        # Componente principal (composición)
+│     ├─ StatusCard.model.ts          ←        # Máquina de estados de la card
+│     ├─ StatusCard.styles.ts                  # Estilos separados del render
+│     ├─ StatusCard.types.ts                   # Tipos co-localizados al módulo
+│     ├─ StatusCard.mock.json                  # Fixture de datos
+│     ├─ StatusCardStateControls.ios.tsx       # Controles nativos iOS
+│     └─ StatusCardStateControls.android.tsx   # Controles nativos Android
+│
 ├─ context/
 │  └─ StepperContext/
-│     ├─ StepperContext.tsx
-│     ├─ stepperReducer.ts
-│     └─ stepDefinitions.ts
+│     ├─ StepperContext.tsx                    # Provider + hooks
+│     ├─ stepperReducer.ts           ←         # Transiciones NEXT / PREVIOUS / RESET
+│     └─ stepDefinitions.ts                    # Config declarativa de pasos
+│
 ├─ design-system/
-│  ├─ colors.ts
+│  ├─ colors.ts                               # Paleta semántica
 │  ├─ fonts.ts
 │  ├─ radius.ts
 │  ├─ shadows.ts
 │  └─ spacing.ts
+│
 ├─ i18n/
-│  ├─ locales/
-│  ├─ i18nInstance.ts
-│  └─ translate.ts
+│  ├─ locales/                                # Archivos de traducción ES / EN
+│  ├─ i18nInstance.ts                         # Instancia aislada (evita require cycles)
+│  └─ translate.ts                            # Helper para código no-hook
+│
 ├─ screens/
 │  └─ HomeScreen/
+│
 └─ utils/
 ```
 
-La estructura busca que una app chica se lea como una feature real: componentes con styles/tests co-localizados, tipos cerca del módulo que los usa, design tokens separados y lógica de dominio cerca del feature owner.
+---
 
-## Engineering Notes
+## Arquitectura de componentes
 
-- Los imports usan alias `@/` para evitar rutas relativas largas.
-- Los componentes grandes están modelados como carpetas módulo, no como archivos monolíticos.
-- Los estilos viven en `*.styles.ts` para mantener componentes enfocados en composición y comportamiento.
-- Los tests están co-localizados con los módulos que protegen, lo que reduce fricción de mantenimiento.
-- La lógica de negocio de la card vive en `StatusCard.model.ts`, separada del render.
-- iOS y Android tienen archivos específicos cuando la plataforma cambia interacción o look & feel.
+```mermaid
+flowchart TB
+  subgraph Providers["Providers"]
+    SP["StepperProvider\nContext API + reducer"]
+  end
 
-## Architecture Decisions
+  subgraph Screens["Screens"]
+    HS["HomeScreen"]
+  end
+
+  subgraph Components["Components"]
+    PS["ProgressStepper\nindicador visual"]
+    IS["InfoStep\nsteps 1–3"]
+    SC["StatusCard\nstep 4"]
+  end
+
+  subgraph CardInternals["StatusCard internals"]
+    SM["StatusCard.model.ts\nstate machine"]
+    AT["ActivityTimeline\nhistorial"]
+    CIO["StateControls.ios.tsx"]
+    CAD["StateControls.android.tsx"]
+  end
+
+  subgraph DesignSystem["Design System"]
+    DS["colors · fonts\nspacing · radius · shadows"]
+  end
+
+  SP -->|"state + dispatch"| HS
+  HS --> PS
+  HS --> IS
+  HS --> SC
+  SC --> SM
+  SC --> AT
+  SC --> CIO
+  SC --> CAD
+  DS -.->|"tokens"| Components
+  DS -.->|"tokens"| CardInternals
+```
+
+---
+
+## Flujo de estados
+
+### Stepper
+
+```mermaid
+flowchart LR
+  P([Perfil]) --> S([Seguridad]) --> C([Controles]) --> E([Estados])
+  style E fill:#E87722,color:#fff,stroke:#E87722
+```
+
+### Card — State Machine
+
+```mermaid
+stateDiagram-v2
+  direction LR
+
+  [*] --> disabled
+
+  disabled --> enabled   : Activar
+  enabled  --> paused    : Pausar
+  enabled  --> disabled  : Desactivar
+  paused   --> resumed   : Despausar
+  resumed  --> paused    : Pausar
+  resumed  --> disabled  : Desactivar
+```
+
+> [!TIP]
+> La `ActivityTimeline` registra cada transición en tiempo real. Si querés validar que los estados no son solo variantes visuales sino cambios reales de lógica, mirá el historial mientras interactuás con los controles.
+
+---
+
+## Decisiones de arquitectura
 
 ### Context API
 
-El stepper usa Context + reducer porque el estado compartido es chico, lineal y propio del flujo. Redux u otra librería global agregaría complejidad innecesaria para este scope.
+El stepper usa Context + reducer porque el estado compartido es chico, lineal y local al flujo. Redux u otra librería global agregaría boilerplate innecesario para este scope.
 
-El reducer mantiene explícitas las transiciones `NEXT`, `PREVIOUS` y `RESET`. Esto hace que el flujo sea predecible, testeable y fácil de extender si en el futuro hubiera pasos condicionales.
+El reducer mantiene explícitas las transiciones `NEXT`, `PREVIOUS` y `RESET` — predecibles, testeables y fáciles de extender si en el futuro hubiera pasos condicionales o bifurcaciones.
 
-### Navegación secuencial
+### Sin React Navigation
 
-No se usa React Navigation porque no hay múltiples pantallas reales ni deep stack. El flujo avanza solamente con `Continue` y `Back`; los indicadores del stepper son informativos y no navegan por tap para evitar saltos inválidos como `Paso 1 -> Paso 4`.
-
-### Mock JSON
-
-La card consume datos desde `src/components/StatusCard/StatusCard.mock.json`. Esto simula una fuente real sin introducir red, loading states artificiales o comportamiento no determinístico para el reviewer.
-
-### i18n
-
-La app inicia por defecto en español y permite cambiar a inglés con el toggle `ES / EN`. Los textos viven fuera de los componentes para separar UI copy de lógica y mantener paridad entre locales.
-
-También existe un helper `translate()` para código no-hook. La instancia de i18n está separada para evitar require cycles entre el barrel de `i18n` y los helpers.
-
-### StyleSheet
-
-Los estilos usan `StyleSheet.create`, cumpliendo el requerimiento técnico y manteniendo un approach nativo, explícito y fácil de auditar.
+No hay múltiples pantallas reales ni deep stack. El flujo avanza con `Continue` y `Back`. Los indicadores del stepper son informativos y no navegan por tap para prevenir saltos inválidos (ej: Paso 1 → Paso 4 directamente).
 
 ### Platform-native UI
 
-La identidad visual se inspira en Galicia, pero los controles se adaptan por plataforma con archivos `.ios.tsx` y `.android.tsx` cuando aporta valor. iOS usa interacciones más cercanas a ActionSheet; Android usa patrones más Material, ripple y superficies con radios/elevación más sobrios.
+Los controles se adaptan por plataforma con archivos `.ios.tsx` y `.android.tsx` cuando el split aporta valor real, no cosmético. iOS usa interacciones cercanas a ActionSheet; Android usa patrones Material con ripple y elevación más sobria. Si la diferencia fuera solo de color, no habría split.
 
-### Card State Logic
+### Mock JSON sobre API remota
 
-La card modela cada estado de forma explícita. Cada estado tiene label, ícono, color semántico, descripción y acción contextual para evitar que el naranja de marca sea la única señal visual.
+La card consume datos desde `StatusCard.mock.json`. Esto simula una fuente real sin introducir red, loading states artificiales ni comportamiento no determinístico para el reviewer. El challenge evalúa arquitectura y criterio de UI, no networking.
 
-El estado no depende solo del color: se refuerza con copy, ícono, borde lateral, badge semántico y timeline. Esto mejora accesibilidad visual y reduce ambigüedad en una UI con naranja dominante.
+### Estado semántico multicapa
 
-## State Flow
+Cada estado de la card tiene: label, ícono, color semántico, descripción, borde lateral coloreado y badge. El estado no depende únicamente del color — esto mejora la accesibilidad visual en una UI con naranja dominante y reduce ambigüedad de lectura.
 
-```txt
-Stepper:
-Perfil -> Seguridad -> Controles -> Estados
+---
 
-Card:
-disabled -> enabled -> paused -> resumed -> disabled
-```
+## Engineering Notes
 
-La timeline registra los cambios de estado para que la review pueda inspeccionar rápidamente que la lógica funciona y que los estados no son solo variantes visuales sueltas.
+**Co-location philosophy:** los estilos (`*.styles.ts`), tipos (`*.types.ts`), fixtures (`*.mock.json`) y tests viven junto al componente que los usa. Reduce la fricción de mantenimiento y hace que cada carpeta-módulo sea autosuficiente.
 
-## Scripts
+**Alias `@/` en imports:** evita rutas relativas largas (`../../../`) sin herramientas adicionales. Configurado en `tsconfig.json` y `babel.config.js`.
 
-```bash
-yarn check:package-manager
-yarn format:check
-yarn lint
-yarn typecheck
-yarn test
-yarn test:coverage
-yarn bundle:ios
-yarn bundle:android
-yarn android:assembleDebug
-```
+**Lógica de dominio separada del render:** `StatusCard.model.ts` contiene la state machine. `StatusCard.tsx` solo compone y renderiza. Si mañana cambia el modelo de estados, el render no se toca.
+
+**Instancia de i18n aislada:** `i18nInstance.ts` está separado del barrel de `i18n` para evitar require cycles entre la instancia y los helpers. El helper `translate()` permite usar i18n fuera de componentes (reducers, models) sin violar las reglas de hooks.
+
+**Design tokens centralizados:** ningún componente hardcodea colores, espaciados o radios. Todo referencia `src/design-system/`. Si el brand cambia, cambia en un solo lugar.
+
+---
 
 ## Testing
 
-La suite cubre comportamiento real con React Native Testing Library y unit tests donde corresponde:
+La suite cubre comportamiento real con **React Native Testing Library** y unit tests donde corresponde. No hay tests de implementación — se testea qué hace el componente, no cómo lo hace internamente.
 
-- render inicial del flujo
-- navegación secuencial del stepper
-- bloqueo de saltos por stepper indicator
-- reducer del stepper
-- transiciones de estado de la card
-- historial de cambios
-- selectores de estado iOS y Android
-- paridad de traducciones ES/EN
-- formatters de moneda y fecha
+| Caso cubierto                                  | Tipo        |
+| ---------------------------------------------- | ----------- |
+| Render inicial del flujo completo              | Integration |
+| Navegación secuencial NEXT / PREVIOUS          | Integration |
+| Bloqueo de saltos por tap en stepper indicator | Integration |
+| Reducer del stepper — todas las transiciones   | Unit        |
+| Transiciones de estado de la card              | Unit        |
+| Historial de cambios (ActivityTimeline)        | Unit        |
+| Selectores de estado iOS y Android             | Unit        |
+| Paridad de traducciones ES / EN                | Unit        |
+| Formatters de moneda y fecha                   | Unit        |
 
-Coverage actual:
+### Coverage actual
 
-```txt
-Statements: 97%+
-Branches:   84%+
-Functions:  96%+
-Lines:      97%+
+| Métrica    | Resultado |
+| ---------- | --------- |
+| Statements | `97%+`    |
+| Branches   | `84%+`    |
+| Functions  | `96%+`    |
+| Lines      | `97%+`    |
+
+```bash
+yarn test
+yarn test:coverage
 ```
+
+---
 
 ## CI / Quality Gates
 
-GitHub Actions corre en pull requests y pushes a `main`.
+GitHub Actions corre en pull requests y pushes a `main`. Cada check protege una capa distinta:
 
-| Check                        | What it protects                               |
-| ---------------------------- | ---------------------------------------------- |
-| `yarn check:package-manager` | Evita mezclar package managers                 |
-| `yarn format:check`          | Mantiene formato consistente                   |
-| `yarn lint`                  | Detecta imports, reglas Jest y código no usado |
-| `yarn typecheck`             | Valida TypeScript sin emitir build             |
-| `yarn test:coverage`         | Protege comportamiento y umbrales mínimos      |
-| `yarn bundle:ios`            | Valida que Metro pueda empaquetar iOS          |
-| `yarn bundle:android`        | Valida que Metro pueda empaquetar Android      |
-| `yarn android:assembleDebug` | Verifica build Android real en `main`          |
+| Check                   | Qué protege                                        |
+| ----------------------- | -------------------------------------------------- |
+| `check:package-manager` | Evita mezclar npm / yarn en el mismo proyecto      |
+| `format:check`          | Formato consistente sin discusiones de estilo      |
+| `lint`                  | Imports, reglas Jest y código no usado             |
+| `typecheck`             | TypeScript sin emitir build — rápido y explícito   |
+| `test:coverage`         | Comportamiento real + umbrales mínimos de coverage |
+| `bundle:ios`            | Que Metro pueda empaquetar iOS sin errores         |
+| `bundle:android`        | Que Metro pueda empaquetar Android sin errores     |
+| `android:assembleDebug` | Build Android real en cada push a `main`           |
 
-No se agrega build nativo iOS en CI porque requeriría runner macOS. Para el alcance del challenge, bundle iOS en CI + smoke local en simulador/dispositivo cubre la señal necesaria sin sobredimensionar costos y tiempos.
+> [!NOTE]
+> No se agrega build nativo iOS en CI porque requeriría runner macOS pago. Para el alcance del challenge, `bundle:ios` en CI + smoke manual en simulador cubre la señal necesaria sin sobredimensionar costos de pipeline.
+
+---
+
+## Scripts disponibles
+
+```bash
+# Calidad de código
+yarn check:package-manager    # Valida que se use Yarn y no npm
+yarn format:check             # Verifica formato con Prettier
+yarn lint                     # ESLint completo sobre el proyecto
+yarn typecheck                # TypeScript sin emit
+
+# Tests
+yarn test                     # Suite completa
+yarn test:coverage            # Con informe de coverage por umbral
+
+# Bundles y builds
+yarn bundle:ios               # Bundle Metro para iOS
+yarn bundle:android           # Bundle Metro para Android
+yarn android:assembleDebug    # APK debug de Android
+```
+
+---
 
 ## Tradeoffs
 
-- Context API fue elegido sobre Redux porque el dominio es chico y local.
-- Mock JSON fue elegido sobre API remota porque el challenge evalúa UI state, arquitectura y criterio, no networking.
-- `ScrollView` fue elegido sobre `FlatList` o `FlashList` porque la pantalla es corta, heterogénea y no necesita virtualización.
-- No se agregó E2E con Detox/Maestro para no sobredimensionar el challenge, pero la arquitectura y CI dejan ese camino abierto.
-- La UI usa una interpretación Galicia-inspired, no una copia literal de Banco Galicia.
-- El video y los screenshots se incluyen como assets de README para que el reviewer pueda validar el resultado sin levantar la app primero.
+| Decisión             | Alternativa descartada   | Razón                                                                    |
+| -------------------- | ------------------------ | ------------------------------------------------------------------------ |
+| Context API          | Redux / Zustand          | Estado chico y local al flujo del stepper                                |
+| Mock JSON            | API remota / MSW         | El challenge evalúa UI state y criterio, no networking                   |
+| `ScrollView`         | `FlatList` / `FlashList` | Pantalla corta, heterogénea, sin necesidad de virtualización             |
+| Sin React Navigation | Stack navigator          | No hay stack real ni deep linking en el scope                            |
+| Sin Detox / Maestro  | E2E completo             | Sobredimensionaría el challenge; la arquitectura deja ese camino abierto |
+| UI Galicia-inspired  | Copia literal del brand  | Evita restricciones de IP y permite decisiones de diseño propias         |
 
-## QA / QC
+---
 
-Validaciones usadas durante el desarrollo:
+## Fuera de scope
 
-```bash
-yarn check:package-manager
-yarn format:check
-yarn lint
-yarn typecheck
-yarn test:coverage
-yarn bundle:ios
-yarn bundle:android
-yarn android:assembleDebug
-```
+> [!IMPORTANT]
+> Lo que sigue **no es deuda técnica** — es scope acotado de forma deliberada. Cada ítem tiene una ruta clara de implementación si el proyecto creciera.
 
-Smoke manual:
+- **Persistencia de estado:** el progreso del stepper y el último estado de la card no sobreviven un hot reload. Se resolvería con AsyncStorage o MMKV referenciado desde el model.
+- **E2E:** no hay tests con Detox ni Maestro. La separación de lógica deja ese camino abierto sin refactors estructurales.
+- **Accesibilidad completa:** los componentes usan `accessibilityLabel` básico pero no cubren `accessibilityRole`, `accessibilityState` ni VoiceOver/TalkBack exhaustivo.
+- **Deep linking:** no hay React Navigation ni URL schemes configurados. El flujo arranca siempre desde el paso 1.
+- **API real:** la card consume mock JSON local. Conectarla a una API o remote config es trivial dado que el model está desacoplado del componente.
 
-- iOS simulator/device: flujo completo, safe areas, cambio ES/EN y estados de card.
-- Android emulator/device: flujo completo, Material controls, ripple, footer y estados de card.
+---
 
-## Future Improvements
+## Mejoras futuras
 
-- Persistir progreso y último estado de la card.
-- Agregar deep link de producto para abrir directo el último paso.
-- Sumar E2E con Maestro o Detox si el flujo creciera.
-- Conectar el mock JSON a una API o remote config.
+- [ ] Persistir progreso del stepper y último estado de la card (AsyncStorage / MMKV).
+- [ ] Deep link para abrir directo en el último paso (React Navigation + linking config).
+- [ ] E2E con Maestro o Detox si el flujo creciera en pasos o bifurcaciones.
+- [ ] Conectar el mock JSON a una API real o remote config / feature flags.
+- [ ] Accesibilidad completa: `accessibilityRole`, `accessibilityState`, VoiceOver y TalkBack.
+- [ ] Animaciones de transición entre pasos con Reanimated 3.
 
-## Author
+---
 
-Juan Carlos Videla
+## Autor
 
-- GitHub: [jeyzee23](https://github.com/jeyzee23)
+**Juan Carlos Videla**
+GitHub: [@jeyzee23](https://github.com/jeyzee23)
