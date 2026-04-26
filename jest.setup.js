@@ -1,8 +1,5 @@
 /* eslint-env jest */
 
-const mockRNLocalize = require('react-native-localize/mock');
-
-jest.mock('react-native-localize', () => mockRNLocalize);
 jest.mock('react-native-safe-area-context', () => {
   const React = require('react');
   const { View } = require('react-native');
