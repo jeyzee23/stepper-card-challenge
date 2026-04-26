@@ -1,1 +1,1 @@
-export type AppLanguage = 'es' | 'en';
+export type { AppLanguage } from '@/i18n/types';

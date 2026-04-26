@@ -1,3 +1,4 @@
+import type { AppLanguage } from '@/i18n/types';
 import { formatCurrency, formatDateTime } from '@/utils/formatters';
 
 import type {
@@ -49,7 +50,7 @@ export function appendStatusHistoryEntry(
 
 export function buildCardDetailRows(
   account: AccountCardData,
-  language: string,
+  language: AppLanguage,
   labels: CardDetailLabels,
 ): CardDetailRow[] {
   return [

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
+import { resolveAppLanguage } from '@/i18n/language';
 import { formatDateTime } from '@/utils/formatters';
 
 import { cardStatusTheme } from '../CardStatus.theme';
@@ -12,6 +13,7 @@ import type { ActivityTimelineProps } from './ActivityTimeline.types';
 export function ActivityTimeline({ history }: ActivityTimelineProps) {
   const { i18n, t } = useTranslation();
   const entries = [...history].reverse();
+  const language = resolveAppLanguage(i18n.language);
 
   return (
     <View style={styles.container} testID="activity-timeline">
@@ -42,7 +44,7 @@ export function ActivityTimeline({ history }: ActivityTimelineProps) {
                     {t(`statusCard.statuses.${entry.status}.label`)}
                   </Text>
                   <Text style={styles.eventTime}>
-                    {formatDateTime(entry.createdAt, i18n.language)}
+{formatDateTime(entry.createdAt, language)}
                   </Text>
                 </View>
 

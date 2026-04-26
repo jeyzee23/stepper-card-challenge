@@ -2,17 +2,17 @@ import i18n, { translate } from './index';
 import { en } from './locales/en';
 import { es } from './locales/es';
 
-function flattenKeys(value: unknown, prefix = ''): string[] {
+import type { TranslationSchema } from './types';
+
+type TranslationTree = TranslationSchema | string | readonly string[];
+
+function flattenKeys(value: TranslationTree, prefix = ''): string[] {
   if (typeof value === 'string' || Array.isArray(value)) {
     return [prefix];
   }
 
-  if (!value || typeof value !== 'object') {
-    return [];
-  }
-
   return Object.entries(value).flatMap(([key, child]) =>
-    flattenKeys(child, prefix ? `${prefix}.${key}` : key),
+    flattenKeys(child as TranslationTree, prefix ? `${prefix}.${key}` : key),
   );
 }
 
