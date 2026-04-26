@@ -6,7 +6,7 @@ La app permite recorrer un flujo informativo de 4 pasos y finaliza en una card o
 
 ## Demo
 
-![Demo del flujo Galicia Card Stepper](https://www.youtube.com/shorts/G8FoNwXymy8)
+[Demo del flujo Galicia Card Stepper](https://www.youtube.com/shorts/G8FoNwXymy8)
 
 <p>
   <img src="assets/readme/step-01-profile.jpg" alt="Step 1 - Perfil" width="220" />
