@@ -73,26 +73,6 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
     <td><img src="assets/readme/mockups/step-04-status.png" alt="Step 4 - Estados" width="420"/></td>
   </tr>
 </table>
-
-<table>
-  <tr>
-    <td align="center"><strong>Card inhabilitada</strong></td>
-    <td align="center"><strong>Card habilitada</strong></td>
-  </tr>
-  <tr>
-    <td><img src="assets/readme/mockups/card-disabled.png" alt="Card inhabilitada" width="420"/></td>
-    <td><img src="assets/readme/mockups/card-enabled.png" alt="Card habilitada" width="420"/></td>
-  </tr>
-  <tr>
-    <td align="center"><strong>Card reanudada</strong></td>
-    <td align="center"><strong>Timeline de actividad</strong></td>
-  </tr>
-  <tr>
-    <td><img src="assets/readme/mockups/card-resumed.png" alt="Card reanudada" width="420"/></td>
-    <td><img src="assets/readme/mockups/activity-timeline.png" alt="Timeline de actividad" width="420"/></td>
-  </tr>
-</table>
-
 </div>
 
 ---
