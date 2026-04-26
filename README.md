@@ -15,11 +15,6 @@ La app permite recorrer un flujo informativo de 4 pasos y finaliza en una card o
   <img src="assets/readme/step-04-status.jpg" alt="Step 4 - Estados" width="220" />
 </p>
 
-<p>
-  <img src="assets/readme/card-disabled.jpg" alt="Card inhabilitada" width="220" />
-  <img src="assets/readme/activity-timeline.jpg" alt="Timeline de actividad" width="220" />
-</p>
-
 ## Requirement Coverage
 
 | Requirement                                            | Implemented                                     |
