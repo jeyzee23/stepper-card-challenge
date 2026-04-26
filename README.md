@@ -61,6 +61,16 @@ El objetivo no fue solo cumplir los requisitos, sino construir una feature chica
 
 </div>
 
+### Clips de review
+
+<div align="center">
+
+|                Navegación secuencial                 |          Card final + acción contextual          |                 Máquina de estados                 |
+| :--------------------------------------------------: | :----------------------------------------------: | :------------------------------------------------: |
+| ![Stepper flow](assets/readme/demo-stepper-flow.gif) | ![Final card](assets/readme/demo-final-card.gif) | ![Card states](assets/readme/demo-card-states.gif) |
+
+</div>
+
 ---
 
 ## Guía para el reviewer
