@@ -2,6 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
 import { Text } from 'react-native';
 
+import i18n from '@/i18n';
+
 import { AppErrorBoundary } from './AppErrorBoundary';
 
 function BrokenChild(): React.ReactNode {
@@ -11,7 +13,8 @@ function BrokenChild(): React.ReactNode {
 describe('AppErrorBoundary', () => {
   let consoleErrorSpy: jest.SpyInstance;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await i18n.changeLanguage('es');
     consoleErrorSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => undefined);
@@ -59,5 +62,18 @@ describe('AppErrorBoundary', () => {
     fireEvent.press(screen.getByTestId('app-error-retry'));
 
     expect(screen.getByText('Flujo recuperado')).toBeOnTheScreen();
+  });
+
+  it('renders localized fallback copy for English', async () => {
+    await i18n.changeLanguage('en');
+
+    render(
+      <AppErrorBoundary>
+        <BrokenChild />
+      </AppErrorBoundary>,
+    );
+
+    expect(screen.getByText('We could not load the flow')).toBeOnTheScreen();
+    expect(screen.getByText('Retry')).toBeOnTheScreen();
   });
 });

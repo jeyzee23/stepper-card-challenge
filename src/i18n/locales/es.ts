@@ -17,9 +17,21 @@ export const es: TranslationSchema = {
     openCard: 'Ver card final',
     restart: 'Reiniciar flujo',
   },
+  errors: {
+    flowBoundary: {
+      eyebrow: 'Error controlado',
+      title: 'No pudimos cargar el flujo',
+      description:
+        'El stepper encontró un problema inesperado. Podés reintentar sin cerrar la app.',
+      retryLabel: 'Reintentar',
+      retryA11yLabel: 'Reintentar flujo',
+    },
+  },
   stepper: {
     title: 'Flujo de activación',
-    stepA11yLabel: 'Ir al paso {{index}}: {{name}}',
+    stepA11yLabel: 'Paso {{index}}: {{name}}',
+    availableStepA11yHint: 'Navega a este paso ya visitado.',
+    lockedStepA11yHint: 'Disponible cuando avances en el flujo.',
   },
   qualitySignals: {
     title: 'Señales de ingeniería',

@@ -54,6 +54,18 @@ describe('HomeScreen', () => {
     expect(screen.queryByTestId('step-content-controls')).toBeNull();
   });
 
+  it('allows revisiting a previously visited step from the stepper', async () => {
+    await renderHomeScreen();
+
+    await fireEventAsync.press(screen.getByTestId('home-footer-next'));
+    expect(screen.getByTestId('step-content-security')).toBeOnTheScreen();
+
+    await fireEventAsync.press(screen.getByTestId('stepper-step-identity'));
+
+    expect(screen.getByTestId('step-content-identity')).toBeOnTheScreen();
+    expect(screen.queryByTestId('step-content-security')).toBeNull();
+  });
+
   it('switches copy between Spanish and English at runtime', async () => {
     await renderHomeScreen();
 

@@ -18,6 +18,28 @@ describe('stepperReducer', () => {
     });
   });
 
+  it('allows revisiting a previously visited step', () => {
+    const advanced = stepperReducer(initialStepperState, { type: 'NEXT' });
+    const revisited = stepperReducer(advanced, {
+      payload: 0,
+      type: 'GO_TO_STEP',
+    });
+
+    expect(revisited).toEqual({
+      currentStepIndex: 0,
+      furthestStepIndex: 1,
+    });
+  });
+
+  it('keeps future steps locked when jump navigation targets an unseen step', () => {
+    const blocked = stepperReducer(initialStepperState, {
+      payload: 3,
+      type: 'GO_TO_STEP',
+    });
+
+    expect(blocked).toEqual(initialStepperState);
+  });
+
   it('supports reset after navigating the flow', () => {
     const advanced = stepperReducer(initialStepperState, { type: 'NEXT' });
     const reset = stepperReducer(advanced, { type: 'RESET' });

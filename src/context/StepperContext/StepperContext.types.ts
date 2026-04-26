@@ -8,6 +8,7 @@ export interface StepperState {
 export type StepperAction =
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
+  | { payload: number; type: 'GO_TO_STEP' }
   | { type: 'RESET' };
 
 export interface StepperContextValue {
@@ -19,5 +20,6 @@ export interface StepperContextValue {
   steps: readonly StepDefinition[];
   goNext: () => void;
   goPrevious: () => void;
+  goToStep: (index: number) => void;
   reset: () => void;
 }

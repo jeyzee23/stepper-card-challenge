@@ -15,9 +15,21 @@ export const en = {
     openCard: 'Open final card',
     restart: 'Restart flow',
   },
+  errors: {
+    flowBoundary: {
+      eyebrow: 'Handled error',
+      title: 'We could not load the flow',
+      description:
+        'The stepper hit an unexpected issue. You can retry without closing the app.',
+      retryLabel: 'Retry',
+      retryA11yLabel: 'Retry flow',
+    },
+  },
   stepper: {
     title: 'Activation flow',
-    stepA11yLabel: 'Go to step {{index}}: {{name}}',
+    stepA11yLabel: 'Step {{index}}: {{name}}',
+    availableStepA11yHint: 'Navigates to this previously visited step.',
+    lockedStepA11yHint: 'Available after you progress in the flow.',
   },
   qualitySignals: {
     title: 'Engineering signals',

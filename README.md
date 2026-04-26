@@ -105,17 +105,17 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
 
 ## Cobertura de requisitos
 
-| Requisito                                              | Estado | Detalle                                            |
-| ------------------------------------------------------ | :----: | -------------------------------------------------- |
-| Flujo tipo stepper informativo (más de 2 pasos)        |   ✅   | 4 pasos: Perfil, Seguridad, Controles, Estados     |
-| Card en el step final                                  |   ✅   | `StatusCard` montada solo en el último paso        |
-| Estados: inhabilitado, habilitado, pausado, despausado |   ✅   | `disabled`, `enabled`, `paused`, `resumed`         |
-| Context para manejar el render del stepper             |   ✅   | `StepperProvider` + `stepperReducer`               |
-| Mock JSON para datos visualizados en la card           |   ✅   | `StatusCard.mock.json` co-localizado al componente |
-| Internacionalización                                   |   ✅   | `react-i18next` con soporte ES / EN                |
-| StyleSheet nativo                                      |   ✅   | `StyleSheet.create` en todos los componentes       |
-| Lógica de navegación y cambio de estados               |   ✅   | Reducer del stepper + state machine de card        |
-| README con setup y decisiones técnicas                 |   ✅   | Este documento                                     |
+| Requisito                                              | Estado | Detalle                                                                  |
+| ------------------------------------------------------ | :----: | ------------------------------------------------------------------------ |
+| Flujo tipo stepper informativo (más de 2 pasos)        |   ✅   | 4 pasos: Perfil, Seguridad, Controles, Estados                           |
+| Card en el step final                                  |   ✅   | `StatusCard` montada solo en el último paso                              |
+| Estados: inhabilitado, habilitado, pausado, despausado |   ✅   | `disabled`, `enabled`, `paused`, `resumed`                               |
+| Context para manejar el render del stepper             |   ✅   | `StepperProvider` + `stepperReducer`                                     |
+| Mock JSON para datos visualizados en la card           |   ✅   | `StatusCard.mock.json` co-localizado al componente                       |
+| Internacionalización                                   |   ✅   | `react-i18next` con soporte ES / EN                                      |
+| StyleSheet nativo                                      |   ✅   | `StyleSheet.create` en todos los componentes                             |
+| Lógica de navegación y cambio de estados               |   ✅   | Reducer del stepper + revisit de pasos visitados + state machine de card |
+| README con setup y decisiones técnicas                 |   ✅   | Este documento                                                           |
 
 ---
 

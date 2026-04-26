@@ -42,7 +42,11 @@ export function StatusCardStateControls({
   };
 
   return (
-    <Pressable onPress={openStatusSheet} style={styles.linkButton}>
+    <Pressable
+      accessibilityRole="button"
+      onPress={openStatusSheet}
+      style={styles.linkButton}
+    >
       <Text style={styles.linkButtonLabel}>{t('statusCard.manageStatus')}</Text>
     </Pressable>
   );
