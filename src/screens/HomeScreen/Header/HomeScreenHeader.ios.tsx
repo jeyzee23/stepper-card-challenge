@@ -1,0 +1,37 @@
+import React from 'react';
+import { Text, View } from 'react-native';
+
+import { LanguageToggle } from '@/components/LanguageToggle';
+import { spacing } from '@/design-system';
+
+import { headerStyles as styles } from './HomeScreenHeader.styles.ios';
+
+import type { HomeScreenHeaderProps } from './HomeScreenHeader.types';
+
+export function HomeScreenHeader({
+  badge,
+  subtitle,
+  topInset,
+  title,
+}: HomeScreenHeaderProps) {
+  return (
+    <View
+      style={[
+        styles.header,
+        styles.headerIOS,
+        { paddingTop: topInset + spacing.lg },
+      ]}
+    >
+      <View style={styles.headerShapeLarge} />
+      <View style={styles.headerShapeSmall} />
+
+      <View style={styles.headerTopRow}>
+        <Text style={styles.heroEyebrow}>{badge}</Text>
+        <LanguageToggle />
+      </View>
+
+      <Text style={styles.largeTitle}>{title}</Text>
+      <Text style={styles.subtitle}>{subtitle}</Text>
+    </View>
+  );
+}

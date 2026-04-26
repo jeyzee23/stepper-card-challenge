@@ -1,0 +1,80 @@
+import { StyleSheet } from 'react-native';
+
+import { colors, radius, spacing, typography } from '@/design-system';
+
+export const headerStyles = StyleSheet.create({
+  androidBadge: {
+    color: colors.surface,
+    fontFamily: typography.bodyFamily,
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 0.4,
+    opacity: 0.86,
+    textTransform: 'uppercase',
+  },
+  androidShell: {
+    backgroundColor: colors.brand,
+    borderBottomLeftRadius: radius.lg,
+    borderBottomRightRadius: radius.lg,
+    gap: spacing.md,
+    marginHorizontal: -spacing.lg,
+    overflow: 'hidden',
+    paddingBottom: spacing.lg,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.lg,
+  },
+  androidSummaryCard: {
+    alignItems: 'flex-start',
+    backgroundColor: colors.brandDark,
+    borderRadius: radius.lg,
+    flexDirection: 'row',
+    gap: spacing.sm,
+    minHeight: 64,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
+  },
+  androidSummaryIcon: {
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderRadius: radius.pill,
+    height: 32,
+    justifyContent: 'center',
+    marginTop: 1,
+    width: 32,
+  },
+  androidSummaryIconText: {
+    color: colors.brand,
+    fontFamily: typography.bodyFamily,
+    fontSize: 16,
+    fontWeight: '900',
+    lineHeight: 20,
+  },
+  androidSummaryText: {
+    color: colors.surface,
+    flex: 1,
+    fontFamily: typography.bodyFamily,
+    fontSize: 14,
+    fontWeight: '600',
+    lineHeight: 19,
+    opacity: 0.94,
+  },
+  androidTitle: {
+    color: colors.surface,
+    fontFamily: typography.titleFamily,
+    fontSize: 20,
+    fontWeight: '800',
+    letterSpacing: -0.1,
+    lineHeight: 24,
+  },
+  androidTitleGroup: {
+    flex: 1,
+    gap: 2,
+    minWidth: 0,
+  },
+  androidTopBar: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+    minHeight: 48,
+  },
+});

@@ -1,53 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { Platform } from 'react-native';
 
 import {
-  colors,
-  radius,
-  shadowStyles,
-  spacing,
-  typography,
-} from '@/design-system';
+  segmentWidth as androidSegmentWidth,
+  styles as androidStyles,
+} from './LanguageToggle.styles.android';
+import {
+  segmentWidth as iosSegmentWidth,
+  styles as iosStyles,
+} from './LanguageToggle.styles.ios';
 
-export const segmentWidth = 48;
-
-export const styles = StyleSheet.create({
-  container: {
-    alignSelf: 'flex-start',
-    backgroundColor: 'rgba(154, 70, 0, 0.32)',
-    borderCurve: 'continuous',
-    borderRadius: radius.pill,
-    flexDirection: 'row',
-    padding: spacing.xs,
-    position: 'relative',
-  },
-  thumb: {
-    ...shadowStyles.soft,
-    backgroundColor: colors.surfaceElevated,
-    borderCurve: 'continuous',
-    borderRadius: radius.pill,
-    bottom: spacing.xs,
-    left: spacing.xs,
-    position: 'absolute',
-    top: spacing.xs,
-    width: segmentWidth,
-  },
-  segment: {
-    alignItems: 'center',
-    borderCurve: 'continuous',
-    borderRadius: radius.pill,
-    justifyContent: 'center',
-    minHeight: 32,
-    width: segmentWidth,
-  },
-  label: {
-    color: colors.surface,
-    fontFamily: typography.bodyFamily,
-    fontSize: 13,
-    fontWeight: '600',
-    opacity: 0.82,
-  },
-  activeLabel: {
-    color: colors.ink,
-    opacity: 1,
-  },
-});
+export const segmentWidth =
+  Platform.OS === 'android' ? androidSegmentWidth : iosSegmentWidth;
+export const styles = Platform.OS === 'android' ? androidStyles : iosStyles;
