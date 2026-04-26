@@ -51,23 +51,15 @@ El objetivo no fue solo cumplir los requisitos, sino construir una feature chica
 
 ## Demo
 
-▶️ [Ver demo completa en YouTube Shorts](https://www.youtube.com/shorts/G8FoNwXymy8)
+<video src="assets/readme/demo-github-preview.mp4" controls width="720"></video>
+
+[Ver demo en MP4](assets/readme/demo-github-preview.mp4)
 
 <div align="center">
 
 |               Step 1 — Perfil                |              Step 2 — Seguridad               |              Step 3 — Controles               |              Step 4 — Estados               |
 | :------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: | :-----------------------------------------: |
 | ![Step 1](assets/readme/step-01-profile.jpg) | ![Step 2](assets/readme/step-02-security.jpg) | ![Step 3](assets/readme/step-03-controls.jpg) | ![Step 4](assets/readme/step-04-status.jpg) |
-
-</div>
-
-### Clips de review
-
-<div align="center">
-
-|                Navegación secuencial                 |          Card final + acción contextual          |                 Máquina de estados                 |
-| :--------------------------------------------------: | :----------------------------------------------: | :------------------------------------------------: |
-| ![Stepper flow](assets/readme/demo-stepper-flow.gif) | ![Final card](assets/readme/demo-final-card.gif) | ![Card states](assets/readme/demo-card-states.gif) |
 
 </div>
 
