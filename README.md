@@ -55,9 +55,43 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
 
 <div align="center">
 
-|               Step 1 — Perfil                |              Step 2 — Seguridad               |              Step 3 — Controles               |              Step 4 — Estados               |
-| :------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: | :-----------------------------------------: |
-| ![Step 1](assets/readme/step-01-profile.jpg) | ![Step 2](assets/readme/step-02-security.jpg) | ![Step 3](assets/readme/step-03-controls.jpg) | ![Step 4](assets/readme/step-04-status.jpg) |
+<table>
+  <tr>
+    <td align="center"><strong>Step 1 — Perfil</strong></td>
+    <td align="center"><strong>Step 2 — Seguridad</strong></td>
+  </tr>
+  <tr>
+    <td><img src="assets/readme/mockups/step-01-profile.png" alt="Step 1 - Perfil" width="420"/></td>
+    <td><img src="assets/readme/mockups/step-02-security.png" alt="Step 2 - Seguridad" width="420"/></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Step 3 — Controles</strong></td>
+    <td align="center"><strong>Step 4 — Estados</strong></td>
+  </tr>
+  <tr>
+    <td><img src="assets/readme/mockups/step-03-controls.png" alt="Step 3 - Controles" width="420"/></td>
+    <td><img src="assets/readme/mockups/step-04-status.png" alt="Step 4 - Estados" width="420"/></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center"><strong>Card inhabilitada</strong></td>
+    <td align="center"><strong>Card habilitada</strong></td>
+  </tr>
+  <tr>
+    <td><img src="assets/readme/mockups/card-disabled.png" alt="Card inhabilitada" width="420"/></td>
+    <td><img src="assets/readme/mockups/card-enabled.png" alt="Card habilitada" width="420"/></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Card reanudada</strong></td>
+    <td align="center"><strong>Timeline de actividad</strong></td>
+  </tr>
+  <tr>
+    <td><img src="assets/readme/mockups/card-resumed.png" alt="Card reanudada" width="420"/></td>
+    <td><img src="assets/readme/mockups/activity-timeline.png" alt="Timeline de actividad" width="420"/></td>
+  </tr>
+</table>
 
 </div>
 
