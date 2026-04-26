@@ -51,9 +51,7 @@ El objetivo no fue solo cumplir los requisitos, sino construir una feature chica
 
 ## Demo
 
-<video src="assets/readme/demo-github-preview.mp4" controls width="720"></video>
-
-[Ver demo en MP4](assets/readme/demo-github-preview.mp4)
+https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
 
 <div align="center">
 
