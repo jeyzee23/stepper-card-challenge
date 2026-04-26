@@ -59,20 +59,26 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
   <tr>
     <td align="center"><strong>Step 1 — Perfil</strong></td>
     <td align="center"><strong>Step 2 — Seguridad</strong></td>
-  </tr>
-  <tr>
-    <td><img src="assets/readme/mockups/step-01-profile.png" alt="Step 1 - Perfil" width="420"/></td>
-    <td><img src="assets/readme/mockups/step-02-security.png" alt="Step 2 - Seguridad" width="420"/></td>
-  </tr>
-  <tr>
     <td align="center"><strong>Step 3 — Controles</strong></td>
     <td align="center"><strong>Step 4 — Estados</strong></td>
   </tr>
   <tr>
-    <td><img src="assets/readme/mockups/step-03-controls.png" alt="Step 3 - Controles" width="420"/></td>
-    <td><img src="assets/readme/mockups/step-04-status.png" alt="Step 4 - Estados" width="420"/></td>
+    <td><img src="assets/readme/mockups/step-01-profile.png" alt="Step 1 - Perfil" width="210"/></td>
+    <td><img src="assets/readme/mockups/step-02-security.png" alt="Step 2 - Seguridad" width="210"/></td>
+    <td><img src="assets/readme/mockups/step-03-controls.png" alt="Step 3 - Controles" width="210"/></td>
+    <td><img src="assets/readme/mockups/step-04-status.png" alt="Step 4 - Estados" width="210"/></td>
   </tr>
 </table>
+
+<table>
+  <tr>
+    <td align="center"><strong>Card final con estados</strong></td>
+  </tr>
+  <tr>
+    <td><img src="assets/readme/mockups/card-disabled.png" alt="Card final con estado inhabilitado" width="420"/></td>
+  </tr>
+</table>
+
 </div>
 
 ---
@@ -88,9 +94,10 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
 |  2  | `src/components/StatusCard/StatusCard.model.ts`    | Máquina de estados de la card. Lógica de dominio separada del render. |
 |  3  | `src/context/StepperContext/stepDefinitions.ts`    | Configuración declarativa de pasos. Muestra cómo escalaría el flujo.  |
 |  4  | `StatusCardStateControls.ios.tsx` / `.android.tsx` | Platform split con intención real, no cosmético.                      |
-|  5  | `src/design-system/`                               | Design tokens centralizados en lugar de valores hardcodeados.         |
-|  6  | `src/i18n/locales/`                                | Paridad ES/EN. Los tests validan que no se rompa.                     |
-|  7  | `.github/workflows/quality.yml`                    | Qué se protege en cada push y por qué.                                |
+|  5  | `src/app/AppRoot/AppErrorBoundary.tsx`             | Fallback controlado ante errores inesperados del flujo.               |
+|  6  | `src/design-system/`                               | Design tokens centralizados en lugar de valores hardcodeados.         |
+|  7  | `src/i18n/locales/`                                | Paridad ES/EN. Los tests validan que no se rompa.                     |
+|  8  | `.github/workflows/quality.yml`                    | Qué se protege en cada push y por qué.                                |
 
 **Criterio de diseño clave:** la card no depende del stepper — su estado es independiente y puede montarse aislada. El stepper no sabe que existe la card. Esa separación fue intencional.
 
@@ -181,6 +188,7 @@ yarn start
 src/
 ├─ app/
 │  └─ AppRoot/
+│     ├─ AppErrorBoundary.tsx                 # Fallback controlado del flujo
 │     └─ AppRoot.tsx                          # Entry point de la app
 │
 ├─ components/
@@ -304,6 +312,8 @@ El stepper usa Context + reducer porque el estado compartido es chico, lineal y 
 
 El reducer mantiene explícitas las transiciones `NEXT`, `PREVIOUS` y `RESET` — predecibles, testeables y fáciles de extender si en el futuro hubiera pasos condicionales o bifurcaciones.
 
+Un siguiente paso natural si el árbol creciera sería separar `StepperStateContext` y `StepperDispatchContext` para reducir re-renders mediante selector pattern. Para 4 pasos y componentes livianos, el impacto práctico es nulo, así que se mantuvo una API única y simple.
+
 ### Sin React Navigation
 
 No hay múltiples pantallas reales ni deep stack. El flujo avanza con `Continue` y `Back`. Los indicadores del stepper son informativos y no navegan por tap para prevenir saltos inválidos (ej: Paso 1 → Paso 4 directamente).
@@ -334,6 +344,8 @@ Cada estado de la card tiene: label, ícono, color semántico, descripción, bor
 
 **Design tokens centralizados:** ningún componente hardcodea colores, espaciados o radios. Todo referencia `src/design-system/`. Si el brand cambia, cambia en un solo lugar.
 
+**React Native New Architecture:** se mantiene activa (`newArchEnabled=true` en Android y pods Fabric en iOS) porque es el default esperado para React Native `0.85` + React `19`. No se deshabilitó ya que la app no introduce native modules custom que requieran fallback legacy.
+
 ---
 
 ## Testing
@@ -349,6 +361,7 @@ La suite cubre comportamiento real con **React Native Testing Library** y unit t
 | Transiciones de estado de la card              | Unit        |
 | Historial de cambios (ActivityTimeline)        | Unit        |
 | Selectores de estado iOS y Android             | Unit        |
+| Error Boundary del app shell                   | Unit        |
 | Paridad de traducciones ES / EN                | Unit        |
 | Formatters de moneda y fecha                   | Unit        |
 

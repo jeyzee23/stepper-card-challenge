@@ -7,13 +7,17 @@ import { colors } from '@/design-system';
 import { HomeScreen } from '@/screens/HomeScreen';
 import '@/i18n';
 
+import { AppErrorBoundary } from './AppErrorBoundary';
+
 export function AppRoot() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
-      <StepperProvider>
-        <HomeScreen />
-      </StepperProvider>
+      <AppErrorBoundary>
+        <StepperProvider>
+          <HomeScreen />
+        </StepperProvider>
+      </AppErrorBoundary>
     </SafeAreaProvider>
   );
 }
