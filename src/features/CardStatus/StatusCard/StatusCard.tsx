@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Text, View } from 'react-native';
 
+import { resolveAppLanguage } from '@/i18n/language';
+
 import { buildCardDetailRows, getNextCardStatus } from '../CardStatus.model';
 import { cardStatusTheme } from '../CardStatus.theme';
 import { AccountPreview } from './components/AccountPreview';
@@ -23,8 +25,9 @@ export function StatusCard({
   const theme = cardStatusTheme[status];
   const nextStatus = getNextCardStatus(status);
   const animatedStyle = useStatusCardAnimation(status);
+  const language = resolveAppLanguage(i18n.language);
 
-  const detailRows = buildCardDetailRows(account, i18n.language, {
+  const detailRows = buildCardDetailRows(account, language, {
     availableLimit: t('statusCard.availableLimit'),
     holder: t('statusCard.holder'),
     monthlyLimit: t('statusCard.monthlyLimit'),

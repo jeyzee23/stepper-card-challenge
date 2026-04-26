@@ -5,10 +5,7 @@ import {
 } from '@testing-library/react-native';
 import React from 'react';
 
-import {
-  defaultCardAccountData,
-  type CardStatus,
-} from '@/features/CardStatus';
+import { defaultCardAccountData, type CardStatus } from '@/features/CardStatus';
 import i18n from '@/i18n';
 
 import { StatusCard } from './StatusCard';

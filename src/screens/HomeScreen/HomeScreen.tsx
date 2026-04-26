@@ -12,11 +12,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { QualitySignals } from '@/components/QualitySignals';
 import { useStepper } from '@/context/StepperContext';
 import { spacing } from '@/design-system';
+import { useCardStatusHistory } from '@/features/CardStatus';
 
 import { HomeScreenFooter } from './Footer';
 import { HomeScreenHeader } from './Header';
 import { styles } from './HomeScreen.styles';
-import { useCardStatusHistory, useStepTransitionAnimation } from './hooks';
+import { useStepTransitionAnimation } from './hooks';
 import { HomeScreenStepContent, HomeScreenStepperCard } from './Stepper';
 
 const fallbackFooterHeight = Platform.OS === 'android' ? 88 : 104;

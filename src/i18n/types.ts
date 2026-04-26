@@ -1,5 +1,7 @@
 import type { TranslationSchema } from './locales/en';
 
+export type AppLanguage = 'es' | 'en';
+
 type TranslationLeaf = string | readonly string[];
 type PreviousDepth = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -12,5 +14,7 @@ type NestedTranslationKey<T, Depth extends number = 8> = [Depth] extends [never]
     }[Extract<keyof T, string>];
 
 export type TranslationKey = NestedTranslationKey<TranslationSchema>;
-export type TranslationOptions = Record<string, unknown>;
+type TranslationOptionValue = string | number | boolean | null | undefined;
+
+export type TranslationOptions = Record<string, TranslationOptionValue>;
 export type { TranslationSchema };

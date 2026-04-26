@@ -45,7 +45,9 @@ export function LanguageToggle() {
             key={language}
             onPress={() => {
               startTransition(() => {
-                i18n.changeLanguage(language).catch(() => {});
+                i18n.changeLanguage(language).catch(error => {
+                  console.warn('Failed to change language', error);
+                });
               });
             }}
             style={styles.segment}

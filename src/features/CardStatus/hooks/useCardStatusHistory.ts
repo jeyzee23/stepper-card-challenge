@@ -3,9 +3,9 @@ import { useState } from 'react';
 import {
   appendStatusHistoryEntry,
   createStatusHistoryEntry,
-  type CardStatus,
-  type CardStatusChangeSource,
-} from '@/features/CardStatus';
+} from '../CardStatus.model';
+
+import type { CardStatus, CardStatusChangeSource } from '../CardStatus.types';
 
 function createInitialHistory() {
   return [createStatusHistoryEntry('disabled', 'system')];

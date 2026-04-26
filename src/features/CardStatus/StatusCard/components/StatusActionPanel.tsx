@@ -33,7 +33,10 @@ export function StatusActionPanel({
         onPress={() => onStatusChange(nextStatus, 'quick_action')}
         testID="status-primary-action"
       />
-      <StatusCardStateControls onStatusChange={onStatusChange} status={status} />
+      <StatusCardStateControls
+        onStatusChange={onStatusChange}
+        status={status}
+      />
       <Text style={styles.actionHint}>{actionHint}</Text>
     </View>
   );

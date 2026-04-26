@@ -1,0 +1,2 @@
+- (opcional) Tipar `AccountCardData.features` como unión (`CardFeatureKey`) y mapear traducciones.
+- (opcional) Tests iOS directos para `HomeScreenHeader.ios` y `HomeScreenFooter.ios` (paridad con Android).
