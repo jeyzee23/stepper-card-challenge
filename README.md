@@ -31,15 +31,18 @@ La app permite recorrer un flujo informativo de 4 pasos y finaliza en una card o
 
 ## Tech Stack
 
-- React Native CLI
-- TypeScript
-- Context API + reducer
-- `react-i18next`
-- `StyleSheet.create`
-- Mock JSON local
-- Jest + React Native Testing Library
-- GitHub Actions
-- Yarn como package manager
+| Area                 | Tooling                                           |
+| -------------------- | ------------------------------------------------- |
+| Mobile runtime       | React Native CLI `0.85.2`                         |
+| UI runtime           | React `19.2.3`                                    |
+| Language             | TypeScript `5.8.x`                                |
+| State                | Context API + reducer                             |
+| Internationalization | `i18next 26.x` + `react-i18next 17.x`             |
+| Styling              | React Native `StyleSheet.create`                  |
+| Testing              | Jest `29.x` + React Native Testing Library `13.x` |
+| Quality              | ESLint `8.x` + Prettier `2.8.x`                   |
+| CI                   | GitHub Actions                                    |
+| Package manager      | Yarn `1.x`                                        |
 
 ## Getting Started
 
@@ -97,45 +100,59 @@ yarn start
 
 ```txt
 src/
-  app/
-    AppRoot/
-  components/
-    ActivityTimeline/
-    LanguageToggle/
-    ProgressStepper/
-    StatusCard/
-      StatusCard.tsx
-      StatusCard.model.ts
-      StatusCard.styles.ts
-      StatusCard.types.ts
-      StatusCard.mock.json
-      StatusCardStateControls.ios.tsx
-      StatusCardStateControls.android.tsx
-  context/
-    StepperContext/
-      StepperContext.tsx
-      stepperReducer.ts
-      stepDefinitions.ts
-  design-system/
-    colors.ts
-    fonts.ts
-    radius.ts
-    shadows.ts
-    spacing.ts
-  i18n/
-    locales/
-  screens/
-    HomeScreen/
-  utils/
+├─ app/
+│  └─ AppRoot/
+│     └─ AppRoot.tsx
+├─ components/
+│  ├─ ActivityTimeline/
+│  ├─ LanguageToggle/
+│  ├─ ProgressStepper/
+│  └─ StatusCard/
+│     ├─ StatusCard.tsx
+│     ├─ StatusCard.model.ts
+│     ├─ StatusCard.styles.ts
+│     ├─ StatusCard.types.ts
+│     ├─ StatusCard.mock.json
+│     ├─ StatusCardStateControls.ios.tsx
+│     └─ StatusCardStateControls.android.tsx
+├─ context/
+│  └─ StepperContext/
+│     ├─ StepperContext.tsx
+│     ├─ stepperReducer.ts
+│     └─ stepDefinitions.ts
+├─ design-system/
+│  ├─ colors.ts
+│  ├─ fonts.ts
+│  ├─ radius.ts
+│  ├─ shadows.ts
+│  └─ spacing.ts
+├─ i18n/
+│  ├─ locales/
+│  ├─ i18nInstance.ts
+│  └─ translate.ts
+├─ screens/
+│  └─ HomeScreen/
+└─ utils/
 ```
 
 La estructura busca que una app chica se lea como una feature real: componentes con styles/tests co-localizados, tipos cerca del módulo que los usa, design tokens separados y lógica de dominio cerca del feature owner.
+
+## Engineering Notes
+
+- Los imports usan alias `@/` para evitar rutas relativas largas.
+- Los componentes grandes están modelados como carpetas módulo, no como archivos monolíticos.
+- Los estilos viven en `*.styles.ts` para mantener componentes enfocados en composición y comportamiento.
+- Los tests están co-localizados con los módulos que protegen, lo que reduce fricción de mantenimiento.
+- La lógica de negocio de la card vive en `StatusCard.model.ts`, separada del render.
+- iOS y Android tienen archivos específicos cuando la plataforma cambia interacción o look & feel.
 
 ## Architecture Decisions
 
 ### Context API
 
 El stepper usa Context + reducer porque el estado compartido es chico, lineal y propio del flujo. Redux u otra librería global agregaría complejidad innecesaria para este scope.
+
+El reducer mantiene explícitas las transiciones `NEXT`, `PREVIOUS` y `RESET`. Esto hace que el flujo sea predecible, testeable y fácil de extender si en el futuro hubiera pasos condicionales.
 
 ### Navegación secuencial
 
@@ -149,6 +166,8 @@ La card consume datos desde `src/components/StatusCard/StatusCard.mock.json`. Es
 
 La app inicia por defecto en español y permite cambiar a inglés con el toggle `ES / EN`. Los textos viven fuera de los componentes para separar UI copy de lógica y mantener paridad entre locales.
 
+También existe un helper `translate()` para código no-hook. La instancia de i18n está separada para evitar require cycles entre el barrel de `i18n` y los helpers.
+
 ### StyleSheet
 
 Los estilos usan `StyleSheet.create`, cumpliendo el requerimiento técnico y manteniendo un approach nativo, explícito y fácil de auditar.
@@ -160,6 +179,8 @@ La identidad visual se inspira en Galicia, pero los controles se adaptan por pla
 ### Card State Logic
 
 La card modela cada estado de forma explícita. Cada estado tiene label, ícono, color semántico, descripción y acción contextual para evitar que el naranja de marca sea la única señal visual.
+
+El estado no depende solo del color: se refuerza con copy, ícono, borde lateral, badge semántico y timeline. Esto mejora accesibilidad visual y reduce ambigüedad en una UI con naranja dominante.
 
 ## State Flow
 
@@ -210,7 +231,22 @@ Functions:  96%+
 Lines:      97%+
 ```
 
-GitHub Actions corre en pull requests y pushes a `main`: package manager check, format, lint, typecheck, coverage, bundles iOS/Android y Android debug build en `main`.
+## CI / Quality Gates
+
+GitHub Actions corre en pull requests y pushes a `main`.
+
+| Check                        | What it protects                               |
+| ---------------------------- | ---------------------------------------------- |
+| `yarn check:package-manager` | Evita mezclar package managers                 |
+| `yarn format:check`          | Mantiene formato consistente                   |
+| `yarn lint`                  | Detecta imports, reglas Jest y código no usado |
+| `yarn typecheck`             | Valida TypeScript sin emitir build             |
+| `yarn test:coverage`         | Protege comportamiento y umbrales mínimos      |
+| `yarn bundle:ios`            | Valida que Metro pueda empaquetar iOS          |
+| `yarn bundle:android`        | Valida que Metro pueda empaquetar Android      |
+| `yarn android:assembleDebug` | Verifica build Android real en `main`          |
+
+No se agrega build nativo iOS en CI porque requeriría runner macOS. Para el alcance del challenge, bundle iOS en CI + smoke local en simulador/dispositivo cubre la señal necesaria sin sobredimensionar costos y tiempos.
 
 ## Tradeoffs
 
