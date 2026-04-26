@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 
+import { translate } from '@/i18n';
+
 import { styles } from './AppErrorBoundary.styles';
 
 interface AppErrorBoundaryProps {
@@ -38,20 +40,27 @@ export class AppErrorBoundary extends React.Component<
       return (
         <View style={styles.screen} testID="app-error-boundary">
           <View style={styles.card}>
-            <Text style={styles.eyebrow}>Error controlado</Text>
-            <Text style={styles.title}>No pudimos cargar el flujo</Text>
+            <Text style={styles.eyebrow}>
+              {translate('errors.flowBoundary.eyebrow')}
+            </Text>
+            <Text style={styles.title}>
+              {translate('errors.flowBoundary.title')}
+            </Text>
             <Text style={styles.description}>
-              El stepper encontró un problema inesperado. Podés reintentar sin
-              cerrar la app.
+              {translate('errors.flowBoundary.description')}
             </Text>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Reintentar flujo"
+              accessibilityLabel={translate(
+                'errors.flowBoundary.retryA11yLabel',
+              )}
               onPress={this.handleRetry}
               style={styles.retryButton}
               testID="app-error-retry"
             >
-              <Text style={styles.retryButtonText}>Reintentar</Text>
+              <Text style={styles.retryButtonText}>
+                {translate('errors.flowBoundary.retryLabel')}
+              </Text>
             </Pressable>
           </View>
         </View>

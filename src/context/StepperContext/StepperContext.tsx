@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useMemo, useReducer } from 'react';
 
 import { stepDefinitions } from './stepDefinitions';
 import { initialStepperState, stepperReducer } from './stepperReducer';
@@ -13,23 +13,31 @@ export function StepperProvider({ children }: React.PropsWithChildren) {
   const currentStep = stepDefinitions[state.currentStepIndex];
   const isFirstStep = state.currentStepIndex === 0;
   const isLastStep = state.currentStepIndex === stepDefinitions.length - 1;
+  const value = useMemo(
+    () => ({
+      currentStep,
+      currentStepIndex: state.currentStepIndex,
+      furthestStepIndex: state.furthestStepIndex,
+      isFirstStep,
+      isLastStep,
+      steps: stepDefinitions,
+      goNext: () => dispatch({ type: 'NEXT' }),
+      goPrevious: () => dispatch({ type: 'PREVIOUS' }),
+      goToStep: (index: number) =>
+        dispatch({ payload: index, type: 'GO_TO_STEP' }),
+      reset: () => dispatch({ type: 'RESET' }),
+    }),
+    [
+      currentStep,
+      isFirstStep,
+      isLastStep,
+      state.currentStepIndex,
+      state.furthestStepIndex,
+    ],
+  );
 
   return (
-    <StepperContext.Provider
-      value={{
-        currentStep,
-        currentStepIndex: state.currentStepIndex,
-        furthestStepIndex: state.furthestStepIndex,
-        isFirstStep,
-        isLastStep,
-        steps: stepDefinitions,
-        goNext: () => dispatch({ type: 'NEXT' }),
-        goPrevious: () => dispatch({ type: 'PREVIOUS' }),
-        reset: () => dispatch({ type: 'RESET' }),
-      }}
-    >
-      {children}
-    </StepperContext.Provider>
+    <StepperContext.Provider value={value}>{children}</StepperContext.Provider>
   );
 }
 

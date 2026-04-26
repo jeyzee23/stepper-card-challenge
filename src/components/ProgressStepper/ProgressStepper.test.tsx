@@ -40,31 +40,46 @@ describe('ProgressStepper', () => {
 
     expect(
       screen.getByTestId('stepper-step-identity').props.accessibilityState,
-    ).toMatchObject({ selected: true });
+    ).toMatchObject({ disabled: false, selected: true });
     expect(
       screen.getByTestId('stepper-step-controls').props.accessibilityState,
-    ).toMatchObject({ selected: false });
+    ).toMatchObject({ disabled: true, selected: false });
 
     await fireEventAsync.press(screen.getByTestId('advance-step'));
 
     expect(
       screen.getByTestId('stepper-step-identity').props.accessibilityState,
-    ).toMatchObject({ selected: false });
+    ).toMatchObject({ disabled: false, selected: false });
     expect(
       screen.getByTestId('stepper-step-security').props.accessibilityState,
-    ).toMatchObject({ selected: true });
+    ).toMatchObject({ disabled: false, selected: true });
   });
 
-  it('does not navigate when a step indicator is pressed', async () => {
+  it('navigates to a previously visited step', async () => {
+    await renderProgressStepper();
+
+    await fireEventAsync.press(screen.getByTestId('advance-step'));
+    await fireEventAsync.press(screen.getByTestId('advance-step'));
+    await fireEventAsync.press(screen.getByTestId('stepper-step-identity'));
+
+    expect(
+      screen.getByTestId('stepper-step-identity').props.accessibilityState,
+    ).toMatchObject({ disabled: false, selected: true });
+    expect(
+      screen.getByTestId('stepper-step-controls').props.accessibilityState,
+    ).toMatchObject({ disabled: false, selected: false });
+  });
+
+  it('keeps future steps locked until they are visited', async () => {
     await renderProgressStepper();
 
     await fireEventAsync.press(screen.getByTestId('stepper-step-status'));
 
     expect(
-      screen.getByTestId('stepper-step-identity').props.accessibilityState,
-    ).toMatchObject({ selected: true });
-    expect(
       screen.getByTestId('stepper-step-status').props.accessibilityState,
-    ).toMatchObject({ selected: false });
+    ).toMatchObject({ disabled: true, selected: false });
+    expect(
+      screen.getByTestId('stepper-step-identity').props.accessibilityState,
+    ).toMatchObject({ disabled: false, selected: true });
   });
 });
