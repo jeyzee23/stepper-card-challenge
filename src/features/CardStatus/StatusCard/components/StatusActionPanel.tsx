@@ -33,7 +33,7 @@ export function StatusActionPanel({
         onPress={() => onStatusChange(nextStatus, 'quick_action')}
         testID="status-primary-action"
       />
-<StatusCardStateControls
+      <StatusCardStateControls
         onStatusChange={onStatusChange}
         status={status}
       />

@@ -88,7 +88,7 @@ https://github.com/user-attachments/assets/dc9545d6-730b-4347-a55b-bbc3f27d3536
 > [!TIP]
 > Si tenés **5 minutos**, estos son los archivos que concentran las decisiones más relevantes del challenge — en orden de lectura sugerido:
 
-|  #  | Archivo                                                                    | Por qué importa                                                             |
+|  #  | Archivo                                                                   | Por qué importa                                                             |
 | :-: | ------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 |  1  | `src/context/StepperContext/stepperReducer.ts`                            | Transiciones explícitas del flujo. El corazón del stepper.                  |
 |  2  | `src/features/CardStatus/CardStatus.model.ts`                             | Máquina de estados de la card. Lógica de dominio separada del render.       |
