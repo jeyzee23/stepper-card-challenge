@@ -1,6 +1,6 @@
 import { initReactI18next } from 'react-i18next';
 
-import i18n from './i18nInstance';
+import { i18n } from './i18nCore';
 import { en } from './locales/en';
 import { es } from './locales/es';
 
@@ -25,11 +25,13 @@ i18n.use(initReactI18next).init({
   },
 });
 
-export { translate } from './translate';
-export { resolveAppLanguage } from './language';
+export { translate } from './i18nCore';
+export { resolveAppLanguage } from './i18nCore';
 export type {
   TranslationKey,
   TranslationOptions,
   TranslationSchema,
-} from './types';
+  AppLanguage,
+} from './i18nCore';
+export { i18n };
 export default i18n;

@@ -1,4 +1,4 @@
-import type { AppLanguage } from '@/i18n/types';
+import type { AppLanguage } from '@/i18n';
 
 const CURRENCY_FORMATTERS = new Map<string, Intl.NumberFormat>();
 const DATETIME_FORMATTERS = new Map<AppLanguage, Intl.DateTimeFormat>();

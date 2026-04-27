@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Text, View } from 'react-native';
 
-import { resolveAppLanguage } from '@/i18n/language';
+import { resolveAppLanguage } from '@/i18n';
 
 import { buildCardDetailRows, getNextCardStatus } from '../CardStatus.model';
 import { cardStatusTheme } from '../CardStatus.theme';
