@@ -6,7 +6,7 @@ import { colors } from '@/design-system';
 
 import { statusCardStateControlsStyles as styles } from './StatusCardStateControls.styles';
 import { statusCardStateControlsLinkStyles as linkStyles } from './StatusCardStateControlsLink.styles';
-import { StatusCardStateOption } from './StatusCardStateOption.android';
+import { StatusCardStateOption } from './StatusCardStateOption';
 import { cardStatuses } from '../../CardStatus.types';
 
 import type { StatusCardStateControlsProps } from '../StatusCard.types';
