@@ -228,8 +228,7 @@ src/
 │
 ├─ i18n/
 │  ├─ locales/                                # Archivos de traducción ES / EN
-│  ├─ i18nInstance.ts                         # Instancia aislada (evita require cycles)
-│  └─ translate.ts                            # Helper para código no-hook
+│  ├─ i18nCore.ts                           # Instancia i18n + tipos + helpers consolidated
 │
 ├─ screens/
 │  └─ HomeScreen/
@@ -366,9 +365,7 @@ Cada estado de la card tiene: label, ícono, color semántico, descripción, bor
 
 **Ownership del dominio desacoplado de screens:** el hook `useCardStatusHistory` vive en `src/features/CardStatus/hooks/` y se consume desde `HomeScreen` vía API pública del feature. La screen orquesta layout y navegación; la feature mantiene su lógica de estado.
 
-**Instancia de i18n aislada:** `i18nInstance.ts` está separado del barrel de `i18n` para evitar require cycles entre la instancia y los helpers. El helper `translate()` permite usar i18n fuera de componentes (reducers, models) sin violar las reglas de hooks.
-
-**Tipado de idioma consistente:** `AppLanguage` se centraliza en `src/i18n/types.ts` y se normaliza desde `i18n.language` antes de llegar a helpers de dominio/formateo, evitando strings libres en rutas críticas.
+**i18n centralizado:** `i18nCore.ts` contiene la instancia + tipos + helpers. Evita require cycles y provee `translate()` para usar i18n fuera de componentes (reducers, models).Tipado de idioma consistente:** `AppLanguage` se centraliza en `src/i18n/i18nCore.ts` y se normaliza desde `i18n.language` antes de llegar a helpers de dominio/formateo, evitando strings libres en rutas críticas.
 
 **Formateadores `Intl` cacheados:** `formatCurrency` y `formatDateTime` reutilizan instancias de `Intl` por idioma/moneda para evitar Recreationón constante y mantener el costo de render más predecible.
 
