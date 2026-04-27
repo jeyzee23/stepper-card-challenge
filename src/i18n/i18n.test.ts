@@ -2,7 +2,7 @@ import i18n, { translate } from './index';
 import { en } from './locales/en';
 import { es } from './locales/es';
 
-import type { TranslationSchema } from './types';
+import type { TranslationSchema } from './i18nCore';
 
 type TranslationTree = TranslationSchema | string | readonly string[];
 

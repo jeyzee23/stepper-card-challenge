@@ -1,4 +1,4 @@
-import type { AppLanguage } from '@/i18n/types';
+import type { AppLanguage } from '@/i18n';
 import { formatCurrency, formatDateTime } from '@/utils/formatters';
 
 import type {
