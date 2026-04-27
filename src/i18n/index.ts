@@ -26,6 +26,7 @@ i18n.use(initReactI18next).init({
 });
 
 export { translate } from './translate';
+export { resolveAppLanguage } from './language';
 export type {
   TranslationKey,
   TranslationOptions,
